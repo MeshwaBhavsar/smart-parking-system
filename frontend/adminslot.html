@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/product-theme.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+   
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+ 
+
+    <link rel="stylesheet" href="admincss/admin-slot.css">
+
+    
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon bi bi-shield-lock-fill">
+
+            
+
+            </div>
+
+            <span>ADMIN DASHBOARD</span>
+
+        </div>
+
+        <ul class="menu">
+
+            
+            <li>
+
+                <a href="admindashboard.html">
+
+                    <i class="bi bi-house-door"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+            <li>
+
+                <a href="admin_owner_app.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    owner application
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminuser.html" id="live parking">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    Users 
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="adminparking.html" id="reservation">
+
+                    <i class="bi bi-geo-alt-fill"></i>
+
+                    Parking Area 
+
+                </a>
+
+            </li>
+
+            <li class="active">
+
+                <a href="adminslot.html" id="deshboardlink">
+
+                    <i class="bi bi-p-circle-fill"></i>
+
+                    Parking slot 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="admin_reservation.html">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                    Reservations 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminpayment.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    Payment
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="admincontact.html">
+
+                    <i class="bi bi-envelope-fill"></i>
+
+                    Contact
+
+                </a>
+
+            </li>
+
+            
+
+
+            <li class="logout">
+
+                <a href="adminlogin.html" onclick="logout(); return false;">
+
+                    <i class="bi bi-box-arrow-left"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+            </ul>
+
+    </div>
+
+
+
+    <div class="main">
+
+
+        <nav class="top-navbar">
+
+            <button class="menu-btn">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+ 
+            <h5 class="m-0 fw-bold">
+
+                Dashboard
+
+            </h5>
+          
+
+            <div class="right-menu">
+
+                <i class="bi bi-bell"></i>
+
+                <div class="user">
+
+                    <span>Hello, Admin</span>
+
+                   
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <div id="main-content">
+
+        
+
+     <!-- <div class="container mt-4">
+
+
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <h2 id="parkingName">Loading...</h2>
+
+            <p id="parkingLocation"></p>
+
+            <div class="row text-center mt-4">
+
+                <div class="col">
+                    <div class="box">
+                        <h4 id="totalSlots">0</h4>
+                        <p>Total</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="box green">
+                        <h4 id="availableCount">0</h4>
+                        <p>Available</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="box red">
+                        <h4 id="occupiedCount">0</h4>
+                        <p>Occupied</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="box orange">
+                        <h4 id="reservedCount">0</h4>
+                        <p>Reserved</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+
+
+    <div id="slotContainer" class="slot-grid">
+
+    </div>
+
+</div>
+
+<script src="js/admin_slot.js"></script>
+
+</body>
+
+</html> -->
+
+
+
+            <div class="container mt-4">
+
+
+                <!-- ================= PARKING INFO ================= -->
+
+                <div class="card shadow">
+
+
+                    <div class="card-body">
+
+
+                        <div
+                            class="d-flex justify-content-between align-items-center">
+
+
+                            <div>
+
+                                <h2
+                                    id="parkingName">
+
+                                    Loading...
+
+                                </h2>
+
+
+                                <p
+                                    id="parkingLocation">
+
+                                    Loading parking information...
+
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                class="btn btn-secondary"
+                                onclick="goBack()">
+
+                                <i class="bi bi-arrow-left"></i>
+
+                                Back
+
+                            </button>
+
+
+                        </div>
+
+
+                        <!-- ================= COUNTS ================= -->
+
+                        <div
+                            class="row text-center mt-4">
+
+
+                            <!-- TOTAL -->
+
+                            <div class="col">
+
+                                <div class="box">
+
+                                    <h4 id="totalSlots">
+
+                                        0
+
+                                    </h4>
+
+                                    <p>
+
+                                        Total
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- AVAILABLE -->
+
+                            <div class="col">
+
+                                <div class="box green">
+
+                                    <h4 id="availableCount">
+
+                                        0
+
+                                    </h4>
+
+                                    <p>
+
+                                        Available
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- OCCUPIED -->
+
+                            <div class="col">
+
+                                <div class="box red">
+
+                                    <h4 id="occupiedCount">
+
+                                        0
+
+                                    </h4>
+
+                                    <p>
+
+                                        Occupied
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RESERVED -->
+
+                            <div class="col">
+
+                                <div class="box orange">
+
+                                    <h4 id="reservedCount">
+
+                                        0
+
+                                    </h4>
+
+                                    <p>
+
+                                        Reserved
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <!-- ================= SLOTS ================= -->
+
+                <div
+                    id="slotContainer"
+                    class="slot-grid">
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- IMPORTANT -->
+<script src="js/admin_slot.js"></script>
+<script src="js/login.js"></script>
+
+
+</body>
+
+</html>

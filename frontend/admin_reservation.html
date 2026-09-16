@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>User Dashboard</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="admincss/admin_reservation.css">
+
+    <link rel="stylesheet" href="css/product-theme.css">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= Sidebar ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon bi bi-shield-lock-fill">
+
+            
+
+            </div>
+
+            <span>ADMIN DASHBOARD</span>
+
+        </div>
+
+        <ul class="menu">
+
+            <li>
+
+                <a href="admindashboard.html" >
+
+                    <i class="bi bi-house-door"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+            <li>
+
+                <a href="admin_owner_app.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    owner application
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminuser.html" id="live parking">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    Users 
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="adminparking.html" id="reservation">
+
+                    <i class="bi bi-geo-alt-fill"></i>
+
+                    Parking Area 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminslot.html">
+
+                    <i class="bi bi-p-circle-fill"></i>
+
+                    Parking slot 
+
+                </a>
+
+            </li>
+
+            <li class="active">
+
+                <a href="admin_reservation.html" id="deshboardlink">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                    Reservations 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminpayment.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    Payment
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="admincontact.html">
+
+                    <i class="bi bi-envelope-fill"></i>
+
+                    Contact
+
+                </a>
+
+            </li>
+
+            
+
+
+            <li class="logout">
+
+                <a href="adminlogin.html" onclick="logout(); return false;">
+
+                    <i class="bi bi-box-arrow-left"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- ================= Main ================= -->
+
+    <div class="main">
+
+        <!-- Navbar -->
+
+        <nav class="top-navbar">
+
+            <button class="menu-btn">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+ 
+            <h5 class="m-0 fw-bold">
+
+                Dashboard
+
+            </h5>
+          
+
+            <div class="right-menu">
+
+                <i class="bi bi-bell"></i>
+
+                <div class="user">
+
+                    <span>Hello, Admin</span>
+
+                   
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <div id="main-content">
+
+            
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="container-fluid mt-4">
+
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h2 class="fw-bold">
+
+                    <i class="bi bi-calendar-check text-success"></i>
+
+                    Reservations
+
+                </h2>
+
+
+                <!-- REAL TIME STATUS -->
+
+                <span
+                    id="socketStatus"
+                    class="badge bg-secondary"
+                >
+                    Connecting...
+                </span>
+
+            </div>
+
+
+
+            <!-- SEARCH -->
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-9">
+
+                            <input
+                                type="text"
+                                id="searchReservation"
+                                class="form-control"
+                                placeholder="Search by Reservation ID, User, Parking, Slot or Vehicle"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <button
+                                class="btn btn-success w-100"
+                                onclick="searchReservations()"
+                            >
+
+                                <i class="bi bi-search"></i>
+
+                                Search
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RESERVATION TABLE -->
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="table table-hover align-middle"
+                        >
+
+                            <thead class="table-success">
+
+                                <tr>
+
+                                    <th>
+                                        Reservation ID
+                                    </th>
+
+                                    <th>
+                                        User Name
+                                    </th>
+
+                                    <th>
+                                        Parking Name
+                                    </th>
+
+                                    <th>
+                                        Slot
+                                    </th>
+
+                                    <th>
+                                        Vehicle Number
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="reservationTableBody"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        class="text-center"
+                                    >
+
+                                        Loading reservations...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- VIEW RESERVATION MODAL -->
+<!-- ================================================= -->
+
+<div
+    class="modal fade"
+    id="reservationModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                    Reservation Details
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+
+                <div class="row g-3">
+
+
+                    <!-- Reservation -->
+ 
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Reservation ID
+                            </label>
+
+                            <p id="viewReservationId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+ 
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Status
+                            </label>
+
+                            <p id="viewStatus">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- User -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                User Name
+                            </label>
+
+                            <p id="viewUserName">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                User Email
+                            </label>
+
+                            <p id="viewUserEmail">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Parking -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Parking Name
+                            </label>
+
+                            <p id="viewParkingName">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Parking Address
+                            </label>
+
+                            <p id="viewParkingAddress">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Slot -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Slot
+                            </label>
+
+                            <p id="viewSlot">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Vehicle -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Vehicle Number
+                            </label>
+
+                            <p id="viewVehicleNumber">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Vehicle Type
+                            </label>
+
+                            <p id="viewVehicleType">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Date -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Reservation Date
+                            </label>
+
+                            <p id="viewReservationDate">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Entry -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Entry Time
+                            </label>
+
+                            <p id="viewEntryTime">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Exit -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Exit Time
+                            </label>
+
+                            <p id="viewExitTime">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Amount -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Total Amount
+                            </label>
+
+                            <p id="viewTotalAmount">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Created -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Created At
+                            </label>
+
+                            <p id="viewCreatedAt">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- Admin Reservation JS -->
+
+<script src="js/admin_reservation.js"></script>
+<script src="js/login.js"></script>
+
+
+</body>
+
+</html>

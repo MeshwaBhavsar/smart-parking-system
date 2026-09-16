@@ -1,0 +1,204 @@
+/* ==========================
+   Google Font
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* ==========================
+   Login/Register Background
+========================== */
+
+.register-page{
+    background:#f4f7fb;
+    min-height:100vh;
+}
+
+/* ==========================
+   Card
+========================== */
+
+.register-card{
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   Back Button
+========================== */
+
+.back-home{
+    margin-bottom:20px;
+}
+
+.home-btn{
+    width:45px;
+    height:45px;
+    background:#22c55e;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:20px;
+    transition:.3s;
+}
+
+.home-btn:hover{
+    background:#16a34a;
+    color:#fff;
+    transform:translateX(-3px);
+}
+
+/* ==========================
+   Logo
+========================== */
+
+.logo i{
+    font-size:60px;
+    color:#22c55e;
+}
+
+.text-center h4{
+    margin:0;
+    font-weight:700;
+    color:#1f2937;
+}
+
+/* ==========================
+   Heading
+========================== */
+
+h2{
+    color:#1f2937;
+    font-weight:700;
+}
+
+p{
+    color:#6b7280;
+}
+
+/* ==========================
+   Input Box
+========================== */
+
+.input-group{
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.input-group-text{
+    background:#fff;
+    border:none;
+    color:#9ca3af;
+    padding:12px 15px;
+}
+
+.form-control{
+    border:none;
+    height:52px;
+    font-size:15px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+}
+
+/* ==========================
+   Checkbox
+========================== */
+
+.form-check-input:checked{
+    background:#22c55e;
+    border-color:#22c55e;
+}
+
+.form-check-label{
+    font-size:14px;
+    color:#555;
+}
+
+/* ==========================
+   Links
+========================== */
+
+a{
+    color:#22c55e;
+    text-decoration:none;
+    font-weight:600;
+}
+
+a:hover{
+    color:#16a34a;
+}
+
+/* ==========================
+   Login Button
+========================== */
+
+.btn-success{
+    background:#22c55e;
+    border:none;
+    border-radius:8px;
+    height:50px;
+    font-size:18px;
+    font-weight:600;
+}
+
+.btn-success:hover{
+    background:#16a34a;
+}
+
+/* ==========================
+   Bottom Text
+========================== */
+
+.text-center{
+    font-size:15px;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:768px){
+
+    .register-card{
+        padding:25px;
+    }
+
+    h2{
+        font-size:32px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .register-card{
+        padding:20px;
+    }
+
+    .logo i{
+        font-size:50px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+}

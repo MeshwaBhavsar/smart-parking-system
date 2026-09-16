@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/product-theme.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <title>Booking Successful</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .booking-container {
+            width: 450px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .success-title {
+            color: green;
+        }
+
+        .success-icon {
+            font-size: 35px;
+        }
+
+        .qr-section {
+            margin-top: 25px;
+        }
+
+        #qrImage {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            margin-top: 15px;
+        }
+
+        .details {
+            margin-top: 25px;
+            text-align: left;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .details p {
+            font-size: 17px;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        .qr-card {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+#qrcode {
+    width: 256px;
+    margin: 25px auto;
+}
+
+#qrcode img {
+    margin: auto;
+}
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="qr-card">
+
+    <h2>Parking Reservation</h2>
+
+    <p>
+        Show this QR code to parking staff
+    </p>
+
+    <!-- QR CODE WILL APPEAR HERE -->
+
+    <div id="qrcode"></div>
+
+    <p id="qrStatus">
+        Waiting for entry...
+    </p>
+
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script src="js/qr.js"></script>
+
+</body>
+
+</html>
+<!-- <div class="booking-container">
+
+    <h1 class="success-title">
+        Booking Successful
+        <span class="success-icon">✅</span>
+    </h1>
+
+    <h2>Your Parking QR</h2>
+
+    <div class="qr-section">
+
+         <div id="qrCode"></div>
+
+        <p>
+            Show this QR code at entry and exit.
+        </p>
+
+    </div>
+
+    <div class="details">
+
+        <p>
+            <strong>Reservation ID:</strong>
+            <span id="reservationId">Loading...</span>
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span id="status" class="status">Loading...</span>
+        </p>
+
+    </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/qr.js"></script>
+
+</body>
+
+</html> -->

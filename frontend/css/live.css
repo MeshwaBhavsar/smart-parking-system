@@ -1,0 +1,623 @@
+/* ==========================
+   Google Font
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    overflow-x:hidden;
+}
+
+/* #map{
+
+height:500px;
+
+width:100%;
+
+border-radius:20px;
+
+} */
+
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+#map {
+    width: 100%;
+    height: 500px;
+}
+
+
+
+.sidebar{
+    width:260px;
+    background:#0f172a;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    padding:20px 15px;
+    transition:.3s;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    /* background:#2563eb;  */
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+    margin-right:10px;
+    background-color:#22c55e;
+    font-size:28px;
+   
+}
+
+.logo span{
+    font-size:18px;
+    font-weight:600;
+}
+
+/* ==========================
+   Menu
+========================== */
+
+
+.menu{
+    list-style:none;
+    padding:0;
+}
+
+.menu li{
+    margin-bottom:10px;
+}
+
+.menu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:12px 15px;
+    border-radius:10px;
+    transition:.3s;
+    font-size:15px;
+}
+
+.menu li a i{
+    font-size:18px;
+}
+
+.menu li:hover a{
+    background:#1e40af;
+    color:#fff;
+}
+
+.menu li.active a{
+    background:#2563eb;
+    color:#fff;
+}
+
+
+
+.logout{
+    margin-top:50px;
+}
+
+
+/* ==========================
+   Main
+========================== */
+
+.main{
+
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+}
+
+/* ==========================
+   Navbar
+========================== */
+
+.top-navbar{
+
+    background:#fff;
+
+    height:75px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+}
+
+.menu-btn{
+
+    display:none;
+
+    border:none;
+
+    background:none;
+
+    font-size:24px;
+}
+
+.right-menu{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+}
+
+.right-menu i{
+
+    font-size:20px;
+    cursor:pointer;
+}
+
+.user{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.user img{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+}
+
+/* ==========================
+   Main Content
+========================== */
+
+#main-content{
+
+    padding:30px;
+}
+
+/* ==========================
+   Card
+========================== */
+
+/* .card{
+
+    border:none;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+} */
+
+/* ==========================
+   Parking Map
+========================== */
+
+/* .parking-map{
+
+    position:relative;
+    padding: 50px;
+    margin:30px;
+}
+
+.parking-map img{
+
+    width:100%;
+
+    border-radius:15px;
+} */
+
+/* ==========================
+   Pins
+========================== */
+
+.pin{
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    border:3px solid #fff;
+
+    box-shadow:0 0 10px rgba(0,0,0,.25);
+
+    animation:bounce 2s infinite;
+}
+
+.green{
+
+    background:#22c55e;
+}
+
+.orange{
+
+    background:#f59e0b;
+}
+
+.red{
+
+    background:#ef4444;
+}
+
+.blue{
+
+    background:#2563eb;
+}
+
+@keyframes bounce{
+
+0%,100%{
+
+transform:translateY(0);
+}
+
+50%{
+
+transform:translateY(-8px);
+}
+
+}
+
+/* ==========================
+   Status Dots
+========================== */
+
+.dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    display:inline-block;
+
+    margin-right:10px;
+}
+
+.green-dot{
+
+    background:#22c55e;
+}
+
+.orange-dot{
+
+    background:#f59e0b;
+}
+
+.red-dot{
+
+    background:#ef4444;
+}
+
+.blue-dot{
+
+    background:#2563eb;
+}
+
+/* ==========================
+   Nearby Parking Cards
+========================== */
+
+.parking-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    margin-bottom:25px;
+}
+
+.parking-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.parking-card h5{
+
+    font-size:18px;
+
+    font-weight:600;
+}
+
+.parking-card small{
+
+    color:#6b7280;
+}
+
+.parking-card h4{
+
+    margin:15px 0;
+}
+
+.parking-card .btn{
+
+    border-radius:10px;
+
+    font-weight:600;
+}
+#liveparking{
+    background-color: #22c55e;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.btn-success{
+
+    background:#22c55e;
+
+    border:none;
+}
+
+.btn-success:hover{
+
+    background:#16a34a;
+}
+h3{
+    color: #16a34a;
+}
+h4{
+    color: #16a34a;
+}
+
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:991px){
+
+.sidebar{
+
+    left:-260px;
+
+    transition:.3s;
+}
+
+.sidebar.show{
+
+    left:0;
+}
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+}
+
+.menu-btn{
+
+    display:block;
+}
+
+#main-content{
+
+    padding:20px;
+}
+
+}
+
+@media(max-width:768px){
+
+.right-menu span{
+
+    display:none;
+}
+
+.logo span{
+
+    font-size:18px;
+}
+
+.top-navbar{
+
+    padding:0 15px;
+}
+
+}
+
+/*search box*/
+/* ==========================
+   Search Box
+========================== */
+
+.search-box{
+
+    width:350px;
+    height:46px;
+
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 15px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.search-icon{
+
+    color:#6b7280;
+
+    font-size:18px;
+
+    margin-right:10px;
+}
+
+.search-box input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    font-size:15px;
+
+    color:#374151;
+
+    background:transparent;
+}
+
+.search-box input::placeholder{
+
+    color:#9ca3af;
+}
+
+.location-btn{
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f8fafc;
+
+    color:#4b5563;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.location-btn:hover{
+
+    background:#22c55e;
+
+    color:#fff;
+}
+
+/* -------------------------new css----------------- */
+body{
+
+    background:#f4f7fb;
+
+}
+
+#map{
+
+    border-radius:15px;
+    width:100%;
+
+    height:450px;
+
+    background:#ddd;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    color:#555;
+
+}
+
+.parking-card{
+
+    border:none;
+
+    border-radius:15px;
+
+    transition:.3s;
+
+}
+
+.parking-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+}
+
+.parking-card h4{
+
+    color:#0d6efd;
+
+}
+
+.parking-card p{
+
+    margin-bottom:10px;
+
+    font-size:16px;
+
+}
+
+.btn{
+
+    border-radius:8px;
+
+}

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/product-theme.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/dash.css">
+
+</head>
+<link rel="stylesheet" href="css/product-ui.css">
+<script src="js/ui.js" defer></script>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= Sidebar ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+
+                P
+
+            </div>
+
+            <span>SMART PARKING</span>
+
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+
+                <a href="#" id="deshboardlink">
+
+                    <i class="bi bi-house-door"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="liveparking.html" id="live parking">
+
+                    <i class="bi bi-car-front"></i>
+
+                    Live Parking 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="reservation.html" id="reservation">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                    Reservation 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="history.html">
+
+                    <i class="bi bi-list-ul"></i>
+
+                    History
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="payment.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    Payment
+
+                </a>
+
+            </li>
+
+            <li>
+                <a href="myvehi.html">
+
+                    <i class="bi bi-car-front-fill"></i>
+
+                    My Vehicales
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="profile.html">
+
+                    <i class="bi bi-person"></i>
+
+                    Profile
+
+                </a>
+
+            </li>
+
+            <li class="logout">
+
+                <a href="login.html" onclick="logout(); return false;">
+
+                    <i class="bi bi-box-arrow-left"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- ================= Main ================= -->
+
+    <div class="main">
+
+        <!-- Navbar -->
+
+        <nav class="top-navbar">
+
+            <button class="menu-btn">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+ 
+            <h5 class="m-0 fw-bold">
+
+                Dashboard
+
+            </h5>
+          
+
+            <div class="right-menu">
+
+                <i class="bi bi-bell"></i>
+
+    <div class="user">
+
+        <span id="helloUser">Hello, User</span>
+
+    </div>
+            </div>
+
+        </nav>
+
+
+        <div id="main-content">
+            <!-- ================= Dashboard Home ================= -->
+
+<div id="dashboard-page" class="dashboard-page">
+
+    <!-- Welcome Card -->
+
+    <section class="content-box dashboard-hero mb-4" id="con">
+
+        <div class="hero-copy">
+
+            <span class="dashboard-eyebrow"><i class="bi bi-stars"></i> Your parking overview</span>
+
+            <h1>
+
+                Welcome back, <span id="userName">User</span> <span class="wave" aria-hidden="true">👋</span>
+
+            </h1>
+
+            <p>
+
+                Manage your bookings, parking status, payments, and vehicles from one place.
+
+            </p>
+
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+            <i class="bi bi-p-square-fill"></i>
+            <span>Park smarter<br><strong>every day</strong></span>
+        </div>
+
+    </section>
+
+    <!-- Statistics Cards -->
+
+    <section class="stats-grid" aria-label="Parking statistics">
+
+        <!-- BOOKINGS -->
+
+        <article class="stat-card" style="--card-accent:#2563eb; --card-soft:#eff6ff;">
+
+            <div class="stat-icon">
+                <i class="bi bi-calendar2-check"></i>
+            </div>
+
+            <div class="stat-copy">
+
+                <p>Total Bookings</p>
+
+                <h3 id="totalBookings">
+                    0
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <!-- VEHICLES -->
+
+        <article class="stat-card" style="--card-accent:#7c3aed; --card-soft:#f5f3ff;">
+
+            <div class="stat-icon">
+                <i class="bi bi-car-front-fill"></i>
+            </div>
+
+            <div class="stat-copy">
+
+                <p>My Vehicles</p>
+
+                <h3 id="totalVehicles">
+                    0
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <!-- SPENT -->
+
+        <article class="stat-card" style="--card-accent:#d97706; --card-soft:#fffbeb;">
+
+            <div class="stat-icon">
+                <i class="bi bi-wallet2"></i>
+            </div>
+
+            <div class="stat-copy">
+
+                <p>Total Spent</p>
+
+                <h3>
+                    <span id="totalSpent">₹0</span>
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <!-- AVAILABLE -->
+
+        <article class="stat-card" style="--card-accent:#16a34a; --card-soft:#ecfdf3;">
+
+            <div class="stat-icon">
+                <i class="bi bi-p-square-fill"></i>
+            </div>
+
+            <div class="stat-copy">
+
+                <p>Available Slots</p>
+
+                <h3 id="availableSlots">
+                    0
+                </h3>
+
+            </div>
+
+        </article>
+
+    </section>
+
+    <section class="dashboard-lower-grid" aria-label="Dashboard actions and reservation">
+
+        <div class="dashboard-panel quick-actions-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="dashboard-eyebrow">Shortcuts</span>
+                    <h2>Quick actions</h2>
+                </div>
+                <i class="bi bi-arrow-up-right-circle panel-heading-icon"></i>
+            </div>
+            <div class="quick-actions">
+                <a href="liveparking.html" class="quick-action">
+                    <span class="quick-action-icon"><i class="bi bi-search"></i></span>
+                    <span><strong>Find parking</strong><small>Reserve a spot nearby</small></span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="myvehi.html" class="quick-action">
+                    <span class="quick-action-icon"><i class="bi bi-car-front"></i></span>
+                    <span><strong>Manage vehicles</strong><small>Keep your vehicles updated</small></span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="history.html" class="quick-action">
+                    <span class="quick-action-icon"><i class="bi bi-clock-history"></i></span>
+                    <span><strong>View history</strong><small>Review past bookings</small></span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="dashboard-panel reservation-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="dashboard-eyebrow">Your activity</span>
+                    <h2>Current reservation</h2>
+                </div>
+                <i class="bi bi-ticket-perforated panel-heading-icon"></i>
+            </div>
+            <div id="currentReservation" class="current-reservation">
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="bi bi-p-square"></i></div>
+                    <h3>Loading your reservation</h3>
+                    <p>Your latest parking details will appear here.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- CURRENT RESERVATION -->
+    <!-- ============================= -->
+
+    <!--<div class="reservation-card">
+
+        <div class="section-title">
+
+            <h2>
+                🚗 Current Reservation
+            </h2>
+
+        </div>
+
+
+        
+
+         <div
+            id="currentReservation"
+            class="current-reservation"
+        >
+
+            <div class="reservation-info">
+
+                <div>
+
+                    <h3 id="parkingName">
+                        City Center Parking
+                    </h3>
+
+                    <p id="reservationDate">
+                        23 Aug 2026
+                    </p>
+
+                </div>
+
+
+                <div class="slot-info">
+
+                    <strong>
+                        Slot
+                    </strong>
+
+                    <span id="slotNumber">
+                        A-05
+                    </span>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <span id="reservationStatus">
+                        RESERVED
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="vehicle-info">
+
+                🚗 Vehicle:
+
+                <strong id="vehicleNumber">
+                    GJ01AB1234
+                </strong>
+
+            </div>
+
+
+            <div class="reservation-actions">
+
+                <button
+                    class="btn-qr"
+                    onclick="viewQR()"
+                >
+                    <i class="bi bi-qr-code"></i>
+
+                    View QR
+
+                </button>
+
+
+                <button
+                    class="btn-details"
+                    onclick="viewReservationDetails()"
+                >
+
+                    <i class="bi bi-eye"></i>
+
+                    View Details
+
+                </button>
+
+            </div>
+
+        </div> {% endcomment %} -->
+
+
+        <!-- NO RESERVATION -->
+
+        <div id="noReservation" class="no-reservation" style="display:none;">
+
+            <div class="empty-icon">
+                🅿️
+            </div>
+
+            <h3>
+                No Active Reservation
+            </h3>
+
+            <p>
+                You don't have any active parking reservation.
+            </p>
+
+            <button
+                onclick="window.location.href='liveparking.html'"
+                class="btn-primary"
+            >
+                Find Parking
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="js/navbar.js"></script>
+<script src="js/dash.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

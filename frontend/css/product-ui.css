@@ -1,0 +1,5 @@
+/* Compatibility entry point for pages that load the UI layer after page CSS. */
+@import url("product-theme.css");
+.btn-primary,.btn-success,.btn-info,.home-btn,.login-btn{background:var(--primary)!important;border-color:var(--primary)!important;color:#fff!important}
+.btn-primary:hover,.btn-success:hover,.btn-info:hover,.home-btn:hover,.login-btn:hover{background:var(--hover)!important}
+.sidebar{overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin}

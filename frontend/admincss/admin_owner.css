@@ -1,0 +1,192 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    overflow-x:hidden;
+}
+
+
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+
+
+.sidebar{
+    width:260px;
+    background:#0f172a;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    padding:20px 15px;
+    transition:.3s;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+
+.logo{
+    display:flex;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    /* background:#2563eb;  */
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+    margin-right:10px;
+    background-color:#16a34a;
+    font-size:28px;
+   
+}
+
+
+.logo span{
+    font-size:18px;
+    font-weight:600;
+}
+
+/* Menu */
+
+.menu{
+    list-style:none;
+    padding:0;
+}
+
+.menu li{
+    margin-bottom:10px;
+}
+
+.menu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:12px 15px;
+    border-radius:10px;
+    transition:.3s;
+    font-size:15px;
+}
+
+.menu li a i{
+    font-size:18px;
+}
+
+.menu li:hover a{
+    background:#1e40af;
+    color:#fff;
+}
+
+.menu li.active a{
+    background:#2563eb;
+    color:#fff;
+}
+
+
+
+.logout{
+    margin-top:50px;
+}
+
+
+
+.main{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    min-height:100vh;
+}
+
+
+
+.top-navbar{
+
+    background:#fff;
+    height:70px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.menu-btn{
+
+    border:none;
+    background:none;
+    font-size:26px;
+    display:none;
+}
+
+.right-menu{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.right-menu i{
+
+    font-size:20px;
+    cursor:pointer;
+}
+
+.user{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user img{
+
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.user span{
+
+    font-size:15px;
+    font-weight:500;
+}
+#deshboardlink
+{
+    background-color: #22c55e;
+}
+h2{
+    
+    color: #16a34a;
+}

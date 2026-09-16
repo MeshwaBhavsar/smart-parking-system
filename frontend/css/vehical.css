@@ -1,0 +1,174 @@
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+
+}
+
+body{
+
+    background:#edf2f7;
+
+}
+
+.container{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:40px;
+
+}
+
+.card{
+
+    width:650px;
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
+}
+
+.header{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+
+}
+
+.header a{
+
+    color:#198754;
+    font-size:25px;
+    text-decoration:none;
+
+}
+
+.header h2{
+
+    color:#198754;
+
+}
+
+.info-box{
+
+    margin-bottom:18px;
+
+}
+
+.info-box label{
+
+    display:block;
+    font-weight:bold;
+    margin-bottom:8px;
+    color:#444;
+
+}
+
+.info-box input{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+
+}
+
+.info-box input[readonly]{
+
+    background:#f8f9fa;
+
+}
+
+.radio-group{
+
+    display:flex;
+    gap:25px;
+    margin-top:10px;
+
+}
+
+.radio-group label{
+
+    font-weight:normal;
+
+}
+
+button{
+
+    width:100%;
+    padding:14px;
+    border:none;
+    background:#198754;
+    color:white;
+    font-size:18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+
+}
+
+button:hover{
+
+    background:#146c43;
+
+}
+.button-group{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.button-group button{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+.cancel-btn{
+
+    background:#dc3545;
+
+    color:white;
+
+}
+
+.cancel-btn:hover{
+
+    background:#bb2d3b;
+
+}
+
+.next-btn{
+
+    background:#198754;
+
+    color:white;
+
+}
+
+.next-btn:hover{
+
+    background:#157347;
+
+}

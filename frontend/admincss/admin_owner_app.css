@@ -1,0 +1,742 @@
+/* =====================================================
+   FONT
+===================================================== */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'
+);
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7fc;
+    color: #1e293b;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   WRAPPER
+===================================================== */
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: #0f172a;
+
+    padding: 20px 15px;
+
+    color: white;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    margin-bottom: 35px;
+
+    padding: 0 5px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #16a34a;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 22px;
+
+    margin-right: 10px;
+}
+
+.logo span {
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu {
+    list-style: none;
+
+    width: 100%;
+
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    width: 100%;
+
+    margin-bottom: 8px;
+}
+
+.menu li a {
+    width: 100%;
+
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 15px;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    transition: 0.25s;
+}
+
+.menu li a i {
+    width: 22px;
+
+    min-width: 22px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+
+/* Hover */
+
+.menu li a:hover {
+    background: #1e40af;
+
+    color: white;
+}
+
+
+/* Active */
+
+.menu li.active a {
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.menu li.logout {
+    margin-top: 35px;
+}
+
+.menu li.logout a {
+    color: #fca5a5;
+}
+
+.menu li.logout a:hover {
+    background: #dc2626;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+    width: calc(100% - 260px);
+
+    min-height: 100vh;
+
+    margin-left: 260px;
+
+    background: #f4f7fc;
+}
+
+
+/* =====================================================
+   TOP NAVBAR
+===================================================== */
+
+.top-navbar {
+    width: 100%;
+
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 30px;
+
+    background: white;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+}
+
+
+/* Page title */
+
+.page-title {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    color: #0f172a;
+}
+
+
+/* =====================================================
+   RIGHT NAVBAR
+===================================================== */
+
+.right-menu {
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+.notification {
+    font-size: 20px;
+
+    color: #334155;
+
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.user i {
+    font-size: 22px;
+
+    color: #334155;
+}
+
+.user span {
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color: #334155;
+}
+
+
+/* =====================================================
+   MOBILE MENU BUTTON
+===================================================== */
+
+.menu-btn {
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 26px;
+
+    color: #1e293b;
+
+    cursor: pointer;
+
+    margin-right: 15px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    width: 100%;
+
+    padding: 30px;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header {
+    width: 100%;
+
+    min-height: 110px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: white;
+
+    padding: 25px 28px;
+
+    margin-bottom: 25px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h2 {
+    margin: 0 0 5px 0;
+
+    font-size: 25px;
+
+    font-weight: 600;
+
+    color: #0f172a;
+}
+
+.page-header p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   REFRESH BUTTON
+===================================================== */
+
+.refresh-btn {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.refresh-btn:hover {
+    background: #1d4ed8;
+}
+
+.refresh-btn i {
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   APPLICATION CARD
+===================================================== */
+
+.application-card {
+    width: 100%;
+
+    background: white;
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   CARD TITLE
+===================================================== */
+
+.card-title {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.card-title h4 {
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #0f172a;
+}
+
+.card-title span {
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding: 16px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.application-table {
+    width: 100%;
+
+    min-width: 1100px;
+
+    border-collapse: collapse;
+}
+
+
+/* Table header */
+
+.application-table thead th {
+    padding: 14px 12px;
+
+    background: #1f2937;
+
+    color: white;
+
+    border: 1px solid #374151;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* Table body */
+
+.application-table tbody td {
+    padding: 13px 12px;
+
+    border: 1px solid #e2e8f0;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+
+/* Row */
+
+.application-table tbody tr {
+    background: white;
+
+    transition: 0.2s;
+}
+
+.application-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* Empty table */
+
+.application-table tbody td[colspan] {
+    padding: 40px;
+
+    text-align: center;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   BUTTONS INSIDE TABLE
+===================================================== */
+
+.application-table button {
+    border: none;
+
+    padding: 6px 12px;
+
+    border-radius: 5px;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.application-table .btn-success {
+    background: #16a34a;
+
+    color: white;
+}
+
+.application-table .btn-success:hover {
+    background: #15803d;
+}
+
+.application-table .btn-danger {
+    background: #dc2626;
+
+    color: white;
+}
+
+.application-table .btn-danger:hover {
+    background: #b91c1c;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #475569;
+
+    border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 992px) {
+
+    .sidebar {
+        width: 230px;
+    }
+
+    .main {
+        width: calc(100% - 230px);
+
+        margin-left: 230px;
+    }
+
+    .content {
+        padding: 22px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 0;
+
+        padding-left: 0;
+
+        padding-right: 0;
+
+        overflow: hidden;
+
+        transition: 0.3s;
+    }
+
+    .sidebar.show {
+        width: 260px;
+
+        padding: 20px 15px;
+
+        overflow-y: auto;
+    }
+
+    .main {
+        width: 100%;
+
+        margin-left: 0;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+    }
+
+    .page-header h2 {
+        font-size: 21px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .top-navbar {
+        padding: 0 15px;
+    }
+
+    .page-title {
+        font-size: 17px;
+    }
+
+    .user span {
+        display: none;
+    }
+
+    .content {
+        padding: 12px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .card-title {
+        padding: 16px;
+    }
+}
+#dm{
+    background-color: #16a34a;
+}

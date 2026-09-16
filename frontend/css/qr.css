@@ -1,0 +1,416 @@
+/* 
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+
+.card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.card-body{
+    padding:40px;
+}
+
+
+
+.logo{
+    width:80px;
+    height:80px;
+    background:#198754;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+}
+
+.logo i{
+    font-size:40px;
+}
+
+
+
+h2{
+    color:#198754;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+
+
+.detail{
+    margin:25px 0;
+}
+
+.detail p{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:17px;
+    margin-bottom:12px;
+    padding:10px 15px;
+    background:#f8f9fa;
+    border-radius:10px;
+}
+
+.detail strong{
+    color:#198754;
+}
+
+
+
+.qr-box{
+    width:250px;
+    height:250px;
+    margin:25px auto;
+    border:3px dashed #198754;
+    border-radius:15px;
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+.qr-box img{
+    width:200px;
+    height:200px;
+    object-fit:contain;
+}
+
+
+
+.text-muted{
+    font-size:15px;
+}
+
+.text-muted i{
+    color:#198754;
+    margin-right:5px;
+}
+
+
+
+.btn{
+    border-radius:10px;
+    padding:12px;
+    font-size:17px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-success{
+    background:#198754;
+    border:none;
+}
+
+.btn-success:hover{
+    background:#157347;
+    transform:translateY(-2px);
+}
+
+.btn-outline-secondary:hover{
+    transform:translateY(-2px);
+}
+
+
+
+hr{
+    margin:20px 0;
+}
+
+
+
+.card{
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+
+@media(max-width:768px){
+
+    .card-body{
+        padding:25px;
+    }
+
+    .logo{
+        width:65px;
+        height:65px;
+    }
+
+    .logo i{
+        font-size:30px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+
+    .detail p{
+        font-size:15px;
+        flex-direction:column;
+        gap:5px;
+        text-align:center;
+    }
+
+    .qr-box{
+        width:200px;
+        height:200px;
+    }
+
+    .qr-box img{
+        width:150px;
+        height:150px;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+} */
+ *{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+
+}
+
+body{
+
+    background:#eef3f8;
+
+}
+
+.container{
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+
+}
+
+.card{
+
+    width:500px;
+
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:35px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    text-align:center;
+
+}
+
+.success-icon{
+
+    font-size:70px;
+
+    color:#28a745;
+
+}
+
+.card h2{
+
+    margin-top:15px;
+
+    color:#198754;
+
+}
+
+.msg{
+
+    color:#666;
+
+    margin:10px 0 25px;
+
+}
+
+.details{
+
+    text-align:left;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    margin-bottom:25px;
+
+}
+
+.row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:12px 0;
+
+    font-size:16px;
+
+}
+
+.row span{
+
+    color:#666;
+
+}
+
+.qr-box{
+
+    margin:25px 0;
+
+}
+
+.qr-box h3{
+
+    margin-bottom:15px;
+
+    color:#198754;
+
+}
+
+.qr-box img{
+
+    width:220px;
+
+    height:220px;
+
+    border:8px solid #f4f4f4;
+
+    border-radius:10px;
+
+}
+
+.note{
+
+    color:#555;
+
+    margin:20px 0;
+
+}
+
+.buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+.buttons button{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+.download{
+
+    background:#198754;
+
+    color:white;
+
+}
+
+.download:hover{
+
+    background:#157347;
+
+}
+
+.home{
+
+    background:#0d6efd;
+
+    color:white;
+
+}
+
+.home:hover{
+
+    background:#0b5ed7;
+
+}
+
+  
+
+
+        #result {
+            margin-top: 20px;
+        }
+
+body {
+            background: #f5f6fa;
+        }
+
+        .qr-card {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }

@@ -1,0 +1,11 @@
+/* Staff scanner presentation layer. JavaScript owns camera and result behavior. */
+:root { --scanner-navy: #0b172a; --scanner-green: #16a276; }
+body { min-height: 100vh; background: radial-gradient(circle at top right, rgba(22,162,118,.14), transparent 30rem), #f6f8fb; color: var(--scanner-navy); font-family: Inter, system-ui, sans-serif; }
+#reader, #result { width: min(100%, 760px); margin: 24px auto; border: 1px solid #dbe5e2; border-radius: 22px; background: #fff; box-shadow: 0 16px 42px rgba(11,23,42,.09); overflow: hidden; }
+#reader { min-height: 280px; padding: 14px; }
+#result { padding: clamp(18px, 4vw, 34px); }
+#qrImage { max-width: 100%; border-radius: 14px; }
+button, .btn { border-radius: 11px; transition: transform .2s ease, box-shadow .2s ease; }
+button:hover, .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(22,162,118,.18); }
+@media (max-width: 576px) { #reader, #result { margin: 14px auto; border-radius: 16px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

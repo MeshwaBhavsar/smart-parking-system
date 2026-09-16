@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/product-theme.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="admincss/admin-payment.css">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= Sidebar ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon bi bi-shield-lock-fill">
+
+            
+
+            </div>
+
+            <span>ADMIN DASHBOARD</span>
+
+        </div>
+
+        <ul class="menu">
+
+            <li>
+
+                <a href="admindashboard.html" >
+
+                    <i class="bi bi-house-door"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+            <li>
+
+                <a href="admin_owner_app.html">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    owner application
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="adminuser.html" id="live parking">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    Users 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminparking.html" id="reservation">
+
+                    <i class="bi bi-geo-alt-fill"></i>
+
+                    Parking Area 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="adminslot.html">
+
+                    <i class="bi bi-p-circle-fill"></i>
+
+                    Parking slot 
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="admin_reservation.html">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                    Reservations 
+
+                </a>
+
+            </li>
+
+            <li class="active">
+
+                <a href="payment.html" id="deshboardlink">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    Payment
+
+                </a>
+
+            </li>
+            <li>
+
+                <a href="admincontact.html" id="dm">
+
+                    <i class="bi bi-envelope-fill"></i>
+
+                    Contact
+
+                </a>
+
+            </li>
+
+            
+
+            
+
+
+            <li class="logout">
+
+                <a href="adminlogin.html" onclick="logout(); return false;">
+
+                    <i class="bi bi-box-arrow-left"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- ================= Main ================= -->
+
+    <div class="main">
+
+        <!-- Navbar -->
+
+        <nav class="top-navbar">
+
+            <button class="menu-btn">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+ 
+            <h5 class="m-0 fw-bold">
+
+                Dashboard
+
+            </h5>
+          
+
+            <div class="right-menu">
+
+                <i class="bi bi-bell"></i>
+
+                <div class="user">
+
+                    <span>Hello, Admin</span>
+
+                   
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <div id="main-content">
+
+        <div class="container-fluid mt-4">
+
+
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        mb-4">
+
+                <h2 class="fw-bold">
+
+                    <i class="bi bi-credit-card text-success"></i>
+
+                    Payments
+
+                </h2>
+
+
+                <!-- WebSocket status -->
+
+                <span
+                    id="socketStatus"
+                    class="badge bg-secondary"
+                >
+                    Connecting...
+                </span>
+
+            </div>
+
+
+
+            <!-- ================= SEARCH ================= -->
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-9">
+
+                            <input
+                                type="text"
+                                id="searchPayment"
+                                class="form-control"
+                                placeholder="Search by Payment ID, User ID, Reservation ID, Method or Status"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <button
+                                class="btn btn-success w-100"
+                                onclick="searchPayments()"
+                            >
+
+                                <i class="bi bi-search"></i>
+
+                                Search
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PAYMENT TABLE ================= -->
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-success">
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>User ID</th>
+
+                                    <th>Reservation ID</th>
+
+                                    <th>Amount</th>
+
+                                    <th>Payment Method</th>
+
+                                    <th>Payment Status</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="paymentTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        class="text-center"
+                                    >
+
+                                        Loading payments...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- PAYMENT DETAILS MODAL -->
+<!-- ================================================= -->
+
+<div
+    class="modal fade"
+    id="paymentDetailsModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    Payment Details
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="row g-3">
+
+
+                    <!-- PAYMENT ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Payment ID
+                            </label>
+
+                            <p id="viewPaymentId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Payment Status
+                            </label>
+
+                            <p id="viewPaymentStatus">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- USER ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                User ID
+                            </label>
+
+                            <p id="viewUserId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- RESERVATION ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Reservation ID
+                            </label>
+
+                            <p id="viewReservationId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AMOUNT -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Amount
+                            </label>
+
+                            <p id="viewAmount">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Payment Method
+                            </label>
+
+                            <p id="viewPaymentMethod">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- RAZORPAY ORDER ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Razorpay Order ID
+                            </label>
+
+                            <p id="viewOrderId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- RAZORPAY PAYMENT ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Razorpay Payment ID
+                            </label>
+
+                            <p id="viewRazorpayPaymentId">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CREATED AT -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Created At
+                            </label>
+
+                            <p id="viewCreatedAt">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAID AT -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <label>
+                                Paid At
+                            </label>
+
+                            <p id="viewPaidAt">
+                                -
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+
+                    Close
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- Admin Payment JS -->
+
+<script src="js/admin_payment.js"></script>
+<script src="js/login.js"></script>
+
+
+</body>
+</html>

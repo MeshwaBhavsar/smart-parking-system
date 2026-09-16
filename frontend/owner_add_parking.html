@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/product-theme.css">
+
+    <title>Add Parking</title>
+     <link rel="stylesheet" href="admincss/admin_add.css">
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h2>Add Parking</h2>
+
+    <form id="parkingForm" onsubmit="addParking(event)">
+
+        <input type="text" id="parking_name" placeholder="Parking Name">
+
+        <br><br>
+
+        <input type="text" id="area" placeholder="area">
+
+        <br><br>
+
+        <input type="text" id="city" placeholder="city">
+
+        <br><br>
+
+
+        <input type="text" id="address" placeholder="Address">
+
+        <br><br>
+
+        <input type="number" step="any" id="latitude" placeholder="Latitude">
+
+        <br><br>
+
+        <input type="number" step="any" id="longitude" placeholder="Longitude">
+
+        <br><br>
+
+        <input type="number" id="total_slots" placeholder="Total Slots">
+
+        <br><br>
+
+        <input type="number" id="price" placeholder="Price per Hour">
+
+        <br><br>
+
+         <button type="submit">
+
+            Save Parking
+
+        </button> 
+
+        <!-- <button type="button" onclick="addParking()">
+                Save Parking
+            </button> -->
+
+    </form>
+<script src="js/owner_add_parking.js"></script>
+</div>
