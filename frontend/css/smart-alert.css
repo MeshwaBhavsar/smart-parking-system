@@ -1,0 +1,91 @@
+/* Centralized Smart Parking alert presentation. Scoped to #sp-alert-root. */
+#sp-alert-root {
+  --sp-alert-green: #15803d;
+  --sp-alert-green-dark: #166534;
+  --sp-alert-green-soft: #dcfce7;
+  --sp-alert-ink: #111827;
+  --sp-alert-muted: #6b7280;
+  --sp-alert-error: #dc2626;
+  --sp-alert-warning: #d97706;
+  --sp-alert-backdrop: rgba(15, 23, 42, 0.45);
+  position: relative;
+  z-index: 2147483000;
+}
+
+#sp-alert-root[hidden] { display: none; }
+
+.sp-alert__backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--sp-alert-backdrop);
+  animation: sp-alert-fade-in 160ms ease-out both;
+}
+
+.sp-alert__dialog {
+  width: min(100%, 430px);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  position: relative;
+  border: 1px solid rgba(220, 232, 223, 0.95);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--sp-alert-ink);
+  box-shadow: 0 24px 70px rgba(15, 54, 31, 0.22);
+  animation: sp-alert-dialog-in 180ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.sp-alert__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--sp-alert-muted);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.sp-alert__close:hover,
+.sp-alert__close:focus-visible { background: var(--sp-alert-green-soft); color: var(--sp-alert-green-dark); }
+
+.sp-alert__content { padding: 32px 32px 24px; text-align: center; }
+
+.sp-alert__icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 18px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sp-alert-green-soft);
+  color: var(--sp-alert-green);
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.sp-alert__title { margin: 0 38px 8px; font-size: 1.2rem; font-weight: 750; letter-spacing: -0.015em; }
+.sp-alert__message { margin: 0; color: var(--sp-alert-muted); font-size: .95rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sp-alert__footer { display: flex; justify-content: flex-end; padding: 16px 32px 24px; }
+.sp-alert__ok { min-width: 94px; border: 0; border-radius: 10px; padding: 10px 19px; background: var(--sp-alert-green); color: #fff; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 7px 16px rgba(22, 101, 52, .16); transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease; }
+.sp-alert__ok:hover { background: var(--sp-alert-green-dark); transform: translateY(-1px); box-shadow: 0 9px 20px rgba(22, 101, 52, .22); }
+.sp-alert__ok:focus-visible, .sp-alert__close:focus-visible { outline: 3px solid rgba(21, 128, 61, .28); outline-offset: 2px; }
+
+.sp-alert--error .sp-alert__icon { background: #fee2e2; color: var(--sp-alert-error); }
+.sp-alert--error .sp-alert__ok { background: var(--sp-alert-error); }
+.sp-alert--error .sp-alert__ok:hover { background: #b91c1c; }
+.sp-alert--warning .sp-alert__icon { background: #ffedd5; color: var(--sp-alert-warning); }
+.sp-alert--warning .sp-alert__ok { background: var(--sp-alert-warning); }
+.sp-alert--warning .sp-alert__ok:hover { background: #b45309; }
+
+@keyframes sp-alert-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sp-alert-dialog-in { from { opacity: 0; transform: scale(.97) translateY(5px); } to { opacity: 1; transform: none; } }
+@media (max-width: 480px) { .sp-alert__backdrop { padding: 14px; } .sp-alert__content { padding: 28px 22px 20px; } .sp-alert__footer { padding: 14px 22px 22px; } .sp-alert__ok { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .sp-alert__backdrop, .sp-alert__dialog { animation: none; } }

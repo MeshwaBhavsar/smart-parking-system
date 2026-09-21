@@ -53,7 +53,7 @@ async function resetPassword() {
 
             alert("Password updated successfully.");
 
-            sessionStorageStorage.removeItem("reset_email");
+            sessionStorage.removeItem("reset_email");
 
             window.location.href = "login.html";
 
