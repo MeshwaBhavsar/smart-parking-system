@@ -1,14 +1,21 @@
+import os
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import declarative_base
-
-# DATABASE_URL = "sqlite:///./parking1.db"
-DATABASE_URL="postgresql://postgres:1234@localhost:5432/parking"
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 
-engine = create_engine(
-    DATABASE_URL
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is not set")
+
+# SQLAlchemy 2.x expects the explicit PostgreSQL scheme. This also supports
+# providers that still expose the older `postgres://` form.
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(
     autocommit=False,

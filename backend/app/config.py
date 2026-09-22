@@ -13,18 +13,3 @@ load_dotenv(ENV_FILE)
 
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
-
-
-print("================================")
-print("RAZORPAY CONFIG")
-print("================================")
-
-print("Key ID loaded:", bool(RAZORPAY_KEY_ID))
-print("Key ID:", RAZORPAY_KEY_ID)
-
-print(
-    "Key Secret loaded:",
-    bool(RAZORPAY_KEY_SECRET)
-)
-
-print("================================")
