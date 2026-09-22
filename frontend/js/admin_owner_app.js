@@ -1,5 +1,5 @@
 const API_URL =
-    "http://127.0.0.1:8000/owner-applications";
+    "https://smart-parking-system-tz4z.onrender.com/owner-applications";
 
 
 // ========================================
@@ -418,7 +418,7 @@ async function rejectApplication(applicationId) {
     try {
 
         const response = await fetch(
-            `http://127.0.0.1:8000/owner-applications/${applicationId}/reject`,
+            `https://smart-parking-system-tz4z.onrender.com/owner-applications/${applicationId}/reject`,
             {
                 method: "PUT",
                 headers: {
@@ -510,7 +510,7 @@ async function approveOwner(applicationId) {
 
         const response = await fetch(
 
-            `http://127.0.0.1:8000/owner-applications/${applicationId}/approve`,
+            `https://smart-parking-system-tz4z.onrender.com/owner-applications/${applicationId}/approve`,
 
             {
                 method: "PUT",

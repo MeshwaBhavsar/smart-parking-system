@@ -67,7 +67,7 @@ document
             // Send request to FastAPI
 
             const response = await fetch(
-                "http://127.0.0.1:8000/admin/reset-password",
+                " https://smart-parking-system-tz4z.onrender.com/admin/reset-password",
                 {
 
                     method: "PUT",

@@ -1,5 +1,5 @@
 const API_BASE_URL =
-    "http://127.0.0.1:8000";
+    "https://smart-parking-system-tz4z.onrender.com";
 
 
 let allReservations = [];
@@ -954,7 +954,7 @@ function connectWebSocket() {
 
     socket =
         new WebSocket(
-            "ws://127.0.0.1:8000/admin_reservations/ws"
+            "ws://smart-parking-system-tz4z.onrender.com/admin_reservations/ws"
         );
 
 

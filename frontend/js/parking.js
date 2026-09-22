@@ -689,10 +689,10 @@
 
 // ----------------------------------------------
 const OWNER_API_URL =
-    "http://127.0.0.1:8000/parking";
+    "https://smart-parking-system-tz4z.onrender.com/parking";
 
 const PARKING_API_URL =
-    "http://127.0.0.1:8000/parking";
+    "https://smart-parking-system-tz4z.onrender.com/parking";
 
 
 // =====================================================
@@ -1383,7 +1383,7 @@ function connectWebSocket() {
 
     socket =
         new WebSocket(
-            "ws://127.0.0.1:8000/ws"
+            "ws://smart-parking-system-tz4z.onrender.com/ws"
         );
 
 

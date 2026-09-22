@@ -38,7 +38,7 @@ async function loadDashboard() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/admin/dashboard"
+            " https://smart-parking-system-tz4z.onrender.com/admin/dashboard"
         );
 
 
@@ -75,7 +75,7 @@ let socket;
 function connectWebSocket() {
 
     socket = new WebSocket(
-        "ws://127.0.0.1:8000/admin/ws/dashboard"
+        "ws://smart-parking-system-tz4z.onrender.com/admin/ws/dashboard"
     );
 
 

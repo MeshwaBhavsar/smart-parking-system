@@ -11,7 +11,7 @@ async function changePassword() {
         return;
     }
 
-    const response = await fetch("http://127.0.0.1:8000/change-password", {
+    const response = await fetch("https://smart-parking-system-tz4z.onrender.com/change-password", {
 
         method: "PUT",
 

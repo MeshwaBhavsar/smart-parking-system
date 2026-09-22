@@ -18,7 +18,7 @@ async function login(event) {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/login",
+            "https://smart-parking-system-tz4z.onrender.com/login",
             {
                 method: "POST",
 

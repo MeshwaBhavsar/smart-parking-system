@@ -1240,7 +1240,9 @@
 // ANALYTICS API
 // ==================================================
 
-const ANALYTICS_API = "http://127.0.0.1:8000";
+// const ANALYTICS_API = "http://127.0.0.1:8000";
+const ANALYTICS_API = " https://smart-parking-system-tz4z.onrender.com";
+
 
 
 // ==================================================

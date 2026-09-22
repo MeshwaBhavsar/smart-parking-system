@@ -257,7 +257,7 @@
 // }
 
 // ----------------------user side----------------------------
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://smart-parking-system-tz4z.onrender.com";
 
 // ======================================================
 // GLOBAL VARIABLES
@@ -1128,7 +1128,7 @@ function connectParkingWebSocket() {
 
     parkingSocket =
         new WebSocket(
-            "ws://127.0.0.1:8000/ws"
+            "ws://smart-parking-system-tz4z.onrender.com/ws"
         );
 
 

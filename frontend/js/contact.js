@@ -66,7 +66,7 @@ async function sendMessage(e){
 
     };
 
-    const response = await fetch("http://127.0.0.1:8000/contact/",{
+    const response = await fetch("https://smart-parking-system-tz4z.onrender.com/contact/",{
 
         method:"POST",
 

@@ -38,7 +38,7 @@ async function createOwner(event) {
 
 
         const response = await fetch(
-            "http://127.0.0.1:8000/admin/owners",
+            "https://smart-parking-system-tz4z.onrender.com/admin/owners",
             {
 
                 method: "POST",

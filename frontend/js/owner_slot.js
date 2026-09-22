@@ -13,7 +13,7 @@ async function loadParking(){
 
     const response = await fetch(
 
-        `http://127.0.0.1:8000/parking/${parkingId}`
+        `https://smart-parking-system-tz4z.onrender.com/parking/${parkingId}`
 
     );
 
@@ -34,7 +34,7 @@ async function loadSlots(){
 
     const response = await fetch(
 
-        `http://127.0.0.1:8000/parking/${parkingId}/slots`
+        `https://smart-parking-system-tz4z.onrender.com/parking/${parkingId}/slots`
 
     );
 

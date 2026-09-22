@@ -99,7 +99,7 @@ async function submitOwnerApplication(event) {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/owner-applications/",
+            "https://smart-parking-system-tz4z.onrender.com/owner-applications/",
             {
                 method: "POST",
 
