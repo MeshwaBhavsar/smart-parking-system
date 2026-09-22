@@ -1,21 +1,21 @@
 import os
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
+from urllib.parse import urlparse
 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.environ["DATABASE_URL"]
 
-if not DATABASE_URL:
-    raise RuntimeError("DATABASE_URL environment variable is not set")
-
-# SQLAlchemy 2.x expects the explicit PostgreSQL scheme. This also supports
-# providers that still expose the older `postgres://` form.
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+# Safe debug: shows only host, not password
+print("DATABASE HOST:", urlparse(DATABASE_URL).hostname)
 
 
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True
+)
+
 
 SessionLocal = sessionmaker(
     autocommit=False,
@@ -23,12 +23,15 @@ SessionLocal = sessionmaker(
     bind=engine
 )
 
+
 Base = declarative_base()
 
 
 def get_db():
     db = SessionLocal()
+
     try:
         yield db
+
     finally:
         db.close()
