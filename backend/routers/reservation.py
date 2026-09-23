@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends,HTTPException
 from sqlalchemy.orm import Session
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
 
 from app.database import get_db
@@ -200,6 +200,73 @@ async def create_reservation(
         "qr_token":
             qr_token
 
+    }
+
+
+# ------------------------------------------------------
+
+async def cancel_expired_reservations(db: Session):
+
+    expiry_time = datetime.utcnow() - timedelta(hours=1)
+
+    expired_reservations = (
+        db.query(models.Reservation)
+        .filter(
+            models.Reservation.status == "Booked",
+            models.Reservation.booking_date <= expiry_time
+        )
+        .all()
+    )
+
+    cancelled_count = 0
+
+    for reservation in expired_reservations:
+
+        slot = (
+            db.query(models.ParkingSlot)
+            .filter(
+                models.ParkingSlot.id == reservation.slot_id
+            )
+            .first()
+        )
+
+        if slot:
+
+            slot.status = "Available"
+
+        reservation.status = "Cancelled"
+
+        db.commit()
+
+        # Notify frontend
+        await manager.broadcast(
+            json.dumps({
+                "event": "reservation_cancelled",
+                "reservation_id": reservation.id,
+                "parking_id": reservation.parking_id,
+                "slot_id": reservation.slot_id,
+                "status": "Cancelled",
+                "slot_status": "Available"
+            })
+        )
+
+        cancelled_count += 1
+
+    return cancelled_count
+   
+
+
+
+# --------------------------------------------
+@router.post("/cleanup-expired")
+def cleanup_expired_reservations(
+    db: Session = Depends(get_db)
+):
+    count = cancel_expired_reservations(db)
+
+    return {
+        "message": "Expired reservations checked",
+        "cancelled_count": count
     }
 
 
