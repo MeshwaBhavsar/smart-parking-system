@@ -202,13 +202,13 @@ async def create_reservation(
 
     }
 
-
-# ------------------------------------------------------
-
+# ----------------------------------------
 async def cancel_expired_reservations(db: Session):
 
+    # Current UTC time minus 1 hour
     expiry_time = datetime.utcnow() - timedelta(hours=1)
 
+    # Find reservations older than 1 hour
     expired_reservations = (
         db.query(models.Reservation)
         .filter(
@@ -222,6 +222,7 @@ async def cancel_expired_reservations(db: Session):
 
     for reservation in expired_reservations:
 
+        # Find the slot
         slot = (
             db.query(models.ParkingSlot)
             .filter(
@@ -230,45 +231,55 @@ async def cancel_expired_reservations(db: Session):
             .first()
         )
 
-        if slot:
+        # IMPORTANT:
+        # Only release the slot if it is still Reserved.
+        if slot and slot.status == "Reserved":
 
             slot.status = "Available"
 
-        reservation.status = "Cancelled"
+            reservation.status = "Cancelled"
 
-        db.commit()
+            cancelled_count += 1
 
-        # Notify frontend
-        await manager.broadcast(
-            json.dumps({
-                "event": "reservation_cancelled",
-                "reservation_id": reservation.id,
-                "parking_id": reservation.parking_id,
-                "slot_id": reservation.slot_id,
-                "status": "Cancelled",
-                "slot_status": "Available"
-            })
-        )
+            # Send realtime update to frontend
+            await manager.broadcast(
+                json.dumps({
+                    "event": "reservation_cancelled",
 
-        cancelled_count += 1
+                    "reservation_id":
+                        reservation.id,
+
+                    "parking_id":
+                        reservation.parking_id,
+
+                    "slot_id":
+                        reservation.slot_id,
+
+                    "status":
+                        "Cancelled",
+
+                    "slot_status":
+                        "Available"
+                })
+            )
+
+    # Save all changes
+    db.commit()
 
     return cancelled_count
-   
-
-
 
 # --------------------------------------------
 @router.post("/cleanup-expired")
-def cleanup_expired_reservations(
+async def cleanup_expired_reservations(
     db: Session = Depends(get_db)
 ):
-    count = cancel_expired_reservations(db)
+
+    count = await cancel_expired_reservations(db)
 
     return {
         "message": "Expired reservations checked",
         "cancelled_count": count
     }
-
 
 # --------------------------------------------------------
 

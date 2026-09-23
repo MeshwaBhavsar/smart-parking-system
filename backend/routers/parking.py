@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends,HTTPException,WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
 import json
+from backend.routers.reservation import cancel_expired_reservations
 
 from app.database import get_db
 from app import models, schemas
@@ -417,30 +418,77 @@ async def update_parking(
 # ------admin side return slots-----------------
 
 
-@router.get("/{parking_id}/slots")
-def get_slots(parking_id:int,db:Session=Depends(get_db)):
+# @router.get("/{parking_id}/slots")
+# def get_slots(parking_id:int,db:Session=Depends(get_db)):
 
-    slots=db.query(models.ParkingSlot).filter(
-        models.ParkingSlot.parking_id==parking_id
-    ).all()
+#     slots=db.query(models.ParkingSlot).filter(
+#         models.ParkingSlot.parking_id==parking_id
+#     ).all()
 
-    return slots
+#     return slots
 
 # ----------------user parking slot-----------------
+# @router.get("/{parking_id}/slots")
+# def get_slots_user(
+
+#     parking_id: int,
+
+#     db: Session = Depends(get_db)
+
+# ):
+
+#     slots = db.query(models.ParkingSlot).filter(
+
+#         models.ParkingSlot.parking_id == parking_id
+
+#     ).all()
+
+#     return slots
+
+# ---------------- USER / ADMIN PARKING SLOTS ----------------
+
 @router.get("/{parking_id}/slots")
-def get_slots_user(
-
+async def get_slots(
     parking_id: int,
-
     db: Session = Depends(get_db)
-
 ):
 
-    slots = db.query(models.ParkingSlot).filter(
+    # ==========================================
+    # CHECK EXPIRED RESERVATIONS
+    # ==========================================
 
-        models.ParkingSlot.parking_id == parking_id
+    await cancel_expired_reservations(db)
 
-    ).all()
+    # ==========================================
+    # CHECK PARKING
+    # ==========================================
+
+    parking = (
+        db.query(models.Parking)
+        .filter(
+            models.Parking.id == parking_id
+        )
+        .first()
+    )
+
+    if not parking:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Parking not found"
+        )
+
+    # ==========================================
+    # GET SLOTS
+    # ==========================================
+
+    slots = (
+        db.query(models.ParkingSlot)
+        .filter(
+            models.ParkingSlot.parking_id == parking_id
+        )
+        .all()
+    )
 
     return slots
 

@@ -210,9 +210,11 @@ def get_peak_days(
             detail="Only admin can access analytics"
         )
 
+    # Weekday demand is based on when the reservation was booked, not on
+    # whether the vehicle later received an entry scan.
     day_number = func.extract(
         "dow",
-        models.Reservation.entry_time
+        models.Reservation.booking_date
     )
 
     data = (
@@ -223,7 +225,7 @@ def get_peak_days(
             ).label("count")
         )
         .filter(
-            models.Reservation.entry_time.isnot(None)
+            models.Reservation.booking_date.isnot(None)
         )
         .group_by(day_number)
         .all()

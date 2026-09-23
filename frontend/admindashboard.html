@@ -1126,7 +1126,7 @@
                                     class="analytics-value"
                                     id="averageOccupancy">
 
-                                    0%
+                                    -
 
                                 </div>
 
@@ -1177,7 +1177,7 @@
                                 <small
                                     id="mostOccupiedPercentage">
 
-                                    0% occupancy
+                                    -
 
                                 </small>
 
@@ -1221,7 +1221,7 @@
                                 <small
                                     id="leastOccupiedPercentage">
 
-                                    0% occupancy
+                                    -
 
                                 </small>
 
@@ -1257,7 +1257,7 @@
                                     class="analytics-value"
                                     id="analyticsAvailableSlots">
 
-                                    0
+                                    -
 
                                 </div>
 
@@ -1387,7 +1387,7 @@
             <div>
                 <div class="analytics-title">Peak Entry Hour</div>
                 <div class="analytics-value" id="peakEntryHour">-</div>
-                <small id="peakEntryCount">0 vehicles entered</small>
+                <small id="peakEntryCount">-</small>
             </div>
 
         </div>
@@ -1418,7 +1418,7 @@
 
                 <small id="peakExitCount">
 
-                    0 vehicles exited
+                    -
 
                 </small>
 
@@ -1453,7 +1453,7 @@
 
                 <small id="busiestDayCount">
 
-                    0 vehicles
+                    -
 
                 </small>
 
@@ -1482,7 +1482,7 @@
                     class="analytics-value"
                     id="totalTraffic">
 
-                    0
+                    -
 
                 </div>
 
@@ -1606,31 +1606,6 @@
 <!-- Analytics JS -->
 
 <script src="js/admin_analysis.js"></script>
-
-<script>
-/* Dashboard presentation helpers kept separate from existing API logic. */
-(function () {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    let peakDaysChart;
-    function renderPeakDays(data) {
-        const values = days.map(day => Number((Array.isArray(data) ? data.find(row => String(row.day).toLowerCase() === day.toLowerCase()) : null)?.count || 0));
-        const busiest = values.indexOf(Math.max(...values));
-        const day = document.getElementById("busiestDay");
-        const count = document.getElementById("busiestDayCount");
-        if (day) day.textContent = days[busiest] || "-";
-        if (count) count.textContent = `${values[busiest] || 0} reservations`;
-        const canvas = document.getElementById("peakDaysChart");
-        if (!canvas || typeof Chart === "undefined") return;
-        if (peakDaysChart) peakDaysChart.destroy();
-        peakDaysChart = new Chart(canvas, { type: "bar", data: { labels: days, datasets: [{ label: "Reservations", data: values, backgroundColor: values.map((_, i) => i === busiest ? "#16a34a" : "#bfdbfe"), borderRadius: 8, maxBarThickness: 34 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `${c.raw} reservations` } } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } }, x: { grid: { display: false } } } } });
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-        const token = sessionStorage.getItem("access_token");
-        if (!token) return;
-        fetch("http://127.0.0.1:8000/admin/peak-days", { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }).then(response => response.ok ? response.json() : []).then(renderPeakDays).catch(() => renderPeakDays([]));
-    });
-})();
-</script>
 
 
 <!-- Login JS -->

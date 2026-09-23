@@ -1,3105 +1,584 @@
-// // ==================================================
-// // ANALYTICS API
-// // ==================================================
-
-// const ANALYTICS_API =
-//     "http://127.0.0.1:8000";
-
-
-// let occupancyChart = null;
-
-
-// // ==================================================
-// // LOAD OVERALL OCCUPANCY
-// // ==================================================
-
-// async function loadOccupancyAnalytics() {
-
-//     try {
-
-//         const response = await fetch(
-
-//             `${ANALYTICS_API}/analytics/occupancy-summary`
-
-//         );
-
-
-//         if (!response.ok) {
-
-//             throw new Error(
-
-//                 `HTTP Error: ${response.status}`
-
-//             );
-
-//         }
-
-
-//         const data =
-//             await response.json();
-
-
-//         console.log(
-
-//             "Occupancy Summary:",
-
-//             data
-
-//         );
-
-
-//         // Average occupancy
-
-//         const averageOccupancy =
-//             document.getElementById(
-//                 "averageOccupancy"
-//             );
-
-
-//         if (averageOccupancy) {
-
-//             averageOccupancy.innerText =
-
-//                 `${data.average_occupancy}%`;
-
-//         }
-
-
-
-//         // Historical available slots
-
-//         const historicalAvailable =
-//             document.getElementById(
-//                 "analyticsAvailableSlots"
-//             );
-
-
-//         if (historicalAvailable) {
-
-//             historicalAvailable.innerText =
-
-//                 Number(
-//                     data.available_slots
-//                 ).toLocaleString();
-
-//         }
-
-//     }
-
-//     catch (error) {
-
-//         console.error(
-
-//             "Error loading occupancy analytics:",
-
-//             error
-
-//         );
-
-//     }
-
-// }
-
-
-
-// // ==================================================
-// // LOAD MOST + LEAST OCCUPIED ZONES
-// // ==================================================
-
-// async function loadZoneSummary() {
-
-//     try {
-
-//         const response = await fetch(
-
-//             `${ANALYTICS_API}/analytics/zone-summary`
-
-//         );
-
-
-//         if (!response.ok) {
-
-//             throw new Error(
-
-//                 `HTTP Error: ${response.status}`
-
-//             );
-
-//         }
-
-
-//         const data =
-//             await response.json();
-
-
-//         console.log(
-
-//             "Zone Summary:",
-
-//             data
-
-//         );
-
-
-//         // Most occupied zone
-
-//         const mostZone =
-//             document.getElementById(
-//                 "mostOccupiedZone"
-//             );
-
-
-//         const mostPercentage =
-//             document.getElementById(
-//                 "mostOccupiedPercentage"
-//             );
-
-
-//         if (
-//             mostZone &&
-//             data.most_occupied
-//         ) {
-
-//             mostZone.innerText =
-
-//                 data.most_occupied.zone;
-
-//         }
-
-
-//         if (
-//             mostPercentage &&
-//             data.most_occupied
-//         ) {
-
-//             mostPercentage.innerText =
-
-//                 `${data.most_occupied.occupancy}% occupancy`;
-
-//         }
-
-
-
-//         // Least occupied zone
-
-//         const leastZone =
-//             document.getElementById(
-//                 "leastOccupiedZone"
-//             );
-
-
-//         const leastPercentage =
-//             document.getElementById(
-//                 "leastOccupiedPercentage"
-//             );
-
-
-//         if (
-//             leastZone &&
-//             data.least_occupied
-//         ) {
-
-//             leastZone.innerText =
-
-//                 data.least_occupied.zone;
-
-//         }
-
-
-//         if (
-//             leastPercentage &&
-//             data.least_occupied
-//         ) {
-
-//             leastPercentage.innerText =
-
-//                 `${data.least_occupied.occupancy}% occupancy`;
-
-//         }
-
-//     }
-
-//     catch (error) {
-
-//         console.error(
-
-//             "Error loading zone summary:",
-
-//             error
-
-//         );
-
-//     }
-
-// }
-
-
-
-// // ==================================================
-// // LOAD ZONE OCCUPANCY CHART
-// // ==================================================
-
-// async function loadOccupancyChart() {
-
-//     try {
-
-//         const response = await fetch(
-
-//             `${ANALYTICS_API}/analytics/zone-occupancy`
-
-//         );
-
-
-//         if (!response.ok) {
-
-//             throw new Error(
-
-//                 `HTTP Error: ${response.status}`
-
-//             );
-
-//         }
-
-
-//         const data =
-//             await response.json();
-
-
-//         console.log(
-
-//             "Zone Occupancy:",
-
-//             data
-
-//         );
-
-
-//         // Zone names
-
-//         const zones =
-//             data.map(
-
-//                 item => item.zone
-
-//             );
-
-
-//         // Occupancy values
-
-//         const occupancyValues =
-//             data.map(
-
-//                 item => item.avg_occupancy
-
-//             );
-
-
-//         const canvas =
-//             document.getElementById(
-//                 "occupancyChart"
-//             );
-
-
-//         if (!canvas) {
-
-//             console.error(
-
-//                 "occupancyChart element not found"
-
-//             );
-
-//             return;
-
-//         }
-
-
-//         const ctx =
-//             canvas.getContext("2d");
-
-
-//         // Destroy existing chart
-
-//         if (occupancyChart) {
-
-//             occupancyChart.destroy();
-
-//         }
-
-
-//         // Create chart
-
-//         occupancyChart =
-//             new Chart(
-
-//                 ctx,
-
-//                 {
-
-//                     type: "bar",
-
-
-//                     data: {
-
-//                         labels: zones,
-
-
-//                         datasets: [
-
-//                             {
-
-//                                 label:
-//                                     "Average Occupancy %",
-
-//                                 data:
-//                                     occupancyValues,
-
-//                                 borderWidth:
-//                                     1,
-
-//                                 borderRadius:
-//                                     8
-
-//                             }
-
-//                         ]
-
-//                     },
-
-
-//                     options: {
-
-//                         responsive: true,
-
-//                         maintainAspectRatio: false,
-
-
-//                         plugins: {
-
-//                             legend: {
-
-//                                 display: true,
-
-//                                 position: "top"
-
-//                             },
-
-
-//                             tooltip: {
-
-//                                 callbacks: {
-
-//                                     label:
-//                                         function(context) {
-
-//                                             return (
-//                                                 " Occupancy: " +
-//                                                 context.raw +
-//                                                 "%"
-//                                             );
-
-//                                         }
-
-//                                 }
-
-//                             }
-
-//                         },
-
-
-//                         scales: {
-
-//                             y: {
-
-//                                 beginAtZero: true,
-
-//                                 max: 100,
-
-
-//                                 ticks: {
-
-//                                     callback:
-//                                         function(value) {
-
-//                                             return value + "%";
-
-//                                         }
-
-//                                 },
-
-
-//                                 title: {
-
-//                                     display: true,
-
-//                                     text:
-//                                         "Occupancy Percentage"
-
-//                                 }
-
-//                             },
-
-
-//                             x: {
-
-//                                 title: {
-
-//                                     display: true,
-
-//                                     text:
-//                                         "Parking Zone"
-
-//                                 }
-
-//                             }
-
-//                         }
-
-//                     }
-
-//                 }
-
-//             );
-
-//     }
-
-//     catch (error) {
-
-//         console.error(
-
-//             "Error loading occupancy chart:",
-
-//             error
-
-//         );
-
-//     }
-
-// }
-
-
-
-// // ==================================================
-// // SIDEBAR MOBILE TOGGLE
-// // ==================================================
-
-// function setupSidebar() {
-
-//     const menuButton =
-//         document.getElementById(
-//             "menuBtn"
-//         );
-
-
-//     const sidebar =
-//         document.querySelector(
-//             ".sidebar"
-//         );
-
-
-//     if (
-//         menuButton &&
-//         sidebar
-//     ) {
-
-//         menuButton.addEventListener(
-
-//             "click",
-
-//             function() {
-
-//                 sidebar.classList.toggle(
-//                     "show"
-//                 );
-
-//             }
-
-//         );
-
-//     }
-
-// }
-
-
-
-
-// document.addEventListener(
-
-//     "DOMContentLoaded",
-
-//     function() {
-
-
-//         setupSidebar();
-
-
-//         loadOccupancyAnalytics();
-
-
-//         loadZoneSummary();
-
-
-//         loadOccupancyChart();
-
-
-//     }
-
-// );
-
-
-
-// async function loadPeakHourAnalysis() {
-
-//     try {
-
-//         const response =
-//             await fetch(
-
-//                 `${ANALYTICS_API}/admin/peak-hours`,
-
-//                 {
-
-//                     headers:
-//                         analyticsHeaders()
-
-//                 }
-
-//             );
-
-
-//         if (!response.ok) {
-
-//             const error =
-//                 await response.text();
-
-
-//             console.error(
-//                 "Peak Hour API Error:",
-//                 response.status,
-//                 error
-//             );
-
-//             return;
-
-//         }
-
-
-//         const data =
-//             await response.json();
-
-
-//         console.log(
-//             "Peak Hour Data:",
-//             data
-//         );
-
-
-//         updatePeakHourCards(
-//             data
-//         );
-
-
-//         createPeakHourChart(
-//             data
-//         );
-
-
-//     }
-
-//     catch (error) {
-
-//         console.error(
-//             "Peak Hour Error:",
-//             error
-//         );
-
-//     }
-
-// }
-
-
-
-
-// function updatePeakHourCards(data) {
-
-//     if (
-//         !Array.isArray(data) ||
-//         data.length === 0
-//     ) {
-
-//         setAnalyticsText(
-//             "peakEntryHour",
-//             "-"
-//         );
-
-
-//         setAnalyticsText(
-//             "peakExitHour",
-//             "-"
-//         );
-
-
-//         setAnalyticsText(
-//             "totalTraffic",
-//             0
-//         );
-
-
-//         return;
-
-//     }
-
-//     const peakEntry =
-//         data.reduce(
-
-//             function (
-//                 max,
-//                 current
-//             ) {
-
-//                 return (
-//                     Number(
-//                         current.entry_count
-//                     )
-//                     >
-//                     Number(
-//                         max.entry_count
-//                     )
-//                 )
-
-//                 ? current
-
-//                 : max;
-
-//             }
-
-//         );
-
-//     const peakExit =
-//         data.reduce(
-
-//             function (
-//                 max,
-//                 current
-//             ) {
-
-//                 return (
-//                     Number(
-//                         current.exit_count
-//                     )
-//                     >
-//                     Number(
-//                         max.exit_count
-//                     )
-//                 )
-
-//                 ? current
-
-//                 : max;
-
-//             }
-
-//         );
-
-//     const totalEntries =
-//         data.reduce(
-
-//             function (
-//                 total,
-//                 item
-//             ) {
-
-//                 return (
-
-//                     total +
-
-//                     Number(
-//                         item.entry_count ??
-//                         0
-//                     )
-
-//                 );
-
-//             },
-
-//             0
-
-//         );
-
-
-//     const totalExits =
-//         data.reduce(
-
-//             function (
-//                 total,
-//                 item
-//             ) {
-
-//                 return (
-
-//                     total +
-
-//                     Number(
-//                         item.exit_count ??
-//                         0
-//                     )
-
-//                 );
-
-//             },
-
-//             0
-
-//         );
-
-
-
-    
-
-//     setAnalyticsText(
-
-//         "peakEntryHour",
-
-//         formatHour(
-//             peakEntry.hour
-//         )
-
-//     );
-
-
-//     setAnalyticsText(
-
-//         "peakEntryCount",
-
-//         `${peakEntry.entry_count}
-//          vehicles entered`
-
-//     );
-
-
-//     setAnalyticsText(
-
-//         "peakExitHour",
-
-//         formatHour(
-//             peakExit.hour
-//         )
-
-//     );
-
-
-//     setAnalyticsText(
-
-//         "peakExitCount",
-
-//         `${peakExit.exit_count}
-//          vehicles exited`
-
-//     );
-
-
-//     setAnalyticsText(
-
-//         "totalTraffic",
-
-//         totalEntries +
-//         totalExits
-
-//     );
-
-// }
-
-
-
-
-// function createPeakHourChart(data) {
-
-//     const canvas =
-//         document.getElementById(
-//             "peakHourChart"
-//         );
-
-
-//     if (!canvas) {
-
-//         return;
-
-//     }
-
-
-//     const labels =
-//         data.map(
-
-//             item =>
-//                 formatHour(
-//                     item.hour
-//                 )
-
-//         );
-
-
-//     const entryCounts =
-//         data.map(
-
-//             item =>
-//                 Number(
-//                     item.entry_count ??
-//                     0
-//                 )
-
-//         );
-
-
-//     const exitCounts =
-//         data.map(
-
-//             item =>
-//                 Number(
-//                     item.exit_count ??
-//                     0
-//                 )
-
-//         );
-
-
-//     if (peakHourChart) {
-
-//         peakHourChart.destroy();
-
-//     }
-
-
-//     peakHourChart =
-//         new Chart(
-
-//             canvas,
-
-//             {
-
-//                 type: "line",
-
-
-//                 data: {
-
-//                     labels:
-//                         labels,
-
-
-//                     datasets: [
-
-//                         {
-
-//                             label:
-//                                 "Vehicle Entries",
-
-//                             data:
-//                                 entryCounts,
-
-//                             borderColor:
-//                                 "#16a34a",
-
-//                             backgroundColor:
-//                                 "rgba(22,163,74,0.10)",
-
-//                             borderWidth:
-//                                 3,
-
-//                             pointRadius:
-//                                 4,
-
-//                             pointHoverRadius:
-//                                 7,
-
-//                             tension:
-//                                 0.35,
-
-//                             fill:
-//                                 true
-
-//                         },
-
-
-//                         {
-
-//                             label:
-//                                 "Vehicle Exits",
-
-//                             data:
-//                                 exitCounts,
-
-//                             borderColor:
-//                                 "#dc2626",
-
-//                             backgroundColor:
-//                                 "rgba(220,38,38,0.08)",
-
-//                             borderWidth:
-//                                 3,
-
-//                             pointRadius:
-//                                 4,
-
-//                             pointHoverRadius:
-//                                 7,
-
-//                             tension:
-//                                 0.35,
-
-//                             fill:
-//                                 true
-
-//                         }
-
-//                     ]
-
-//                 },
-
-
-//                 options: {
-
-//                     responsive:
-//                         true,
-
-//                     maintainAspectRatio:
-//                         false,
-
-
-//                     interaction: {
-
-//                         mode:
-//                             "index",
-
-//                         intersect:
-//                             false
-
-//                     },
-
-
-//                     plugins: {
-
-//                         legend: {
-
-//                             position:
-//                                 "top"
-
-//                         },
-
-
-//                         tooltip: {
-
-//                             callbacks: {
-
-//                                 label:
-//                                     function (
-//                                         context
-//                                     ) {
-
-//                                         return (
-//                                             context
-//                                                 .dataset
-//                                                 .label
-//                                             +
-//                                             ": "
-//                                             +
-//                                             context.raw
-//                                             +
-//                                             " vehicles"
-//                                         );
-
-//                                     }
-
-//                             }
-
-//                         }
-
-//                     },
-
-
-//                     scales: {
-
-//                         y: {
-
-//                             beginAtZero:
-//                                 true,
-
-
-//                             ticks: {
-
-//                                 precision:
-//                                     0
-
-//                             },
-
-
-//                             title: {
-
-//                                 display:
-//                                     true,
-
-//                                 text:
-//                                     "Number of Vehicles"
-
-//                             }
-
-//                         },
-
-
-//                         x: {
-
-//                             title: {
-
-//                                 display:
-//                                     true,
-
-//                                 text:
-//                                     "Time of Day"
-
-//                             }
-
-//                         }
-
-//                     }
-
-//                 }
-
-//             }
-
-//         );
-
-// }
-
-
-
-
-
-// async function loadBusiestDay() {
-
-//     try {
-
-//         const response =
-//             await fetch(
-
-//                 `${ANALYTICS_API}/admin/peak-days`,
-
-//                 {
-
-//                     headers:
-//                         analyticsHeaders()
-
-//                 }
-
-//             );
-
-
-//         if (!response.ok) {
-
-//             console.error(
-//                 "Peak Days API Error:",
-//                 response.status
-//             );
-
-//             return;
-
-//         }
-
-
-//         const data =
-//             await response.json();
-
-
-//         console.log(
-//             "Peak Days:",
-//             data
-//         );
-
-
-//         if (
-//             !Array.isArray(data) ||
-//             data.length === 0
-//         ) {
-
-//             setAnalyticsText(
-//                 "busiestDay",
-//                 "-"
-//             );
-
-
-//             setAnalyticsText(
-//                 "busiestDayCount",
-//                 "0 vehicles"
-//             );
-
-
-//             return;
-
-//         }
-
-
-//         const busiest =
-//             data.reduce(
-
-//                 function (
-//                     max,
-//                     current
-//                 ) {
-
-//                     return (
-//                         Number(
-//                             current.count
-//                         )
-//                         >
-//                         Number(
-//                             max.count
-//                         )
-//                     )
-
-//                     ? current
-
-//                     : max;
-
-//                 }
-
-//             );
-
-
-//         setAnalyticsText(
-
-//             "busiestDay",
-
-//             busiest.day
-
-//         );
-
-
-//         setAnalyticsText(
-
-//             "busiestDayCount",
-
-//             `${busiest.count}
-//              vehicles`
-
-//         );
-
-
-//     }
-
-//     catch (error) {
-
-//         console.error(
-//             "Busiest Day Error:",
-//             error
-//         );
-
-//     }
-
-// }
-
-
-
-
-// function setAnalyticsText(
-//     id,
-//     value
-// ) {
-
-//     const element =
-//         document.getElementById(id);
-
-
-//     if (element) {
-
-//         element.textContent =
-//             value;
-
-//     }
-
-// }
-
-
-
-
-// document.addEventListener(
-//     "DOMContentLoaded",
-//     function () {
-
-//         setupSidebar();
-
-//         loadOccupancyAnalytics();
-
-//         loadZoneSummary();
-
-//         loadOccupancyChart();
-
-//         loadPeakHourAnalysis();
-
-//         loadBusiestDay();
-
-//     }
-// );
-
-// ==================================================
-// ANALYTICS API
-// ==================================================
-
-// const ANALYTICS_API = "http://127.0.0.1:8000";
-const ANALYTICS_API = " https://smart-parking-system-tz4z.onrender.com";
-
-
-
-// ==================================================
-// CHART VARIABLES
-// ==================================================
+const ANALYTICS_API = "https://smart-parking-system-tz4z.onrender.com";
+const WEEKDAYS = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+];
 
 let occupancyChart = null;
-
 let peakHourChart = null;
+let peakDaysChart = null;
 
 
-// ==================================================
-// AUTH HEADERS
-// ==================================================
 function getAdminToken() {
-
-    const token =
-        sessionStorage.getItem("access_token");
-
-    if (!token) {
-
-        console.error(
-            "access_token not found in sessionStorage"
-        );
-
-        return null;
-    }
-
-    return token;
+    return sessionStorage.getItem("access_token");
 }
 
 
 function analyticsHeaders() {
-
-    const token =
-        getAdminToken();
-
-
-    console.log(
-        "Analytics token exists:",
-        !!token
-    );
-
-
-    if (!token) {
-
-        return {
-            "Accept":
-                "application/json",
-
-            "Content-Type":
-                "application/json"
-        };
-    }
-
+    const token = getAdminToken();
 
     return {
-
-        "Authorization":
-            `Bearer ${token}`,
-
-        "Accept":
-            "application/json",
-
-        "Content-Type":
-            "application/json"
-
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {})
     };
 }
 
 
-// ==================================================
-// FORMAT HOUR
-// 0  -> 12 AM
-// 8  -> 8 AM
-// 13 -> 1 PM
-// 18 -> 6 PM
-// ==================================================
-
-function formatHour(hour) {
-
-    hour = Number(hour);
-
-    const suffix =
-        hour >= 12
-            ? "PM"
-            : "AM";
-
-    let formattedHour =
-        hour % 12;
-
-    if (formattedHour === 0) {
-
-        formattedHour = 12;
-
+async function fetchAnalytics(path, requiresAuthentication = false) {
+    if (requiresAuthentication && !getAdminToken()) {
+        throw new Error("Admin access token is missing");
     }
 
-    return `${formattedHour} ${suffix}`;
-}
-
-
-// ==================================================
-// SAFE SET TEXT
-// ==================================================
-
-function setAnalyticsText(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element) {
-
-        element.textContent = value;
-
-    }
-}
-
-
-// ==================================================
-// LOAD OVERALL OCCUPANCY
-// ==================================================
-
-async function loadOccupancyAnalytics() {
-
-    try {
-
-        const response = await fetch(
-
-            `${ANALYTICS_API}/analytics/occupancy-summary`
-
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                `HTTP Error: ${response.status}`
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Occupancy Summary:",
-            data
-        );
-
-
-        // Average occupancy
-
-        const averageOccupancy =
-            document.getElementById(
-                "averageOccupancy"
-            );
-
-
-        if (averageOccupancy) {
-
-            averageOccupancy.innerText =
-                `${data.average_occupancy}%`;
-
-        }
-
-
-        // Historical available slots
-
-        const historicalAvailable =
-            document.getElementById(
-                "analyticsAvailableSlots"
-            );
-
-
-        if (historicalAvailable) {
-
-            historicalAvailable.innerText =
-                Number(
-                    data.available_slots
-                ).toLocaleString();
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Error loading occupancy analytics:",
-            error
-        );
-
-    }
-
-}
-
-
-// ==================================================
-// LOAD MOST + LEAST OCCUPIED ZONES
-// ==================================================
-
-async function loadZoneSummary() {
-
-    try {
-
-        const response = await fetch(
-
-            `${ANALYTICS_API}/analytics/zone-summary`
-
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                `HTTP Error: ${response.status}`
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Zone Summary:",
-            data
-        );
-
-
-        // Most Occupied
-
-        const mostZone =
-            document.getElementById(
-                "mostOccupiedZone"
-            );
-
-
-        const mostPercentage =
-            document.getElementById(
-                "mostOccupiedPercentage"
-            );
-
-
-        if (
-            mostZone &&
-            data.most_occupied
-        ) {
-
-            mostZone.innerText =
-                data.most_occupied.zone;
-
-        }
-
-
-        if (
-            mostPercentage &&
-            data.most_occupied
-        ) {
-
-            mostPercentage.innerText =
-                `${data.most_occupied.occupancy}% occupancy`;
-
-        }
-
-
-        // Least Occupied
-
-        const leastZone =
-            document.getElementById(
-                "leastOccupiedZone"
-            );
-
-
-        const leastPercentage =
-            document.getElementById(
-                "leastOccupiedPercentage"
-            );
-
-
-        if (
-            leastZone &&
-            data.least_occupied
-        ) {
-
-            leastZone.innerText =
-                data.least_occupied.zone;
-
-        }
-
-
-        if (
-            leastPercentage &&
-            data.least_occupied
-        ) {
-
-            leastPercentage.innerText =
-                `${data.least_occupied.occupancy}% occupancy`;
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Error loading zone summary:",
-            error
-        );
-
-    }
-
-}
-
-
-// ==================================================
-// LOAD OCCUPANCY CHART
-// ==================================================
-
-async function loadOccupancyChart() {
-
-    try {
-
-        const response = await fetch(
-
-            `${ANALYTICS_API}/analytics/zone-occupancy`
-
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                `HTTP Error: ${response.status}`
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Zone Occupancy:",
-            data
-        );
-
-
-        const zones =
-            data.map(
-                item => item.zone
-            );
-
-
-        const occupancyValues =
-            data.map(
-                item => item.avg_occupancy
-            );
-
-
-        const canvas =
-            document.getElementById(
-                "occupancyChart"
-            );
-
-
-        if (!canvas) {
-
-            console.error(
-                "occupancyChart element not found"
-            );
-
-            return;
-
-        }
-
-
-        const ctx =
-            canvas.getContext("2d");
-
-
-        if (occupancyChart) {
-
-            occupancyChart.destroy();
-
-        }
-
-
-        occupancyChart =
-            new Chart(
-
-                ctx,
-
-                {
-
-                    type: "bar",
-
-                    data: {
-
-                        labels: zones,
-
-                        datasets: [
-
-                            {
-
-                                label:
-                                    "Average Occupancy %",
-
-                                data:
-                                    occupancyValues,
-
-                                backgroundColor:
-                                    "#2563eb",
-
-                                borderWidth:
-                                    1,
-
-                                borderRadius:
-                                    8
-
-                            }
-
-                        ]
-
-                    },
-
-
-                    options: {
-
-                        responsive: true,
-
-                        maintainAspectRatio: false,
-
-
-                        plugins: {
-
-                            legend: {
-
-                                display: true,
-
-                                position: "top"
-
-                            },
-
-
-                            tooltip: {
-
-                                callbacks: {
-
-                                    label:
-                                        function(context) {
-
-                                            return (
-                                                "Occupancy: " +
-                                                context.raw +
-                                                "%"
-                                            );
-
-                                        }
-
-                                }
-
-                            }
-
-                        },
-
-
-                        scales: {
-
-                            y: {
-
-                                beginAtZero: true,
-
-                                max: 100,
-
-
-                                ticks: {
-
-                                    callback:
-                                        function(value) {
-
-                                            return value + "%";
-
-                                        }
-
-                                },
-
-
-                                title: {
-
-                                    display: true,
-
-                                    text:
-                                        "Occupancy Percentage"
-
-                                }
-
-                            },
-
-
-                            x: {
-
-                                title: {
-
-                                    display: true,
-
-                                    text:
-                                        "Parking Zone"
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Error loading occupancy chart:",
-            error
-        );
-
-    }
-
-}
-
-function displayPeakHourAnalysis(data) {
-
-    console.log(
-        "Displaying Peak Hour Data:",
-        data
-    );
-
-    if (!Array.isArray(data) || data.length === 0) {
-
-        console.warn(
-            "No Peak Hour data available"
-        );
-
-        return;
-    }
-
-
-    // =========================================
-    // NORMALIZE BACKEND DATA
-    // =========================================
-
-    const hourlyData = data.map(item => {
-
-        return {
-
-            hour:
-                Number(item.hour ?? 0),
-
-            label:
-                item.label ??
-                `${String(item.hour ?? 0).padStart(2, "0")}:00`,
-
-            entries:
-                Number(
-                    item.entries ??
-                    item.entry_count ??
-                    0
-                ),
-
-            exits:
-                Number(
-                    item.exits ??
-                    item.exit_count ??
-                    0
-                )
-        };
+    const response = await fetch(`${ANALYTICS_API}${path}`, {
+        headers: analyticsHeaders()
     });
 
-
-    console.log(
-        "Normalized Peak Hour Data:",
-        hourlyData
-    );
-
-
-    // =========================================
-    // FIND PEAK ENTRY HOUR
-    // =========================================
-
-    const peakEntry = hourlyData.reduce(
-        (max, item) => {
-
-            return item.entries > max.entries
-                ? item
-                : max;
-        },
-        hourlyData[0]
-    );
-
-
-    // =========================================
-    // FIND PEAK EXIT HOUR
-    // =========================================
-
-    const peakExit = hourlyData.reduce(
-        (max, item) => {
-
-            return item.exits > max.exits
-                ? item
-                : max;
-        },
-        hourlyData[0]
-    );
-
-
-    console.log(
-        "Peak Entry:",
-        peakEntry
-    );
-
-    console.log(
-        "Peak Exit:",
-        peakExit
-    );
-
-
-    // =========================================
-    // TOTAL TRAFFIC
-    // =========================================
-
-    const totalEntries =
-        hourlyData.reduce(
-            (sum, item) =>
-                sum + item.entries,
-            0
-        );
-
-    const totalExits =
-        hourlyData.reduce(
-            (sum, item) =>
-                sum + item.exits,
-            0
-        );
-
-    const totalTraffic =
-        totalEntries + totalExits;
-
-
-    console.log(
-        "Total Entries:",
-        totalEntries
-    );
-
-    console.log(
-        "Total Exits:",
-        totalExits
-    );
-
-    console.log(
-        "Total Traffic:",
-        totalTraffic
-    );
-
-
-    // =========================================
-    // UPDATE PEAK ENTRY CARD
-    // =========================================
-
-    const peakEntryHour =
-        document.getElementById(
-            "peakEntryHour"
-        );
-
-    const peakEntryCount =
-        document.getElementById(
-            "peakEntryCount"
-        );
-
-
-    if (peakEntryHour) {
-
-        peakEntryHour.textContent =
-            peakEntry.label;
-    }
-    else {
-
-        console.warn(
-            "HTML id peakEntryHour not found"
-        );
+    if (!response.ok) {
+        throw new Error(`${path} returned HTTP ${response.status}`);
     }
 
-
-    if (peakEntryCount) {
-
-        peakEntryCount.textContent =
-            `${peakEntry.entries} vehicles entered`;
-    }
-    else {
-
-        console.warn(
-            "HTML id peakEntryCount not found"
-        );
-    }
-
-
-    // =========================================
-    // UPDATE PEAK EXIT CARD
-    // =========================================
-
-    const peakExitHour =
-        document.getElementById(
-            "peakExitHour"
-        );
-
-    const peakExitCount =
-        document.getElementById(
-            "peakExitCount"
-        );
-
-
-    if (peakExitHour) {
-
-        peakExitHour.textContent =
-            peakExit.label;
-    }
-    else {
-
-        console.warn(
-            "HTML id peakExitHour not found"
-        );
-    }
-
-
-    if (peakExitCount) {
-
-        peakExitCount.textContent =
-            `${peakExit.exits} vehicles exited`;
-    }
-    else {
-
-        console.warn(
-            "HTML id peakExitCount not found"
-        );
-    }
-
-
-    // =========================================
-    // UPDATE TOTAL TRAFFIC
-    // =========================================
-
-    const totalTrafficElement =
-        document.getElementById(
-            "totalTraffic"
-        );
-
-
-    if (totalTrafficElement) {
-
-        totalTrafficElement.textContent =
-            totalTraffic;
-    }
-    else {
-
-        console.warn(
-            "HTML id totalTraffic not found"
-        );
-    }
-
-
-    // =========================================
-    // CREATE CHART
-    // =========================================
-
-    renderPeakHourChart(hourlyData);
+    return response.json();
 }
 
-function renderPeakHourChart(data) {
 
-    const canvas =
-        document.getElementById(
-            "peakHourChart"
+function setAnalyticsText(id, value) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+
+function formatPercentage(value) {
+    const percentage = Number(value);
+    return Number.isFinite(percentage) ? percentage.toFixed(2) : "-";
+}
+
+
+function formatHourForCard(hour) {
+    const numericHour = Number(hour);
+    const normalizedHour = ((numericHour % 24) + 24) % 24;
+    const displayHour = normalizedHour % 12 || 12;
+    const suffix = normalizedHour >= 12 ? "PM" : "AM";
+
+    return `${String(displayHour).padStart(2, "0")}:00 ${suffix}`;
+}
+
+
+function formatHourLabel(hour) {
+    return `${String(Number(hour)).padStart(2, "0")}:00`;
+}
+
+
+async function loadOccupancyAnalytics() {
+    try {
+        const data = await fetchAnalytics("/analytics/occupancy-summary");
+
+        setAnalyticsText(
+            "averageOccupancy",
+            `${formatPercentage(data.average_occupancy)}%`
         );
-
-
-    if (!canvas) {
-
-        console.error(
-            "peakHourChart canvas not found in HTML"
+        setAnalyticsText(
+            "analyticsAvailableSlots",
+            Number(data.available_slots || 0).toLocaleString()
         );
+    } catch (error) {
+        console.error("Unable to load occupancy summary:", error);
+        setAnalyticsText("averageOccupancy", "-");
+        setAnalyticsText("analyticsAvailableSlots", "-");
+    }
+}
 
+
+async function loadZoneSummary() {
+    try {
+        const data = await fetchAnalytics("/analytics/zone-summary");
+        const mostOccupied = data.most_occupied_zone;
+        const leastOccupied = data.least_occupied_zone;
+
+        setAnalyticsText(
+            "mostOccupiedZone",
+            mostOccupied?.zone || "-"
+        );
+        setAnalyticsText(
+            "mostOccupiedPercentage",
+            mostOccupied
+                ? `${formatPercentage(mostOccupied.occupancy)}% occupancy`
+                : "-"
+        );
+        setAnalyticsText(
+            "leastOccupiedZone",
+            leastOccupied?.zone || "-"
+        );
+        setAnalyticsText(
+            "leastOccupiedPercentage",
+            leastOccupied
+                ? `${formatPercentage(leastOccupied.occupancy)}% occupancy`
+                : "-"
+        );
+    } catch (error) {
+        console.error("Unable to load zone summary:", error);
+        setAnalyticsText("mostOccupiedZone", "-");
+        setAnalyticsText("mostOccupiedPercentage", "-");
+        setAnalyticsText("leastOccupiedZone", "-");
+        setAnalyticsText("leastOccupiedPercentage", "-");
+    }
+}
+
+
+async function loadOccupancyChart() {
+    try {
+        const data = await fetchAnalytics("/analytics/zone-occupancy");
+        const zoneData = Array.isArray(data) ? data : [];
+
+        console.group("Parking Occupancy Analytics — weighted zone results");
+        console.table(zoneData.map(item => ({
+            Zone: item.zone,
+            Records: Number(item.records) || 0,
+            "Total Capacity": Number(item.total_slots) || 0,
+            "Occupied Slots": Number(item.occupied_slots) || 0,
+            "Available Slots": Number(item.available_slots) || 0,
+            "Occupancy %": Number(
+                item.occupancy_percentage ?? item.avg_occupancy
+            ) || 0
+        })));
+        console.groupEnd();
+
+        createOccupancyChart(zoneData);
+    } catch (error) {
+        console.error("Unable to load zone occupancy chart:", error);
+        createOccupancyChart([]);
+    }
+}
+
+
+function createOccupancyChart(zoneData) {
+    const canvas = document.getElementById("occupancyChart");
+
+    if (!canvas || typeof Chart === "undefined") {
         return;
     }
 
+    const labels = zoneData.map(item => String(item.zone));
+    const values = zoneData.map(item => Number(
+        item.occupancy_percentage ?? item.avg_occupancy
+    ) || 0);
 
-    if (typeof Chart === "undefined") {
-
-        console.error(
-            "Chart.js is not loaded"
-        );
-
-        return;
+    if (occupancyChart) {
+        occupancyChart.destroy();
     }
 
+    occupancyChart = new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [{
+                label: "Occupancy %",
+                data: values,
+                backgroundColor: "rgba(22, 163, 74, 0.78)",
+                borderColor: "#15803d",
+                borderWidth: 1,
+                borderRadius: 8,
+                maxBarThickness: 48
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: items => `Zone: ${items[0].label}`,
+                        label: context =>
+                            `Occupancy: ${Number(context.raw).toFixed(2)}%`,
+                        afterLabel: context => {
+                            const zone = zoneData[context.dataIndex];
 
-    const labels =
-        data.map(item =>
-            item.label
-        );
-
-
-    const entryValues =
-        data.map(item =>
-            item.entries
-        );
-
-
-    const exitValues =
-        data.map(item =>
-            item.exits
-        );
-
-
-    console.log(
-        "Chart Labels:",
-        labels
-    );
-
-    console.log(
-        "Entry Values:",
-        entryValues
-    );
-
-    console.log(
-        "Exit Values:",
-        exitValues
-    );
-
-
-    // Destroy old chart
-    if (peakHourChartInstance) {
-
-        peakHourChartInstance.destroy();
-    }
-
-
-    peakHourChartInstance =
-        new Chart(
-            canvas.getContext("2d"),
-            {
-
-                type: "line",
-
-                data: {
-
-                    labels: labels,
-
-                    datasets: [
-
-                        {
-                            label:
-                                "Entries",
-
-                            data:
-                                entryValues,
-
-                            borderWidth:
-                                2,
-
-                            tension:
-                                0.3,
-
-                            fill:
-                                false
-                        },
-
-                        {
-                            label:
-                                "Exits",
-
-                            data:
-                                exitValues,
-
-                            borderWidth:
-                                2,
-
-                            tension:
-                                0.3,
-
-                            fill:
-                                false
-                        }
-                    ]
-                },
-
-
-                options: {
-
-                    responsive:
-                        true,
-
-                    maintainAspectRatio:
-                        false,
-
-                    interaction: {
-
-                        mode:
-                            "index",
-
-                        intersect:
-                            false
-                    },
-
-                    plugins: {
-
-                        legend: {
-
-                            display:
-                                true,
-
-                            position:
-                                "top"
-                        }
-                    },
-
-                    scales: {
-
-                        x: {
-
-                            title: {
-
-                                display:
-                                    true,
-
-                                text:
-                                    "Hour"
-                            }
-                        },
-
-                        y: {
-
-                            beginAtZero:
-                                true,
-
-                            ticks: {
-
-                                precision:
-                                    0
-                            },
-
-                            title: {
-
-                                display:
-                                    true,
-
-                                text:
-                                    "Number of Vehicles"
-                            }
+                            return [
+                                `Records: ${Number(zone.records || 0).toLocaleString()}`,
+                                `Occupied Slots: ${Number(zone.occupied_slots || 0).toLocaleString()}`,
+                                `Total Capacity: ${Number(zone.total_slots || 0).toLocaleString()}`,
+                                `Available Slots: ${Number(zone.available_slots || 0).toLocaleString()}`
+                            ];
                         }
                     }
                 }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 100,
+                    ticks: { callback: value => `${value}%` },
+                    title: {
+                        display: true,
+                        text: "Average Occupancy %"
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    title: { display: true, text: "Parking Zone" }
+                }
             }
-        );
+        }
+    });
 }
 
 
-// ==================================================
-// PEAK HOUR ANALYSIS
-// ==================================================
+function calculateHourlyTraffic(data) {
+    const hourlyTraffic = Array.from({ length: 24 }, (_, hour) => ({
+        hour,
+        entries: 0,
+        exits: 0
+    }));
 
-let peakHourChartInstance = null;
+    if (!Array.isArray(data)) {
+        return hourlyTraffic;
+    }
+
+    data.forEach(item => {
+        const hour = Number(item.hour);
+
+        if (!Number.isInteger(hour) || hour < 0 || hour > 23) {
+            return;
+        }
+
+        hourlyTraffic[hour].entries = Math.max(
+            0,
+            Number(item.entries ?? item.entry_count) || 0
+        );
+        hourlyTraffic[hour].exits = Math.max(
+            0,
+            Number(item.exits ?? item.exit_count) || 0
+        );
+    });
+
+    return hourlyTraffic;
+}
+
+
+function calculatePeakHour(hourlyTraffic, field) {
+    const total = hourlyTraffic.reduce(
+        (sum, item) => sum + item[field],
+        0
+    );
+
+    if (total === 0) {
+        return null;
+    }
+
+    return hourlyTraffic.reduce(
+        (peak, item) => item[field] > peak[field] ? item : peak,
+        hourlyTraffic[0]
+    );
+}
 
 
 async function loadPeakHourAnalysis() {
-
-    const token = getAdminToken();
-
-    if (!token) {
-        console.error(
-            "Cannot load Peak Hours: token missing"
-        );
-        return;
-    }
-
     try {
-
-        const response = await fetch(
-            "http://127.0.0.1:8000/admin/peak-hours",
-            {
-                method: "GET",
-
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-        console.log(
-            "Peak Hour API Status:",
-            response.status
-        );
-
-        if (!response.ok) {
-
-            const errorText =
-                await response.text();
-
-            console.error(
-                "Peak Hour API Error:",
-                response.status,
-                errorText
-            );
-
-            return;
-        }
-
-        const data = await response.json();
-
-        console.log(
-            "Peak Hour Data:",
-            data
-        );
-
-        // IMPORTANT
-        displayPeakHourAnalysis(data);
-
+        const data = await fetchAnalytics("/admin/peak-hours", true);
+        const hourlyTraffic = calculateHourlyTraffic(data);
+        updatePeakHourCards(hourlyTraffic);
+        createPeakHourChart(hourlyTraffic);
     } catch (error) {
-
-        console.error(
-            "Peak Hour Error:",
-            error
-        );
+        console.error("Unable to load peak-hour analytics:", error);
+        setAnalyticsText("peakEntryHour", "-");
+        setAnalyticsText("peakEntryCount", "Unable to load data");
+        setAnalyticsText("peakExitHour", "-");
+        setAnalyticsText("peakExitCount", "Unable to load data");
+        setAnalyticsText("totalTraffic", "-");
+        createPeakHourChart([]);
     }
 }
 
-// ==================================================
-// UPDATE PEAK HOUR CARDS
-// ==================================================
 
-function updatePeakHourCards(data) {
-
-    if (
-        !Array.isArray(data) ||
-        data.length === 0
-    ) {
-
-        console.log(
-            "No Peak Hour Data"
-        );
-
-
-        setAnalyticsText(
-            "peakEntryHour",
-            "-"
-        );
-
-
-        setAnalyticsText(
-            "peakEntryCount",
-            "0 vehicles entered"
-        );
-
-
-        setAnalyticsText(
-            "peakExitHour",
-            "-"
-        );
-
-
-        setAnalyticsText(
-            "peakExitCount",
-            "0 vehicles exited"
-        );
-
-
-        setAnalyticsText(
-            "totalTraffic",
-            0
-        );
-
-
-        return;
-
-    }
-
-
-    // ==========================================
-    // PEAK ENTRY
-    // ==========================================
-
-    const peakEntry =
-        data.reduce(
-
-            function(max, current) {
-
-                return (
-
-                    Number(
-                        current.entry_count
-                    )
-
-                    >
-
-                    Number(
-                        max.entry_count
-                    )
-
-                )
-
-                    ? current
-
-                    : max;
-
-            }
-
-        );
-
-
-    // ==========================================
-    // PEAK EXIT
-    // ==========================================
-
-    const peakExit =
-        data.reduce(
-
-            function(max, current) {
-
-                return (
-
-                    Number(
-                        current.exit_count
-                    )
-
-                    >
-
-                    Number(
-                        max.exit_count
-                    )
-
-                )
-
-                    ? current
-
-                    : max;
-
-            }
-
-        );
-
-
-    // ==========================================
-    // TOTAL ENTRIES
-    // ==========================================
-
-    const totalEntries =
-        data.reduce(
-
-            function(total, item) {
-
-                return (
-
-                    total +
-
-                    Number(
-                        item.entry_count || 0
-                    )
-
-                );
-
-            },
-
-            0
-
-        );
-
-
-    // ==========================================
-    // TOTAL EXITS
-    // ==========================================
-
-    const totalExits =
-        data.reduce(
-
-            function(total, item) {
-
-                return (
-
-                    total +
-
-                    Number(
-                        item.exit_count || 0
-                    )
-
-                );
-
-            },
-
-            0
-
-        );
-
-
-    // ==========================================
-    // DISPLAY VALUES
-    // ==========================================
+function updatePeakHourCards(hourlyTraffic) {
+    const peakEntry = calculatePeakHour(hourlyTraffic, "entries");
+    const peakExit = calculatePeakHour(hourlyTraffic, "exits");
+    const totalEntries = hourlyTraffic.reduce(
+        (sum, item) => sum + item.entries,
+        0
+    );
+    const totalExits = hourlyTraffic.reduce(
+        (sum, item) => sum + item.exits,
+        0
+    );
 
     setAnalyticsText(
-
         "peakEntryHour",
-
-        formatHour(
-            peakEntry.hour
-        )
-
+        peakEntry ? formatHourForCard(peakEntry.hour) : "-"
     );
-
-
     setAnalyticsText(
-
         "peakEntryCount",
-
-        `${peakEntry.entry_count} vehicles entered`
-
+        `${peakEntry?.entries || 0} vehicles entered`
     );
-
-
     setAnalyticsText(
-
         "peakExitHour",
-
-        formatHour(
-            peakExit.hour
-        )
-
+        peakExit ? formatHourForCard(peakExit.hour) : "-"
     );
-
-
     setAnalyticsText(
-
         "peakExitCount",
-
-        `${peakExit.exit_count} vehicles exited`
-
+        `${peakExit?.exits || 0} vehicles exited`
     );
-
-
-    setAnalyticsText(
-
-        "totalTraffic",
-
-        totalEntries +
-        totalExits
-
-    );
-
-
-    console.log(
-        "Peak Entry:",
-        peakEntry
-    );
-
-
-    console.log(
-        "Peak Exit:",
-        peakExit
-    );
-
+    setAnalyticsText("totalTraffic", totalEntries + totalExits);
 }
 
 
-// ==================================================
-// CREATE PEAK HOUR CHART
-// ==================================================
+function createPeakHourChart(hourlyTraffic) {
+    const canvas = document.getElementById("peakHourChart");
 
-function createPeakHourChart(data) {
-
-    const canvas =
-        document.getElementById(
-            "peakHourChart"
-        );
-
-
-    if (!canvas) {
-
-        console.error(
-            "peakHourChart element not found"
-        );
-
+    if (!canvas || typeof Chart === "undefined") {
         return;
-
     }
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    // Hour labels
-
-    const labels =
-        data.map(
-
-            item =>
-                formatHour(
-                    item.hour
-                )
-
-        );
-
-
-    // Entries
-
-    const entryCounts =
-        data.map(
-
-            item =>
-                Number(
-                    item.entry_count || 0
-                )
-
-        );
-
-
-    // Exits
-
-    const exitCounts =
-        data.map(
-
-            item =>
-                Number(
-                    item.exit_count || 0
-                )
-
-        );
-
-
-    console.log(
-        "Peak Chart Labels:",
-        labels
-    );
-
-
-    console.log(
-        "Entry Counts:",
-        entryCounts
-    );
-
-
-    console.log(
-        "Exit Counts:",
-        exitCounts
-    );
-
 
     if (peakHourChart) {
-
         peakHourChart.destroy();
-
     }
 
-
-    peakHourChart =
-        new Chart(
-
-            ctx,
-
-            {
-
-                type: "line",
-
-
-                data: {
-
-                    labels: labels,
-
-
-                    datasets: [
-
-                        {
-
-                            label:
-                                "Vehicle Entries",
-
-                            data:
-                                entryCounts,
-
-                            borderColor:
-                                "#16a34a",
-
-                            backgroundColor:
-                                "rgba(22,163,74,0.10)",
-
-                            borderWidth:
-                                3,
-
-                            pointRadius:
-                                4,
-
-                            pointHoverRadius:
-                                7,
-
-                            tension:
-                                0.35,
-
-                            fill:
-                                true
-
-                        },
-
-
-                        {
-
-                            label:
-                                "Vehicle Exits",
-
-                            data:
-                                exitCounts,
-
-                            borderColor:
-                                "#dc2626",
-
-                            backgroundColor:
-                                "rgba(220,38,38,0.08)",
-
-                            borderWidth:
-                                3,
-
-                            pointRadius:
-                                4,
-
-                            pointHoverRadius:
-                                7,
-
-                            tension:
-                                0.35,
-
-                            fill:
-                                true
-
-                        }
-
-                    ]
-
+    peakHourChart = new Chart(canvas, {
+        type: "line",
+        data: {
+            labels: hourlyTraffic.map(item => formatHourLabel(item.hour)),
+            datasets: [
+                {
+                    label: "Entry Traffic",
+                    data: hourlyTraffic.map(item => item.entries),
+                    borderColor: "#16a34a",
+                    backgroundColor: "rgba(22, 163, 74, 0.10)",
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    tension: 0.3,
+                    fill: true
                 },
-
-
-                options: {
-
-                    responsive:
-                        true,
-
-                    maintainAspectRatio:
-                        false,
-
-
-                    interaction: {
-
-                        mode:
-                            "index",
-
-                        intersect:
-                            false
-
-                    },
-
-
-                    plugins: {
-
-                        legend: {
-
-                            display: true,
-
-                            position:
-                                "top"
-
-                        },
-
-
-                        tooltip: {
-
-                            callbacks: {
-
-                                label:
-                                    function(context) {
-
-                                        return (
-
-                                            context
-                                                .dataset
-                                                .label
-
-                                            +
-
-                                            ": "
-
-                                            +
-
-                                            context.raw
-
-                                            +
-
-                                            " vehicles"
-
-                                        );
-
-                                    }
-
-                            }
-
-                        }
-
-                    },
-
-
-                    scales: {
-
-                        y: {
-
-                            beginAtZero:
-                                true,
-
-
-                            ticks: {
-
-                                precision:
-                                    0
-
-                            },
-
-
-                            title: {
-
-                                display:
-                                    true,
-
-                                text:
-                                    "Number of Vehicles"
-
-                            }
-
-                        },
-
-
-                        x: {
-
-                            title: {
-
-                                display:
-                                    true,
-
-                                text:
-                                    "Time of Day"
-
-                            }
-
-                        }
-
-                    }
-
+                {
+                    label: "Exit Traffic",
+                    data: hourlyTraffic.map(item => item.exits),
+                    borderColor: "#dc2626",
+                    backgroundColor: "rgba(220, 38, 38, 0.08)",
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    tension: 0.3,
+                    fill: true
                 }
-
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+                legend: { display: true, position: "top" },
+                tooltip: {
+                    callbacks: {
+                        title: items => `Hour: ${items[0].label}`,
+                        label: context =>
+                            `${context.dataset.label}: ${context.raw} vehicles`
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 },
+                    title: { display: true, text: "Number of Vehicles" }
+                },
+                x: {
+                    grid: { display: false },
+                    title: { display: true, text: "Hour" }
+                }
             }
+        }
+    });
+}
 
-        );
+
+function calculatePeakDays(data) {
+    return WEEKDAYS.map(day => {
+        const match = Array.isArray(data)
+            ? data.find(item =>
+                String(item.day).toLowerCase() === day.toLowerCase()
+            )
+            : null;
+
+        return {
+            day,
+            count: Math.max(0, Number(match?.count) || 0)
+        };
+    });
+}
 
 
-    console.log(
-        "Peak Hour Chart Created Successfully"
+function calculateBusiestDay(peakDays) {
+    const totalReservations = peakDays.reduce(
+        (sum, item) => sum + item.count,
+        0
     );
 
+    if (totalReservations === 0) {
+        return null;
+    }
+
+    return peakDays.reduce(
+        (busiest, item) => item.count > busiest.count ? item : busiest,
+        peakDays[0]
+    );
 }
 
 
-function displayPeakDays(data) {
-
-    console.log("Displaying Peak Days:", data);
-
-    if (!Array.isArray(data) || data.length === 0) {
-        console.log("No Peak Days data available");
-        return;
-    }
-
-    // Find busiest day
-    const busiestDay = data.reduce((max, item) => {
-        return item.count > max.count ? item : max;
-    });
-
-    console.log("Busiest Day:", busiestDay);
-
-    // Show text values if these elements exist
-    const dayElement =
-        document.getElementById("busiestDay");
-
-    const countElement =
-        document.getElementById("busiestDayCount");
-
-    if (dayElement) {
-        dayElement.textContent =
-            busiestDay.day;
-    }
-
-    if (countElement) {
-        countElement.textContent =
-            `${busiestDay.count} reservations`;
-    }
-}
-
-// ==================================================
-// BUSIEST DAY
-// ==================================================
-
-
-async function loadBusiestDay() {
-
-    const token = getAdminToken();
-
-    if (!token) {
-
-        console.error(
-            "Cannot load Peak Days: token missing"
-        );
-
-        return;
-    }
-
+async function loadPeakDaysAnalysis() {
     try {
-
-        const response = await fetch(
-            "http://127.0.0.1:8000/admin/peak-days",
-            {
-                method: "GET",
-
-                headers: {
-
-                    "Authorization":
-                        `Bearer ${token}`,
-
-                    "Content-Type":
-                        "application/json"
-                }
-            }
-        );
-
-        console.log(
-            "Peak Days API Status:",
-            response.status
-        );
-
-        if (!response.ok) {
-
-            const error =
-                await response.text();
-
-            console.error(
-                "Peak Days API Error:",
-                response.status,
-                error
-            );
-
-            return;
-        }
-
-        const data =
-            await response.json();
-
-        console.log(
-            "Peak Days Data:",
-            data
-        );
-
-        displayPeakDays(data);
-
+        const data = await fetchAnalytics("/admin/peak-days", true);
+        displayPeakDays(calculatePeakDays(data));
     } catch (error) {
-
-        console.error(
-            "Peak Days Error:",
-            error
-        );
+        console.error("Unable to load peak-days analytics:", error);
+        displayPeakDays([]);
+        setAnalyticsText("busiestDay", "-");
+        setAnalyticsText("busiestDayCount", "Unable to load data");
     }
 }
-// ==================================================
-// SIDEBAR MOBILE TOGGLE
-// ==================================================
+
+
+function displayPeakDays(peakDays) {
+    const busiestDay = calculateBusiestDay(peakDays);
+
+    setAnalyticsText("busiestDay", busiestDay?.day || "-");
+    setAnalyticsText(
+        "busiestDayCount",
+        busiestDay ? `${busiestDay.count} reservations` : "No data"
+    );
+
+    const canvas = document.getElementById("peakDaysChart");
+
+    if (!canvas || typeof Chart === "undefined") {
+        return;
+    }
+
+    if (peakDaysChart) {
+        peakDaysChart.destroy();
+    }
+
+    peakDaysChart = new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels: peakDays.map(item => item.day),
+            datasets: [{
+                label: "Reservations",
+                data: peakDays.map(item => item.count),
+                backgroundColor: peakDays.map(item =>
+                    busiestDay && item.day === busiestDay.day
+                        ? "#16a34a"
+                        : "#bbf7d0"
+                ),
+                borderColor: "#15803d",
+                borderWidth: 1,
+                borderRadius: 8,
+                maxBarThickness: 42
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: context => `${context.raw} reservations`
+                    }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { precision: 0 } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+}
+
 
 function setupSidebar() {
+    const menuButton = document.getElementById("menuBtn");
+    const sidebar = document.querySelector(".sidebar");
 
-    const menuButton =
-        document.getElementById(
-            "menuBtn"
-        );
-
-
-    const sidebar =
-        document.querySelector(
-            ".sidebar"
-        );
-
-
-    if (
-        menuButton &&
-        sidebar
-    ) {
-
-        menuButton.addEventListener(
-
-            "click",
-
-            function() {
-
-                sidebar.classList.toggle(
-                    "show"
-                );
-
-            }
-
-        );
-
+    if (menuButton && sidebar) {
+        menuButton.addEventListener("click", () => {
+            sidebar.classList.toggle("show");
+        });
     }
-
 }
 
 
-// ==================================================
-// LOAD ALL ANALYTICS
-// ==================================================
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function() {
+function refreshAdminAnalytics() {
+    loadOccupancyAnalytics();
+    loadZoneSummary();
+    loadOccupancyChart();
+    loadPeakHourAnalysis();
+    loadPeakDaysAnalysis();
+}
 
 
-        console.log(
-            "Admin Analytics JS Loaded"
-        );
-
-
-        setupSidebar();
-
-
-        // Occupancy
-
-        loadOccupancyAnalytics();
-
-        loadZoneSummary();
-
-        loadOccupancyChart();
-
-
-        // Peak Hour
-
-        loadPeakHourAnalysis();
-
-        loadBusiestDay();
-        connectAnalyticsWebSocket();
-
-
-    }
-
-);
-
-// 
 let analyticsSocket = null;
 let analyticsReconnectTimer = null;
 
 
 function connectAnalyticsWebSocket() {
+    const websocketBase = ANALYTICS_API.replace(/^http/, "ws");
+    analyticsSocket = new WebSocket(`${websocketBase}/analytics/ws`);
 
-    analyticsSocket =
-        new WebSocket(
-            "ws://127.0.0.1:8000/analytics/ws"
+    analyticsSocket.onmessage = event => {
+        let message = event.data;
+
+        try {
+            message = JSON.parse(event.data);
+        } catch (error) {
+            // Plain string messages are valid websocket events.
+        }
+
+        const eventName = typeof message === "object"
+            ? (message.event || message.type)
+            : message;
+
+        if ([
+            "analytics_updated",
+            "reservation_created",
+            "parking_status_updated"
+        ].includes(eventName)) {
+            refreshAdminAnalytics();
+        }
+    };
+
+    analyticsSocket.onclose = () => {
+        analyticsReconnectTimer = window.setTimeout(
+            connectAnalyticsWebSocket,
+            3000
         );
+    };
 
-
-    analyticsSocket.onopen =
-        function () {
-
-            console.log(
-                "Analytics WebSocket connected"
-            );
-        };
-
-
-    analyticsSocket.onmessage =
-        function (event) {
-
-            console.log(
-                "Analytics WebSocket message:",
-                event.data
-            );
-
-
-            let message = event.data;
-
-
-            try {
-
-                message =
-                    JSON.parse(event.data);
-
-            } catch (error) {
-
-                // Keep message as string
-            }
-
-
-            const eventName =
-                typeof message === "object"
-                    ? message.event
-                    : message;
-
-
-            if (
-                eventName === "analytics_updated" ||
-                eventName === "reservation_created" ||
-                eventName === "parking_status_updated"
-            ) {
-
-                console.log(
-                    "Reloading analytics..."
-                );
-
-                refreshAdminAnalytics();
-            }
-        };
-
-
-    analyticsSocket.onclose =
-        function () {
-
-            console.log(
-                "Analytics WebSocket disconnected"
-            );
-
-            analyticsReconnectTimer =
-                setTimeout(
-                    connectAnalyticsWebSocket,
-                    3000
-                );
-        };
-
-
-    analyticsSocket.onerror =
-        function (error) {
-
-            console.error(
-                "Analytics WebSocket error:",
-                error
-            );
-        };
+    analyticsSocket.onerror = () => analyticsSocket.close();
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupSidebar();
+    refreshAdminAnalytics();
+    connectAnalyticsWebSocket();
+});
+
+
+window.addEventListener("beforeunload", () => {
+    window.clearTimeout(analyticsReconnectTimer);
+
+    if (analyticsSocket) {
+        analyticsSocket.onclose = null;
+        analyticsSocket.close();
+    }
+});
