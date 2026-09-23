@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>User Dashboard</title>
+    <title>Payment Management | Smart Parking</title>
 
     <!-- Bootstrap -->
 
@@ -22,10 +22,11 @@
     <!-- CSS -->
 
     <link rel="stylesheet" href="css/owner_payment.css">
+    <link rel="stylesheet" href="css/owner-product.css">
 
 </head>
 
-<body>
+<body class="owner-console">
 
 <div class="wrapper">
 
@@ -35,13 +36,13 @@
 
         <div class="logo">
 
-            <div class="logo-icon bi bi-shield-lock-fill">
+            <div class="logo-icon bi bi-car-front-fill">
 
             
 
             </div>
 
-            <span>Owner DASHBOARD</span>
+            <span>Smart Parking<small>Owner Console</small></span>
 
         </div>
 
@@ -146,7 +147,7 @@
  
             <h5 class="m-0 fw-bold">
 
-                Dashboard
+                Payments
 
             </h5>
           
@@ -169,10 +170,13 @@
 
 
         <div id="main-content">
-        <br>
-        <br>
-
-        <h1>Payment Management</h1>
+        <div class="owner-page-header">
+            <div>
+                <span class="page-eyebrow">Transactions</span>
+                <h1>Payment Management</h1>
+                <p class="page-subtitle">Monitor customer payments and review complete transaction details.</p>
+            </div>
+        </div>
 
 
 <div class="table-container">
@@ -222,6 +226,9 @@
     </table>
 
 </div>
+</div>
+</div>
+</div>
 
 
 
@@ -249,6 +256,7 @@
 
             <button
                 class="modal-close"
+                type="button"
                 onclick="closePaymentModal()"
             >
 
@@ -284,6 +292,7 @@
 ></script>
 
 <script src="js/login.js"></script>
+<script src="js/owner-ui.js"></script>
 
 </body>
 

@@ -1,0 +1,1207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --owner-primary: #16803c;
+    --owner-primary-dark: #0f6530;
+    --owner-primary-deep: #0a3d25;
+    --owner-primary-soft: #eaf8ef;
+    --owner-primary-faint: #f5fbf7;
+    --owner-heading: #163322;
+    --owner-text: #405348;
+    --owner-muted: #748279;
+    --owner-border: #dfe9e2;
+    --owner-danger: #dc3545;
+    --owner-warning: #ee8b17;
+    --owner-surface: #ffffff;
+    --owner-bg: #f3f8f5;
+    --owner-radius-sm: 10px;
+    --owner-radius: 16px;
+    --owner-radius-lg: 22px;
+    --owner-shadow-sm: 0 5px 18px rgba(20, 75, 42, 0.07);
+    --owner-shadow: 0 14px 38px rgba(20, 75, 42, 0.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body.owner-console {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--owner-text);
+    background:
+        radial-gradient(circle at 92% 2%, rgba(187, 247, 208, 0.34), transparent 25rem),
+        var(--owner-bg);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.owner-console button,
+.owner-console input,
+.owner-console textarea,
+.owner-console select {
+    font: inherit;
+}
+
+.owner-console .wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.owner-console .sidebar {
+    position: fixed;
+    z-index: 1040;
+    inset: 0 auto 0 0;
+    display: flex;
+    width: 272px;
+    padding: 22px 16px;
+    flex-direction: column;
+    color: #fff;
+    background:
+        radial-gradient(circle at 20% 0, rgba(72, 187, 120, 0.24), transparent 16rem),
+        linear-gradient(180deg, #103f28 0%, #082f1e 100%);
+    box-shadow: 12px 0 35px rgba(8, 47, 30, 0.12);
+    transition: transform 0.24s ease;
+}
+
+.owner-console .logo {
+    display: flex;
+    min-height: 62px;
+    align-items: center;
+    gap: 12px;
+    margin: 0 5px 28px;
+    padding: 5px 3px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.owner-console .logo-icon {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    margin: 0;
+    color: #fff;
+    background: linear-gradient(145deg, #36bb68, #16803c);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 8px 18px rgba(3, 28, 17, 0.25);
+    font-size: 1.35rem;
+}
+
+.owner-console .logo > span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+
+.owner-console .logo > span small {
+    margin-top: 3px;
+    color: #a9d9bc;
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.owner-console .menu {
+    display: flex;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    list-style: none;
+}
+
+.owner-console .menu li {
+    margin: 0;
+}
+
+.owner-console .menu li a {
+    position: relative;
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 14px;
+    color: #c6ddcf;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 0.91rem;
+    font-weight: 550;
+    text-decoration: none;
+    transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+
+.owner-console .menu li a i {
+    width: 21px;
+    color: #9ed4b2;
+    font-size: 1.08rem;
+    text-align: center;
+    transition: color 0.18s ease;
+}
+
+.owner-console .menu li:hover a {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
+}
+
+.owner-console .menu li:hover a i {
+    color: #fff;
+}
+
+.owner-console .menu li.active a,
+.owner-console .menu li.active a#deshboardlink,
+.owner-console .menu li a#deshboardlink {
+    color: #fff;
+    background: linear-gradient(135deg, #229a4c, #16803c);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 22px rgba(2, 24, 14, 0.28);
+}
+
+.owner-console .menu li.active a::before {
+    position: absolute;
+    left: -16px;
+    width: 4px;
+    height: 24px;
+    background: #7ee2a0;
+    border-radius: 0 4px 4px 0;
+    content: "";
+}
+
+.owner-console .menu li.active a i {
+    color: #fff;
+}
+
+.owner-console .menu .logout {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.owner-console .menu .logout a {
+    color: #f5c5c9;
+}
+
+.owner-console .menu .logout a i {
+    color: #f4a8ae;
+}
+
+.owner-console .menu .logout:hover a {
+    background: rgba(220, 53, 69, 0.14);
+}
+
+.owner-console .main {
+    width: calc(100% - 272px);
+    min-width: 0;
+    min-height: 100vh;
+    margin-left: 272px;
+}
+
+.owner-console .top-navbar {
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+    display: grid;
+    min-height: 72px;
+    padding: 0 32px;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(214, 228, 218, 0.9);
+    box-shadow: 0 3px 18px rgba(20, 75, 42, 0.04);
+    backdrop-filter: blur(14px);
+}
+
+.owner-console .top-navbar h5 {
+    color: var(--owner-heading);
+    font-size: 1.03rem;
+    font-weight: 750 !important;
+    letter-spacing: -0.015em;
+}
+
+.owner-console .menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+    place-items: center;
+    color: var(--owner-primary-dark);
+    background: var(--owner-primary-soft);
+    border: 1px solid #cdebd7;
+    border-radius: 11px;
+    font-size: 1.35rem;
+}
+
+.owner-console .right-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.owner-console .right-menu > i {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    color: var(--owner-primary-dark);
+    background: var(--owner-primary-soft);
+    border: 1px solid #d5efde;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+.owner-console .user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    color: var(--owner-heading);
+    background: #fff;
+    border: 1px solid var(--owner-border);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 650;
+}
+
+.owner-console .user::before {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(145deg, #36bb68, #16803c);
+    border-radius: 9px;
+    content: "O";
+    font-size: 0.76rem;
+    font-weight: 800;
+}
+
+.owner-console #main-content,
+.owner-console .main > .container-fluid,
+.owner-console .main > .container {
+    width: min(100%, 1480px);
+    margin-right: auto !important;
+    margin-left: auto !important;
+    padding: clamp(20px, 3vw, 38px) !important;
+}
+
+.owner-console .page-container {
+    width: 100%;
+    margin: 0;
+}
+
+.owner-console .owner-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 22px;
+    margin-bottom: 24px;
+}
+
+.owner-console .owner-page-header h1,
+.owner-console .owner-page-header h2,
+.owner-console .dashboard h1,
+.owner-console .page-container h1,
+.owner-console #main-content > h1 {
+    margin: 0;
+    color: var(--owner-heading);
+    font-size: clamp(1.65rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.16;
+}
+
+.owner-console .page-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--owner-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.owner-console .page-subtitle {
+    max-width: 660px;
+    margin: 8px 0 0;
+    color: var(--owner-muted);
+    font-size: 0.91rem;
+    line-height: 1.6;
+}
+
+.owner-console .card,
+.owner-console .table-container {
+    background: var(--owner-surface);
+    border: 1px solid var(--owner-border) !important;
+    border-radius: var(--owner-radius) !important;
+    box-shadow: var(--owner-shadow-sm) !important;
+}
+
+.owner-console .card-body {
+    padding: clamp(18px, 2.5vw, 26px);
+}
+
+.owner-console .dashboard {
+    padding: 0;
+}
+
+.owner-console .dashboard-welcome {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 25px;
+    padding: clamp(24px, 4vw, 38px);
+    background: linear-gradient(125deg, #0f6530, #199447);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--owner-radius-lg);
+    box-shadow: 0 18px 38px rgba(15, 101, 48, 0.2);
+}
+
+.owner-console .dashboard-welcome::after {
+    position: absolute;
+    right: -55px;
+    bottom: -75px;
+    width: 240px;
+    height: 240px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 36px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    content: "";
+}
+
+.owner-console .dashboard-welcome h1,
+.owner-console .dashboard-welcome h2,
+.owner-console .dashboard-welcome #ownerName {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+
+.owner-console .dashboard-welcome h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.owner-console .dashboard-welcome h2 {
+    margin: 0;
+    color: #d9f6e4;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 500;
+}
+
+.owner-console .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.owner-console .cards > .card {
+    position: relative;
+    display: grid;
+    min-height: 156px;
+    padding: 23px;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.owner-console .cards > .card::after {
+    position: absolute;
+    right: -26px;
+    bottom: -34px;
+    width: 105px;
+    height: 105px;
+    background: var(--owner-primary-soft);
+    border-radius: 50%;
+    content: "";
+}
+
+.owner-console .cards > .card:hover {
+    border-color: #c1dec9 !important;
+    box-shadow: var(--owner-shadow) !important;
+    transform: translateY(-3px);
+}
+
+.owner-console .metric-copy {
+    position: relative;
+    z-index: 1;
+}
+
+.owner-console .cards .card h3 {
+    margin: 0;
+    color: var(--owner-muted);
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.owner-console .cards .card p {
+    margin: 13px 0 0;
+    color: var(--owner-heading);
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.owner-console .metric-icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    color: var(--owner-primary);
+    background: var(--owner-primary-soft);
+    border: 1px solid #d3efdc;
+    border-radius: 14px;
+    font-size: 1.2rem;
+}
+
+.owner-console .cards > .card:nth-child(4) .metric-icon {
+    color: var(--owner-danger);
+    background: #fff0f1;
+    border-color: #f8d2d6;
+}
+
+.owner-console .cards > .card:nth-child(5) .metric-icon {
+    color: var(--owner-warning);
+    background: #fff7e9;
+    border-color: #f7dfb7;
+}
+
+.owner-console .cards > .card:nth-child(6) .metric-icon {
+    color: #087e5d;
+    background: #e8faf4;
+    border-color: #c8eddf;
+}
+
+.owner-console .btn,
+.owner-console .view-btn,
+.owner-console .delete-btn {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0.58rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-decoration: none;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.owner-console .btn-success,
+.owner-console .view-btn {
+    color: #fff;
+    background: var(--owner-primary);
+    border: 1px solid var(--owner-primary);
+    box-shadow: 0 6px 14px rgba(22, 128, 60, 0.16);
+}
+
+.owner-console .btn-success:hover,
+.owner-console .view-btn:hover {
+    color: #fff;
+    background: var(--owner-primary-dark);
+    border-color: var(--owner-primary-dark);
+    box-shadow: 0 9px 18px rgba(15, 101, 48, 0.22);
+    transform: translateY(-1px);
+}
+
+.owner-console .btn-success > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.owner-console .btn-primary {
+    color: var(--owner-primary-dark);
+    background: #fff;
+    border: 1px solid #b8dbc4;
+    box-shadow: none;
+}
+
+.owner-console .btn-primary:hover {
+    color: var(--owner-primary-dark);
+    background: var(--owner-primary-soft);
+    border-color: #8fcaa3;
+}
+
+.owner-console .btn-danger,
+.owner-console .delete-btn {
+    color: #fff;
+    background: var(--owner-danger);
+    border: 1px solid var(--owner-danger);
+}
+
+.owner-console .btn-danger:hover,
+.owner-console .delete-btn:hover {
+    color: #fff;
+    background: #b92735;
+    border-color: #b92735;
+    transform: translateY(-1px);
+}
+
+.owner-console .form-control {
+    min-height: 48px;
+    padding: 0.72rem 0.9rem;
+    color: var(--owner-heading);
+    background-color: #fbfdfb;
+    border: 1px solid var(--owner-border);
+    border-radius: 11px;
+    box-shadow: none;
+    font-size: 0.9rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.owner-console .form-control::placeholder {
+    color: #99a69e;
+}
+
+.owner-console .form-control:focus {
+    color: var(--owner-heading);
+    background: #fff;
+    border-color: var(--owner-primary);
+    box-shadow: 0 0 0 4px rgba(22, 128, 60, 0.13);
+}
+
+.owner-console .search-card .row {
+    --bs-gutter-x: 12px;
+    --bs-gutter-y: 12px;
+}
+
+.owner-console .table-container,
+.owner-console .table-responsive {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b7d9c2 transparent;
+}
+
+.owner-console .table-container {
+    margin: 0;
+    padding: 8px 18px 12px;
+}
+
+.owner-console table,
+.owner-console .table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: var(--owner-text);
+    font-size: 0.86rem;
+}
+
+.owner-console table thead,
+.owner-console .table thead,
+.owner-console .table-success {
+    background: var(--owner-primary-faint) !important;
+}
+
+.owner-console table th,
+.owner-console .table thead th {
+    padding: 15px 13px;
+    color: #446050;
+    background: var(--owner-primary-faint) !important;
+    border: 0;
+    border-bottom: 1px solid #d9e7dd;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.owner-console table th:first-child {
+    border-radius: 10px 0 0;
+}
+
+.owner-console table th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+.owner-console table td,
+.owner-console .table tbody td {
+    padding: 16px 13px;
+    color: var(--owner-text);
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #edf2ee;
+    vertical-align: middle;
+}
+
+.owner-console table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.owner-console table tbody tr:hover td,
+.owner-console .table-hover tbody tr:hover td {
+    background: #f9fcfa;
+}
+
+.owner-console table tbody td:first-child {
+    color: var(--owner-heading);
+    font-weight: 700;
+}
+
+.owner-console table td:last-child {
+    min-width: 96px;
+    white-space: nowrap;
+}
+
+.owner-console .action-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.owner-console .action-menu summary {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    color: var(--owner-primary-dark);
+    background: #fff;
+    border: 1px solid #cfe1d5;
+    border-radius: 10px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.owner-console .action-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.owner-console .action-menu summary:hover,
+.owner-console .action-menu[open] summary {
+    background: var(--owner-primary-soft);
+    border-color: #9acdab;
+    box-shadow: 0 0 0 3px rgba(22, 128, 60, 0.09);
+}
+
+.owner-console .action-menu-panel {
+    position: absolute;
+    z-index: 1200;
+    top: calc(100% + 7px);
+    right: 0;
+    display: grid;
+    width: 190px;
+    padding: 7px;
+    gap: 3px;
+    background: #fff;
+    border: 1px solid var(--owner-border);
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(18, 64, 35, 0.18);
+    animation: owner-menu-in 0.16s ease both;
+}
+
+.owner-console .action-menu.menu-fixed .action-menu-panel {
+    position: fixed;
+    top: var(--menu-top);
+    right: auto;
+    left: var(--menu-left);
+}
+
+.owner-console .action-menu-panel .btn,
+.owner-console .action-menu-panel .view-btn,
+.owner-console .action-menu-panel .delete-btn {
+    width: 100%;
+    min-height: 39px;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 9px 10px;
+    color: var(--owner-heading);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 0.81rem;
+}
+
+.owner-console .action-menu-panel .btn i,
+.owner-console .action-menu-panel .view-btn i {
+    width: 18px;
+    color: var(--owner-primary);
+}
+
+.owner-console .action-menu-panel .btn:hover,
+.owner-console .action-menu-panel .view-btn:hover {
+    color: var(--owner-primary-dark);
+    background: var(--owner-primary-soft);
+    transform: none;
+}
+
+.owner-console .action-menu-panel .btn-danger,
+.owner-console .action-menu-panel .delete-btn {
+    color: var(--owner-danger);
+}
+
+.owner-console .action-menu-panel .btn-danger i,
+.owner-console .action-menu-panel .delete-btn i {
+    color: var(--owner-danger);
+}
+
+.owner-console .action-menu-panel .btn-danger:hover,
+.owner-console .action-menu-panel .delete-btn:hover {
+    color: #b92735;
+    background: #fff0f1;
+}
+
+.owner-console .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    color: var(--owner-primary-dark);
+    background: var(--owner-primary-soft);
+    border: 1px solid #cdebd7;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.owner-console .status-badge::before {
+    width: 6px;
+    height: 6px;
+    background: var(--owner-primary);
+    border-radius: 50%;
+    content: "";
+}
+
+.owner-console .status-badge[data-status*="pending" i],
+.owner-console .status-badge[data-status*="reserved" i] {
+    color: #94540b;
+    background: #fff7e9;
+    border-color: #f5d9a6;
+}
+
+.owner-console .status-badge[data-status*="pending" i]::before,
+.owner-console .status-badge[data-status*="reserved" i]::before {
+    background: var(--owner-warning);
+}
+
+.owner-console .status-badge[data-status*="failed" i],
+.owner-console .status-badge[data-status*="cancel" i] {
+    color: #a72a35;
+    background: #fff0f1;
+    border-color: #f5cbd0;
+}
+
+.owner-console .status-badge[data-status*="failed" i]::before,
+.owner-console .status-badge[data-status*="cancel" i]::before {
+    background: var(--owner-danger);
+}
+
+.owner-console .slot-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.owner-console #parkingName {
+    margin: 0;
+    color: var(--owner-heading);
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+.owner-console #parkingLocation {
+    margin: 7px 0 0;
+    color: var(--owner-muted);
+    font-size: 0.88rem;
+}
+
+.owner-console .slot-summary .col {
+    min-width: 0;
+    padding: 0;
+}
+
+.owner-console .slot-summary .box {
+    height: 100%;
+    min-height: 102px;
+    padding: 18px;
+    color: var(--owner-heading);
+    background: #f6f9f7;
+    border: 1px solid var(--owner-border);
+    border-radius: 14px;
+}
+
+.owner-console .slot-summary .box.green {
+    color: #0f6530;
+    background: #ecf9f0;
+    border-color: #c6e9d1;
+}
+
+.owner-console .slot-summary .box.red {
+    color: #a72a35;
+    background: #fff1f2;
+    border-color: #f4d0d4;
+}
+
+.owner-console .slot-summary .box.orange {
+    color: #96570e;
+    background: #fff7eb;
+    border-color: #f2dcba;
+}
+
+.owner-console .slot-summary .box h4 {
+    margin: 0 0 8px;
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+
+.owner-console .slot-summary .box p {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.owner-console .slot-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin: 22px 0 4px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid var(--owner-border);
+    border-radius: 13px;
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.owner-console .slot-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.owner-console .slot-legend i {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.owner-console .legend-available { background: #27a855; }
+.owner-console .legend-reserved { background: #ee8b17; }
+.owner-console .legend-occupied { background: #dc3545; }
+.owner-console .legend-maintenance { background: #87928b; }
+
+.owner-console .slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.owner-console .slot-grid .slot {
+    position: relative;
+    display: grid;
+    min-height: 82px;
+    margin: 0;
+    padding: 18px 12px;
+    place-items: center;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 8px 16px rgba(20, 75, 42, 0.1);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.owner-console .slot-grid .slot::after {
+    position: absolute;
+    right: 8px;
+    bottom: 7px;
+    color: rgba(255, 255, 255, 0.66);
+    content: "P";
+    font-size: 0.68rem;
+    font-weight: 800;
+}
+
+.owner-console .slot-grid .slot:hover {
+    box-shadow: 0 12px 22px rgba(20, 75, 42, 0.17);
+    transform: translateY(-2px);
+}
+
+.owner-console .slot-grid .slot[style*="green"] { background: linear-gradient(145deg, #32b963, #16803c) !important; }
+.owner-console .slot-grid .slot[style*="orange"] { background: linear-gradient(145deg, #f5a536, #dc7c0e) !important; }
+.owner-console .slot-grid .slot[style*="red"] { background: linear-gradient(145deg, #ec5966, #c92e3c) !important; }
+.owner-console .slot-grid .slot[style*="gray"] { background: linear-gradient(145deg, #9aa49e, #747f78) !important; }
+
+.owner-console .reservation-modal,
+.owner-console .payment-modal {
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    padding: 18px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 35, 22, 0.62);
+    backdrop-filter: blur(5px);
+}
+
+.owner-console .reservation-modal-content,
+.owner-console .payment-modal-content {
+    width: min(540px, 100%);
+    max-height: min(84vh, 760px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #d8e5dc;
+    border-radius: 20px;
+    box-shadow: 0 28px 70px rgba(4, 34, 19, 0.3);
+    animation: owner-modal-in 0.2s ease both;
+}
+
+.owner-console .modal-header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 19px 22px;
+    background: #fff;
+    border-bottom: 1px solid var(--owner-border);
+}
+
+.owner-console .modal-header h2 {
+    margin: 0;
+    color: var(--owner-heading);
+    font-size: 1.18rem;
+    font-weight: 800;
+}
+
+.owner-console .modal-close {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    place-items: center;
+    color: var(--owner-muted);
+    background: #f3f7f4;
+    border: 1px solid var(--owner-border);
+    border-radius: 10px;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+.owner-console .modal-close:hover {
+    color: var(--owner-danger);
+    background: #fff0f1;
+    border-color: #f3c8cd;
+}
+
+.owner-console .reservation-details,
+.owner-console .payment-details {
+    padding: 12px 22px 22px;
+}
+
+.owner-console .detail-row {
+    display: grid;
+    padding: 13px 0;
+    grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1.2fr);
+    gap: 20px;
+    border-bottom: 1px solid #edf2ee;
+}
+
+.owner-console .detail-label {
+    color: var(--owner-muted);
+    font-size: 0.8rem;
+    font-weight: 650;
+}
+
+.owner-console .detail-value {
+    color: var(--owner-heading);
+    font-size: 0.84rem;
+    font-weight: 650;
+    text-align: right;
+    word-break: break-word;
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    z-index: 1030;
+    inset: 0;
+    display: none;
+    background: rgba(7, 35, 22, 0.52);
+    backdrop-filter: blur(2px);
+}
+
+@keyframes owner-menu-in {
+    from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes owner-modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 1100px) {
+    .owner-console .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .owner-console .slot-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.owner-console.sidebar-open {
+        overflow: hidden;
+    }
+
+    .owner-console .sidebar {
+        transform: translateX(-102%);
+    }
+
+    .owner-console .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .owner-console .main {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .owner-console .menu-btn {
+        display: grid;
+    }
+
+    .owner-console .sidebar.show + .sidebar-backdrop,
+    body.owner-console.sidebar-open .sidebar-backdrop {
+        display: block;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .owner-console .top-navbar {
+        min-height: 66px;
+        padding: 0 16px;
+        gap: 10px;
+    }
+
+    .owner-console .right-menu > i {
+        display: none;
+    }
+
+    .owner-console .user {
+        padding: 6px;
+        border: 0;
+        background: transparent;
+    }
+
+    .owner-console .user span {
+        display: none;
+    }
+
+    .owner-console #main-content,
+    .owner-console .main > .container-fluid,
+    .owner-console .main > .container {
+        padding: 20px 14px !important;
+    }
+
+    .owner-console .owner-page-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .owner-console .owner-page-header .btn {
+        width: 100%;
+    }
+
+    .owner-console table,
+    .owner-console .table {
+        min-width: 760px;
+    }
+
+    .owner-console .table-container,
+    .owner-console .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .owner-console .detail-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .owner-console .detail-value {
+        text-align: left;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .owner-console .sidebar {
+        width: min(86vw, 300px);
+    }
+
+    .owner-console .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .owner-console .cards > .card {
+        min-height: 138px;
+    }
+
+    .owner-console .slot-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .owner-console .slot-summary .box {
+        min-height: 92px;
+        padding: 14px 10px;
+    }
+
+    .owner-console .slot-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .owner-console .reservation-modal,
+    .owner-console .payment-modal {
+        padding: 10px;
+    }
+
+    .owner-console .modal-header,
+    .owner-console .reservation-details,
+    .owner-console .payment-details {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .owner-console *,
+    .owner-console *::before,
+    .owner-console *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

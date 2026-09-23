@@ -3,11 +3,45 @@ async function register(event) {
 
     event.preventDefault();
 
+    const hasAcceptedTerms =
+        document.getElementById("agree").checked;
+
+    if (!hasAcceptedTerms) {
+
+        alert(
+            "Wait a minute! 😄\n\n" +
+            "Before creating your account, please accept the Terms & Conditions. " +
+            "Even the parking system needs your permission! 🚗"
+        );
+
+        return;
+    }
+
+    const password =
+        document.getElementById("password").value;
+
+    const isStrongPassword =
+        password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9\s]/.test(password);
+
+    if (!isStrongPassword) {
+
+        alert(
+            "Weak Password\n\n" +
+            "Please use at least 8 characters with uppercase, lowercase, number, and special character."
+        );
+
+        return;
+    }
+
     const user = {
         full_name: document.getElementById("full_name").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
-        password: document.getElementById("password").value
+        password: password
     };
 
     try {

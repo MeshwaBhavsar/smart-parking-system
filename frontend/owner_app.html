@@ -17,47 +17,61 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="css/owner-application.css">
+
 </head>
 
-<body>
+<body class="owner-application-page">
 
-<div class="container py-5">
+<main class="container application-shell">
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-8">
+        <div class="col-12 col-xl-10">
 
-            <div class="card shadow">
+            <section class="card application-card" aria-labelledby="application-title">
 
-                <div class="card-body p-4">
+                <div class="card-body application-card-body">
 
-                    <h2 class="mb-2">
-                        Become a Parking Owner
-                    </h2>
-
-                    <p class="text-muted">
-                        Submit your parking details.
-                        Our admin team will review your
-                        application.
-                    </p>
+                    <header class="application-header">
+                        <div>
+                            <span class="application-eyebrow">Partner application</span>
+                            <h1 id="application-title">Become a Parking Owner</h1>
+                            <p>
+                                Tell us about you and your parking facility. Our team will review
+                                your application and help you get started.
+                            </p>
+                        </div>
+                        <div class="secure-badge" aria-label="Secure, admin-reviewed application">
+                            <span class="secure-badge-icon" aria-hidden="true">✓</span>
+                            <span><strong>Secure application</strong>Admin-reviewed onboarding</span>
+                        </div>
+                    </header>
 
                     <form
                         id="ownerApplicationForm"
                         onsubmit="submitOwnerApplication(event)"
                     >
 
+                        <div class="form-section-heading">
+                            <span class="section-number">01</span>
+                            <span><strong>Owner &amp; account information</strong><small>Your contact and secure account details</small></span>
+                        </div>
+
                         <!-- Owner Name -->
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="owner_name">
                                 Owner Name
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
                                 type="text"
                                 id="owner_name"
                                 class="form-control"
+                                placeholder="Enter your full name"
                                 required>
 
                         </div>
@@ -67,14 +81,16 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="business_name">
                                 Business / Company Name
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
                                 type="text"
                                 id="business_name"
                                 class="form-control"
+                                placeholder="Enter your business name"
                                 required>
 
                         </div>
@@ -84,14 +100,16 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="email">
                                 Email
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
                                 type="email"
                                 id="email"
                                 class="form-control"
+                                placeholder="you@company.com"
                                 required>
 
                         </div>
@@ -99,8 +117,9 @@
                         <!-- Password -->
 <div class="mb-3">
 
-    <label class="form-label">
+    <label class="form-label" for="password">
         Password
+        <span class="required-mark" aria-hidden="true">*</span>
     </label>
 
     <input
@@ -109,7 +128,7 @@
         class="form-control"
         minlength="8"
         required
-        placeholder="Enter password">
+        placeholder="Minimum 8 characters">
 
 </div>
 
@@ -117,8 +136,9 @@
 <!-- Confirm Password -->
 <div class="mb-3">
 
-    <label class="form-label">
+    <label class="form-label" for="confirm_password">
         Confirm Password
+        <span class="required-mark" aria-hidden="true">*</span>
     </label>
 
     <input
@@ -127,7 +147,7 @@
         class="form-control"
         minlength="8"
         required
-        placeholder="Confirm password">
+        placeholder="Re-enter your password">
 
 </div>
 
@@ -136,14 +156,16 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="phone">
                                 Phone Number
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
                                 type="tel"
                                 id="phone"
                                 class="form-control"
+                                placeholder="Enter your phone number"
                                 required>
 
                         </div>
@@ -152,16 +174,23 @@
 
                         <!-- Parking Name -->
 
+                        <div class="form-section-heading parking-section-heading">
+                            <span class="section-number">02</span>
+                            <span><strong>Parking details</strong><small>Information about the facility you want to list</small></span>
+                        </div>
+
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="parking_name">
                                 Parking Name
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
                                 type="text"
                                 id="parking_name"
                                 class="form-control"
+                                placeholder="e.g. Central Plaza Parking"
                                 required>
 
                         </div>
@@ -171,16 +200,17 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label" for="address">
                                 Parking Address
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <textarea
                                 id="address"
                                 class="form-control"
                                 rows="3"
-                                required>
-                            </textarea>
+                                placeholder="Enter the complete parking address"
+                                required></textarea>
 
                         </div>
 
@@ -191,14 +221,16 @@
 
                             <div class="col-md-4 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label" for="city">
                                     City
+                                    <span class="required-mark" aria-hidden="true">*</span>
                                 </label>
 
                                 <input
                                     type="text"
                                     id="city"
                                     class="form-control"
+                                    placeholder="City"
                                     required>
 
                             </div>
@@ -208,14 +240,16 @@
 
                             <div class="col-md-4 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label" for="state">
                                     State
+                                    <span class="required-mark" aria-hidden="true">*</span>
                                 </label>
 
                                 <input
                                     type="text"
                                     id="state"
                                     class="form-control"
+                                    placeholder="State"
                                     required>
 
                             </div>
@@ -225,14 +259,16 @@
 
                             <div class="col-md-4 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label" for="pincode">
                                     Pincode
+                                    <span class="required-mark" aria-hidden="true">*</span>
                                 </label>
 
                                 <input
                                     type="text"
                                     id="pincode"
                                     class="form-control"
+                                    placeholder="Pincode"
                                     required>
 
                             </div>
@@ -244,8 +280,9 @@
 
                         <div class="mb-4">
 
-                            <label class="form-label">
+                            <label class="form-label" for="total_slots">
                                 Total Parking Slots
+                                <span class="required-mark" aria-hidden="true">*</span>
                             </label>
 
                             <input
@@ -253,30 +290,42 @@
                                 id="total_slots"
                                 class="form-control"
                                 min="1"
+                                placeholder="Number of available slots"
                                 required>
 
                         </div>
 
 
+                        <aside class="review-note" aria-label="Application review information">
+                            <span class="review-note-icon" aria-hidden="true">i</span>
+                            <div>
+                                <strong>What happens after you apply?</strong>
+                                <p>Your application will be reviewed by our admin team. We’ll use your contact details to share the next steps after the review.</p>
+                            </div>
+                        </aside>
+
                         <button
                             type="submit"
-                            class="btn btn-success w-100">
+                            class="btn submit-application-btn w-100">
 
-                            Submit Application
+                            Submit Owner Application
+                            <span class="button-arrow" aria-hidden="true">→</span>
 
                         </button>
+
+                        <p class="required-note"><span aria-hidden="true">*</span> All fields are required to submit your application.</p>
 
                     </form>
 
                 </div>
 
-            </div>
+            </section>
 
         </div>
 
     </div>
 
-</div>
+</main>
 
 
 <script src="js/owner_app.js"></script>

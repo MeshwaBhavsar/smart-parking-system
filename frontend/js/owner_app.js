@@ -17,9 +17,19 @@ async function submitOwnerApplication(event) {
     // Validate password
     // -----------------------------
 
-    if (password.length < 8) {
+    const isStrongPassword =
+        password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9\s]/.test(password);
 
-        alert("Please enter password.");
+    if (!isStrongPassword) {
+
+        alert(
+            "Weak Password\n\n" +
+            "Please use at least 8 characters with uppercase, lowercase, number, and special character."
+        );
 
         return;
     }
@@ -145,8 +155,9 @@ async function submitOwnerApplication(event) {
         // -----------------------------
 
         alert(
-            "Application submitted successfully! " +
-            "Admin will review your application."
+            "Application Submitted Successfully! 🎉\n\n" +
+            "Your owner application has been submitted successfully. " +
+            "Please wait for the admin to review and approve your application."
         );
 
 

@@ -1036,48 +1036,121 @@ function showParkingMarkers(parkingList) {
         ]).addTo(map);
 
         // Popup
+        // marker.bindPopup(`
+        //     <div style="min-width:220px">
+
+        //         <h5 class="fw-bold">
+        //             ${escapeHTML(parking.parking_name)}
+        //         </h5>
+
+        //         <p>
+        //             <i class="bi bi-geo-alt"></i>
+        //             ${escapeHTML(parking.area)},
+        //             ${escapeHTML(parking.city)}
+        //         </p>
+
+        //         <p>
+        //             <strong>Address:</strong><br>
+        //             ${escapeHTML(parking.address)}
+        //         </p>
+
+        //         <p>
+        //             <strong>Total Slots:</strong>
+        //             ${parking.total_slots}
+        //         </p>
+
+        //         <p>
+        //             <strong>Available:</strong>
+        //             ${parking.available_slots}
+        //         </p>
+
+        //         <p>
+        //             <strong>Price:</strong>
+        //             ₹${parking.price}/Hour
+        //         </p>
+
+        //         <button
+        //             class="btn btn-success btn-sm w-100"
+        //             onclick="bookParking(${parking.id})"
+        //         >
+        //             Book Now
+        //         </button>
+
+        //     </div>
+        // `);
+
         marker.bindPopup(`
-            <div style="min-width:220px">
+            <article class="parking-product-popup">
 
-                <h5 class="fw-bold">
-                    ${escapeHTML(parking.parking_name)}
-                </h5>
+                <header class="parking-popup-header">
+                    <div class="parking-popup-title">
+                        ${escapeHTML(parking.parking_name)}
+                    </div>
+                </header>
 
-                <p>
-                    <i class="bi bi-geo-alt"></i>
-                    ${escapeHTML(parking.area)},
-                    ${escapeHTML(parking.city)}
-                </p>
+                <div class="parking-popup-content">
 
-                <p>
-                    <strong>Address:</strong><br>
-                    ${escapeHTML(parking.address)}
-                </p>
+                    <div class="parking-popup-location">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>
+                            ${escapeHTML(parking.area)},
+                            ${escapeHTML(parking.city)}
+                        </span>
+                    </div>
 
-                <p>
-                    <strong>Total Slots:</strong>
-                    ${parking.total_slots}
-                </p>
+                    <section class="parking-popup-info">
+                        <div class="parking-popup-info-label">
+                            <i class="bi bi-signpost-2"></i>
+                            Address
+                        </div>
 
-                <p>
-                    <strong>Available:</strong>
-                    ${parking.available_slots}
-                </p>
+                        <div class="parking-popup-address">
+                            ${escapeHTML(parking.address)}
+                        </div>
+                    </section>
 
-                <p>
-                    <strong>Price:</strong>
-                    ₹${parking.price}/Hour
-                </p>
+                    <div class="parking-popup-stats">
+                        <div class="parking-stat-box">
+                            <span>Total Slots</span>
+                            <strong>${parking.total_slots}</strong>
+                        </div>
 
-                <button
-                    class="btn btn-success btn-sm w-100"
-                    onclick="bookParking(${parking.id})"
-                >
-                    Book Now
-                </button>
+                        <div class="parking-stat-box parking-stat-available">
+                            <span>Available</span>
+                            <strong>${parking.available_slots}</strong>
+                        </div>
+                    </div>
 
-            </div>
-        `);
+                    <div class="parking-popup-price">
+                        <div>
+                            <span>Parking Price</span>
+                            <small>Per hour</small>
+                        </div>
+
+                        <strong>₹${parking.price}<span>/ hour</span></strong>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="parking-popup-book-btn"
+                        onclick="bookParking(${parking.id})"
+                    >
+                        <i class="bi bi-car-front-fill"></i>
+                        Book Parking
+                    </button>
+
+                </div>
+
+            </article>
+        `, {
+            maxWidth: 340,
+            minWidth: 260,
+            maxHeight: 390,
+            autoPan: true,
+            autoPanPadding: [24, 24],
+            keepInView: true,
+            className: "smart-parking-popup"
+        });
 
         parkingMarkers.push(marker);
 

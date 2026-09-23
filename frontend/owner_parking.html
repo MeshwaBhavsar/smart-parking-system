@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>User Dashboard</title>
+    <title>Parking Management | Smart Parking</title>
 
     <!-- Bootstrap -->
 
@@ -22,10 +22,11 @@
     <!-- CSS -->
 
     <link rel="stylesheet" href="admincss/admin-parking.css">
+    <link rel="stylesheet" href="css/owner-product.css">
 
 </head>
 
-<body>
+<body class="owner-console">
 
 <div class="wrapper">
 
@@ -35,13 +36,13 @@
 
         <div class="logo">
 
-            <div class="logo-icon bi bi-shield-lock-fill">
+            <div class="logo-icon bi bi-car-front-fill">
 
             
 
             </div>
 
-            <span>Owner DASHBOARD</span>
+            <span>Smart Parking<small>Owner Console</small></span>
 
         </div>
 
@@ -143,7 +144,7 @@
  
             <h5 class="m-0 fw-bold">
 
-                Dashboard
+                Parking Management
 
             </h5>
           
@@ -163,31 +164,29 @@
             </div>
 
         </nav>
-<div class="container-fluid mt-4">
+<div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="owner-page-header">
 
-        <h2 class="fw-bold">
+        <div>
+            <span class="page-eyebrow">Portfolio</span>
+            <h2>Manage Parking</h2>
+            <p class="page-subtitle">View facilities, monitor slot availability, and access parking actions from one place.</p>
+        </div>
 
-            <i class="bi bi-p-circle-fill text-success"></i>
-
-            Manage Parking
-
-        </h2>
-
-        <button class="btn btn-success" ><a href="owner_add_parking.html">
+        <a class="btn btn-success" href="owner_add_parking.html">
 
             <i class="bi bi-plus-circle"></i>
 
             Add Parking
 
-        </a></button>
+        </a>
 
     </div>
 
     <!-- Search -->
 
-    <div class="card shadow-sm mb-4">
+    <div class="card search-card mb-4">
 
         <div class="card-body">
 
@@ -223,7 +222,7 @@
 
     <!-- Parking Table -->
 
-    <div class="card shadow-sm">
+    <div class="card">
 
         <div class="card-body">
 
@@ -269,8 +268,11 @@
     </div>
 
 </div>
+</div>
+</div>
 <script src="js/parking.js"></script>
 <script src="js/login.js"></script>
+<script src="js/owner-ui.js"></script>
 
 </body>
 

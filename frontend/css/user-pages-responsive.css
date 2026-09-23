@@ -1,0 +1,378 @@
+/* Shared layout fixes for the six user portal pages. */
+
+html,
+body.user-portal-page {
+    width: 100%;
+    max-width: 100%;
+}
+
+body.user-portal-page.sidebar-open {
+    overflow: hidden;
+}
+
+.user-portal-page .wrapper,
+.user-portal-page .main,
+.user-portal-page #main-content,
+.user-portal-page .container,
+.user-portal-page .container-fluid,
+.user-portal-page .row > * {
+    min-width: 0;
+}
+
+.user-portal-page .wrapper {
+    width: 100%;
+}
+
+.user-portal-page .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 260px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    z-index: 1040 !important;
+}
+
+.user-portal-page .sidebar .logo {
+    flex: 0 0 auto;
+    margin-bottom: 0 !important;
+    padding-bottom: 14px !important;
+}
+
+.user-portal-page .sidebar .menu {
+    width: 100%;
+    min-height: 0;
+    display: block;
+    flex: 0 0 auto;
+}
+
+.user-portal-page .sidebar .menu li,
+.user-portal-page .sidebar .menu li a {
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.user-portal-page .sidebar .menu li {
+    margin-bottom: 5px;
+}
+
+.user-portal-page .sidebar .menu .logout {
+    margin-top: auto;
+}
+
+.user-portal-page .main {
+    min-width: 0;
+}
+
+.user-portal-page .top-navbar {
+    width: 100%;
+}
+
+.user-portal-page .top-navbar > * {
+    min-width: 0;
+}
+
+.user-portal-page .top-navbar .menu-btn {
+    width: 44px !important;
+    min-width: 44px !important;
+    max-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: inherit;
+    font-size: 26px !important;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-portal-page .top-navbar .menu-btn:hover {
+    background: transparent !important;
+}
+
+.user-portal-page #main-content,
+.user-portal-page #main-content .container,
+.user-portal-page #main-content .container-fluid,
+.user-portal-page .card,
+.user-portal-page .table-container,
+.user-portal-page .profile-card,
+.user-portal-page .vehicle-card {
+    max-width: 100%;
+}
+
+.user-portal-page img,
+.user-portal-page svg,
+.user-portal-page canvas,
+.user-portal-page video {
+    max-width: 100%;
+}
+
+.live-parking-page #map {
+    width: 100% !important;
+    max-width: 100%;
+    height: clamp(280px, 55vh, 450px) !important;
+}
+
+.reservation-page #main-content > .container {
+    width: 100%;
+}
+
+.reservation-page #main-content .card {
+    width: min(100%, 850px);
+}
+
+.reservation-page .slot-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+}
+
+.reservation-page .slot {
+    min-width: 0;
+    margin: 0;
+}
+
+.reservation-page .legend {
+    row-gap: 12px;
+}
+
+.history-page .filter-box {
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.history-page .filter-box > *,
+.history-page .filter-box input {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.history-page .filter-box .search-box {
+    min-width: min(100%, 220px);
+}
+
+.history-page .table-container {
+    width: 100%;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.history-page .history-table {
+    min-width: 1050px;
+}
+
+.payment-page .table {
+    width: 100%;
+}
+
+.payment-page .table th,
+.payment-page .table td {
+    overflow-wrap: anywhere;
+}
+
+.vehicles-page #main-content .d-flex.justify-content-between,
+.vehicles-page .vehicle-actions {
+    flex-wrap: wrap;
+}
+
+.vehicles-page #main-content .d-flex.justify-content-between {
+    gap: 16px;
+}
+
+.vehicles-page .vehicle-actions .btn {
+    max-width: 100%;
+}
+
+@media (min-width: 992px) {
+    .user-portal-page .sidebar {
+        transform: none !important;
+    }
+
+    .user-portal-page .main {
+        margin-left: 260px !important;
+        width: calc(100% - 260px) !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .user-portal-page .sidebar {
+        width: min(86vw, 290px) !important;
+        transform: translateX(-105%) !important;
+        transition: transform .3s ease;
+    }
+
+    .user-portal-page .sidebar.show {
+        transform: translateX(0) !important;
+    }
+
+    .user-portal-page .main {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .user-portal-page .top-navbar .menu-btn {
+        display: inline-flex !important;
+    }
+
+    .user-portal-page #main-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-portal-page #main-content {
+        padding: 16px !important;
+    }
+
+    .user-portal-page #main-content > .container,
+    .user-portal-page #main-content > .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .user-portal-page .sidebar .logo span {
+        font-size: 14px !important;
+    }
+
+    .user-portal-page .sidebar .logo {
+        padding-bottom: 26px !important;
+    }
+
+    .user-portal-page .sidebar .menu a {
+        font-size: 15px !important;
+    }
+
+    .reservation-page #main-content > .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .reservation-page #main-content .card {
+        padding: 20px;
+    }
+
+    .reservation-page .slot {
+        min-height: 58px;
+        height: auto;
+        padding: 14px 8px;
+        font-size: 16px;
+    }
+
+    .history-page .container-fluid {
+        padding: 0;
+    }
+
+    .history-page .filter-box > div {
+        flex: 1 1 200px;
+    }
+
+    .history-page .filter-box .btn {
+        flex: 1 1 120px;
+    }
+
+    .payment-page .container {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }
+
+    .profile-page .profile-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .profile-page .full-width,
+    .profile-page .button-section {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .user-portal-page .top-navbar {
+        gap: 8px;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .user-portal-page .top-navbar h2,
+    .user-portal-page .top-navbar h5 {
+        overflow: hidden;
+        font-size: 18px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .user-portal-page .right-menu {
+        gap: 6px;
+    }
+
+    .user-portal-page .right-menu .user span {
+        display: none;
+    }
+
+    .reservation-page .header {
+        gap: 12px;
+    }
+
+    .reservation-page .header h2 {
+        font-size: 22px;
+    }
+
+    .reservation-page .slot-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .reservation-page .legend {
+        gap: 12px 18px;
+    }
+
+    .history-page .filter-box > i {
+        display: none;
+    }
+
+    .history-page .filter-box > div,
+    .history-page .filter-box .btn {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .history-page .filter-box input {
+        width: 100%;
+    }
+
+    .history-page .table-container {
+        padding: 10px;
+    }
+
+    .payment-page .card-header h2 {
+        font-size: 21px;
+    }
+
+    .payment-page .card-body,
+    .profile-page .profile-card,
+    .vehicles-page .vehicle-card {
+        padding: 18px !important;
+    }
+
+    .vehicles-page #main-content .d-flex.justify-content-between > *,
+    .vehicles-page #main-content .d-flex.justify-content-between .btn,
+    .vehicles-page .vehicle-actions .btn,
+    .profile-page .button-section .btn {
+        width: 100%;
+    }
+
+    .profile-page .photo-wrapper,
+    .profile-page .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+}

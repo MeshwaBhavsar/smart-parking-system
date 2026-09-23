@@ -957,16 +957,28 @@ async function nextPage() {
     // GET VEHICLE NUMBER
     // ==========================================
 
+    const vehicleField =
+        document.getElementById("vehicle");
+
+    const rawVehicleNumber =
+        vehicleField.value;
+
     const vehicleNumber =
-        document.getElementById("vehicle").value.trim();
+        rawVehicleNumber
+            .trim()
+            .toUpperCase()
+            .replace(/\s+/g, "");
 
 
-    if (!vehicleNumber) {
+    if (!isValidVehicleNumber(vehicleNumber)) {
 
-        alert("Enter Vehicle Number");
+        setVehicleInputState("invalid");
+        showVehicleValidationModal();
         return;
 
     }
+
+    setVehicleInputState("valid");
 
 
     // ==========================================
@@ -1227,6 +1239,233 @@ function goDashboard() {
     }
 
 }
+// =====================================================
+// VEHICLE NUMBER VALIDATION UI
+// Reservation request logic remains unchanged above
+// =====================================================
+
+const vehicleInput =
+    document.getElementById("vehicle");
+
+const vehicleInputWrapper =
+    document.getElementById("vehicleInputWrapper");
+
+const vehicleHelper =
+    document.getElementById("vehicleHelper");
+
+const vehicleValidationModal =
+    document.getElementById("vehicleValidationModal");
+
+const vehicleValidationConfirm =
+    document.getElementById("vehicleValidationConfirm");
+
+let vehicleValidationCloseTimer;
+
+
+function isValidVehicleNumber(value) {
+
+    const normalizedVehicleNumber = value
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, "");
+
+    return /^[A-Z]{2}\d{2}[A-Z]{1,3}\d{1,4}$/.test(
+        normalizedVehicleNumber
+    );
+
+}
+
+
+function setVehicleInputState(state) {
+
+    if (
+        !vehicleInput ||
+        !vehicleInputWrapper ||
+        !vehicleHelper
+    ) {
+        return;
+    }
+
+    const isValid = state === "valid";
+    const isInvalid = state === "invalid";
+
+    vehicleInputWrapper.classList.toggle(
+        "is-valid",
+        isValid
+    );
+
+    vehicleInputWrapper.classList.toggle(
+        "is-invalid",
+        isInvalid
+    );
+
+    vehicleInput.setAttribute(
+        "aria-invalid",
+        String(isInvalid)
+    );
+
+    if (isValid) {
+
+        vehicleHelper.innerHTML =
+            '<i class="bi bi-check-circle"></i>' +
+            "Vehicle number looks good";
+
+    } else if (isInvalid) {
+
+        vehicleHelper.innerHTML =
+            '<i class="bi bi-exclamation-circle"></i>' +
+            "Please enter a valid vehicle number 🚗";
+
+    } else {
+
+        vehicleHelper.innerHTML =
+            '<i class="bi bi-info-circle"></i>' +
+            "Example: GJ01AB1234 or GJ 01 AB 1234";
+
+    }
+
+}
+
+
+function showVehicleValidationModal() {
+
+    if (!vehicleValidationModal) {
+        return;
+    }
+
+    window.clearTimeout(
+        vehicleValidationCloseTimer
+    );
+
+    vehicleValidationModal.hidden = false;
+
+    vehicleValidationModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "vehicle-validation-open"
+    );
+
+    window.requestAnimationFrame(
+        function () {
+
+            vehicleValidationModal.classList.add(
+                "is-open"
+            );
+
+            if (vehicleValidationConfirm) {
+                vehicleValidationConfirm.focus();
+            }
+
+        }
+    );
+
+}
+
+
+function closeVehicleValidationModal() {
+
+    if (!vehicleValidationModal) {
+        return;
+    }
+
+    vehicleValidationModal.classList.remove(
+        "is-open"
+    );
+
+    vehicleValidationModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "vehicle-validation-open"
+    );
+
+    vehicleValidationCloseTimer =
+        window.setTimeout(
+            function () {
+                vehicleValidationModal.hidden = true;
+            },
+            180
+        );
+
+    if (vehicleInput) {
+        vehicleInput.focus();
+    }
+
+}
+
+
+if (vehicleInput) {
+
+    vehicleInput.addEventListener(
+        "input",
+        function () {
+
+            if (this.value === "") {
+                setVehicleInputState("neutral");
+                return;
+            }
+
+            setVehicleInputState(
+                isValidVehicleNumber(this.value)
+                    ? "valid"
+                    : "invalid"
+            );
+
+        }
+    );
+
+}
+
+
+if (vehicleValidationConfirm) {
+
+    vehicleValidationConfirm.addEventListener(
+        "click",
+        closeVehicleValidationModal
+    );
+
+}
+
+
+if (vehicleValidationModal) {
+
+    vehicleValidationModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target.hasAttribute(
+                    "data-close-vehicle-modal"
+                )
+            ) {
+                closeVehicleValidationModal();
+            }
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape" &&
+            vehicleValidationModal &&
+            !vehicleValidationModal.hidden
+        ) {
+            closeVehicleValidationModal();
+        }
+
+    }
+);
 
 
 // =====================================================

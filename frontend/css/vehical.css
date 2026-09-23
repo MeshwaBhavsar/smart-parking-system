@@ -1,174 +1,698 @@
-*{
-
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-
+.reservation-details-page,
+.reservation-details-page * {
+    box-sizing: border-box;
 }
 
-body{
-
-    background:#edf2f7;
-
+body.reservation-details-page {
+    min-height: 100vh;
+    margin: 0;
+    background: #f3f7f4;
+    color: #17251b;
 }
 
-.container{
-
-    width:100%;
-    display:flex;
-    justify-content:center;
-    padding:40px;
-
+body.reservation-details-page.vehicle-validation-open {
+    overflow: hidden;
 }
 
-.card{
-
-    width:650px;
-    background:#fff;
-    border-radius:15px;
-    padding:30px;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
+.reservation-details-page .reservation-page-shell {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: clamp(24px, 4vw, 52px) 20px;
 }
 
-.header{
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin-bottom:30px;
-
+.reservation-details-page .reservation-card {
+    width: min(100%, 980px);
+    margin: auto;
+    padding: clamp(24px, 4vw, 40px);
+    border: 1px solid #dce8df !important;
+    border-radius: 20px !important;
+    background: #ffffff;
+    box-shadow: 0 20px 55px rgba(20, 83, 45, 0.1) !important;
 }
 
-.header a{
-
-    color:#198754;
-    font-size:25px;
-    text-decoration:none;
-
+.reservation-details-page .reservation-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: #166534 !important;
+    font-size: 13px;
+    font-weight: 750;
+    text-decoration: none;
 }
 
-.header h2{
-
-    color:#198754;
-
+.reservation-details-page .reservation-back-link i {
+    font-size: 17px;
+    transition: transform 0.18s ease;
 }
 
-.info-box{
-
-    margin-bottom:18px;
-
+.reservation-details-page .reservation-back-link:hover i {
+    transform: translateX(-2px);
 }
 
-.info-box label{
-
-    display:block;
-    font-weight:bold;
-    margin-bottom:8px;
-    color:#444;
-
+.reservation-details-page .reservation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
-.info-box input{
-
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
-
+.reservation-details-page .reservation-header > div:first-child {
+    min-width: 0;
 }
 
-.info-box input[readonly]{
-
-    background:#f8f9fa;
-
+.reservation-details-page .reservation-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: #16a34a;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+    text-transform: uppercase;
 }
 
-.radio-group{
-
-    display:flex;
-    gap:25px;
-    margin-top:10px;
-
+.reservation-details-page .reservation-header h1 {
+    margin: 0 0 8px;
+    color: #17251b !important;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 850;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
 }
 
-.radio-group label{
-
-    font-weight:normal;
-
+.reservation-details-page .reservation-header p {
+    max-width: 620px;
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.55;
 }
 
-button{
-
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#198754;
-    color:white;
-    font-size:18px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-top:20px;
-
+.reservation-details-page .reservation-header-icon {
+    display: grid;
+    flex: 0 0 64px;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: #eaf7ee;
+    color: #166534;
+    font-size: 28px;
 }
 
-button:hover{
-
-    background:#146c43;
-
-}
-.button-group{
-
-    display:flex;
-
-    gap:15px;
-
-    margin-top:25px;
-
+.reservation-details-page .reservation-sections {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+    gap: 20px;
 }
 
-.button-group button{
-
-    flex:1;
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:8px;
-
-    font-size:16px;
-
-    cursor:pointer;
-
+.reservation-details-page .parking-details-card,
+.reservation-details-page .vehicle-details-card {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #dce8df;
+    border-radius: 17px;
 }
 
-.cancel-btn{
-
-    background:#dc3545;
-
-    color:white;
-
+.reservation-details-page .parking-details-card {
+    background: #f8fbf9;
 }
 
-.cancel-btn:hover{
-
-    background:#bb2d3b;
-
+.reservation-details-page .vehicle-details-card {
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(20, 83, 45, 0.07);
 }
 
-.next-btn{
-
-    background:#198754;
-
-    color:white;
-
+.reservation-details-page .reservation-section-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 19px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e1e9e3;
 }
 
-.next-btn:hover{
+.reservation-details-page .reservation-section-icon {
+    display: grid;
+    flex: 0 0 38px;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: #eaf7ee;
+    color: #16a34a;
+    font-size: 17px;
+}
 
-    background:#157347;
+.reservation-details-page .reservation-section-header h2 {
+    margin: 0 0 2px;
+    color: #203126 !important;
+    font-size: 15px;
+    font-weight: 850;
+    letter-spacing: -0.015em;
+}
 
+.reservation-details-page .reservation-section-header p {
+    margin: 0;
+    color: #7a8980;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.reservation-details-page .parking-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.reservation-details-page .parking-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    min-height: 76px;
+    padding: 11px 12px;
+    border: 1px solid #e3eae5;
+    border-radius: 13px;
+    background: #ffffff;
+}
+
+.reservation-details-page .parking-detail-wide {
+    grid-column: 1 / -1;
+}
+
+.reservation-details-page .parking-detail-icon {
+    display: grid;
+    flex: 0 0 34px;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #eef5f0;
+    color: #3f6750;
+    font-size: 15px;
+}
+
+.reservation-details-page .parking-detail-item > div {
+    min-width: 0;
+    flex: 1;
+}
+
+.reservation-details-page .parking-detail-item label {
+    display: block;
+    margin-bottom: 3px;
+    color: #7a8980;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.07em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.reservation-details-page .parking-detail-item input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #26372c;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+}
+
+.reservation-details-page .parking-detail-highlight,
+.reservation-details-page .parking-price-highlight {
+    border-color: #bfe8ca;
+    background: #effbf2;
+}
+
+.reservation-details-page .parking-detail-highlight .parking-detail-icon,
+.reservation-details-page .parking-price-highlight .parking-detail-icon {
+    background: #d9f4e0;
+    color: #15803d;
+}
+
+.reservation-details-page .parking-detail-highlight input,
+.reservation-details-page .parking-price-highlight input {
+    color: #166534;
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.reservation-details-page .vehicle-form-field {
+    margin-bottom: 18px;
+}
+
+.reservation-details-page .vehicle-form-field > label,
+.reservation-details-page .vehicle-type-field legend {
+    display: block;
+    width: 100%;
+    margin: 0 0 8px;
+    padding: 0;
+    color: #35483b;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.reservation-details-page .vehicle-input-wrapper,
+.reservation-details-page .booking-date-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 0 13px;
+    border: 1px solid #cfdcd2;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.reservation-details-page .vehicle-input-wrapper:focus-within {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+.reservation-details-page .vehicle-input-wrapper > i:first-child,
+.reservation-details-page .booking-date-wrapper > i {
+    flex: 0 0 auto;
+    color: #5e7465;
+    font-size: 16px;
+}
+
+.reservation-details-page .vehicle-input-wrapper input,
+.reservation-details-page .booking-date-wrapper input {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #203126;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.reservation-details-page .vehicle-input-wrapper input::placeholder {
+    color: #a0aaa3;
+    font-weight: 550;
+}
+
+.reservation-details-page .vehicle-valid-icon {
+    display: none;
+    flex: 0 0 auto;
+    color: #16a34a;
+    font-size: 16px;
+}
+
+.reservation-details-page .vehicle-input-wrapper.is-valid {
+    border-color: #86d99d;
+    background: #f7fcf8;
+}
+
+.reservation-details-page .vehicle-input-wrapper.is-valid .vehicle-valid-icon {
+    display: inline-block;
+}
+
+.reservation-details-page .vehicle-input-wrapper.is-invalid {
+    border-color: #dc6b6b;
+    background: #fffafa;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+}
+
+.reservation-details-page .vehicle-input-helper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    color: #718077 !important;
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.reservation-details-page .vehicle-input-wrapper.is-valid + .vehicle-input-helper {
+    color: #15803d !important;
+}
+
+.reservation-details-page .vehicle-input-wrapper.is-invalid + .vehicle-input-helper {
+    color: #b42318 !important;
+}
+
+.reservation-details-page .vehicle-type-field {
+    min-width: 0;
+    margin: 0 0 18px;
+    padding: 0;
+    border: 0;
+}
+
+.reservation-details-page .vehicle-type-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.reservation-details-page .vehicle-type-card {
+    position: relative;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.reservation-details-page .vehicle-type-card input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reservation-details-page .vehicle-type-content {
+    display: flex;
+    min-height: 70px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 9px 7px;
+    border: 1px solid #d8e2da;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #5f7065;
+    font-size: 11px;
+    font-weight: 800;
+    transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.reservation-details-page .vehicle-type-content i {
+    font-size: 19px;
+}
+
+.reservation-details-page .vehicle-type-card:hover .vehicle-type-content {
+    border-color: #9dd6ad;
+    transform: translateY(-1px);
+}
+
+.reservation-details-page .vehicle-type-card input:checked + .vehicle-type-content {
+    border-color: #22a653;
+    background: #eaf7ee;
+    color: #166534;
+    box-shadow: inset 0 0 0 1px #22a653;
+}
+
+.reservation-details-page .vehicle-type-card input:focus-visible + .vehicle-type-content {
+    outline: 3px solid rgba(34, 197, 94, 0.25);
+    outline-offset: 2px;
+}
+
+.reservation-details-page .booking-date-field {
+    margin-bottom: 0;
+}
+
+.reservation-details-page .booking-date-wrapper {
+    background: #f8faf9;
+}
+
+.reservation-details-page .reservation-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.reservation-details-page .reservation-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 145px;
+    min-height: 46px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.reservation-details-page .reservation-cancel-btn {
+    border: 1px solid #d4ddd6;
+    background: #ffffff;
+    color: #526057;
+}
+
+.reservation-details-page .reservation-cancel-btn:hover {
+    border-color: #adbcb1;
+    background: #f6f8f6;
+}
+
+.reservation-details-page .reservation-next-btn {
+    border: 1px solid #166534;
+    background: #166534;
+    box-shadow: 0 9px 20px rgba(22, 101, 52, 0.2);
+    color: #ffffff;
+}
+
+.reservation-details-page .reservation-next-btn:hover {
+    background: #15803d;
+    box-shadow: 0 12px 25px rgba(22, 101, 52, 0.25);
+    transform: translateY(-1px);
+}
+
+.reservation-details-page .reservation-actions button:active {
+    transform: translateY(0);
+}
+
+.reservation-details-page .reservation-actions button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.reservation-details-page .reservation-security-note {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin: 12px 2px 0;
+    color: #7a8980;
+    font-size: 10px;
+}
+
+.reservation-details-page .reservation-security-note i {
+    color: #16a34a;
+}
+
+.reservation-details-page .vehicle-validation-modal[hidden] {
+    display: none;
+}
+
+.reservation-details-page .vehicle-validation-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.reservation-details-page .vehicle-validation-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 43, 27, 0.48);
+    opacity: 0;
+    backdrop-filter: blur(3px);
+    transition: opacity 0.18s ease;
+}
+
+.reservation-details-page .vehicle-validation-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 390px);
+    padding: 30px 28px 26px;
+    border: 1px solid #dce8df;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 24px 70px rgba(11, 43, 27, 0.28);
+    opacity: 0;
+    text-align: center;
+    transform: translateY(8px) scale(0.97);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.reservation-details-page .vehicle-validation-modal.is-open .vehicle-validation-backdrop,
+.reservation-details-page .vehicle-validation-modal.is-open .vehicle-validation-dialog {
+    opacity: 1;
+}
+
+.reservation-details-page .vehicle-validation-modal.is-open .vehicle-validation-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.reservation-details-page .vehicle-validation-icon {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 17px;
+    border-radius: 17px;
+    background: #fff4e5;
+    color: #d97706;
+    font-size: 26px;
+}
+
+.reservation-details-page .vehicle-validation-dialog h2 {
+    margin: 0 0 9px;
+    color: #17251b !important;
+    font-size: 20px;
+    font-weight: 850;
+    letter-spacing: -0.025em;
+}
+
+.reservation-details-page .vehicle-validation-dialog p {
+    margin: 0 auto 15px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.reservation-details-page .vehicle-validation-example {
+    margin-bottom: 19px;
+    padding: 9px 12px;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    background: #f5f9f6;
+    color: #607066;
+    font-size: 11px;
+}
+
+.reservation-details-page .vehicle-validation-example strong {
+    color: #166534;
+    letter-spacing: 0.03em;
+}
+
+.reservation-details-page .vehicle-validation-confirm {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid #166534;
+    border-radius: 11px;
+    background: #166534;
+    color: #ffffff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.reservation-details-page .vehicle-validation-confirm:hover {
+    background: #15803d;
+    box-shadow: 0 8px 18px rgba(22, 101, 52, 0.2);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 800px) {
+    .reservation-details-page .reservation-card {
+        width: min(100%, 680px);
+    }
+
+    .reservation-details-page .reservation-sections {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .reservation-details-page .reservation-page-shell {
+        padding: 14px;
+    }
+
+    .reservation-details-page .reservation-card {
+        padding: 20px 16px;
+        border-radius: 17px !important;
+    }
+
+    .reservation-details-page .reservation-back-link {
+        margin-bottom: 18px;
+    }
+
+    .reservation-details-page .reservation-header {
+        margin-bottom: 22px;
+    }
+
+    .reservation-details-page .reservation-header h1 {
+        font-size: 25px;
+    }
+
+    .reservation-details-page .reservation-header-icon {
+        display: none;
+    }
+
+    .reservation-details-page .parking-details-card,
+    .reservation-details-page .vehicle-details-card {
+        padding: 17px 14px;
+    }
+
+    .reservation-details-page .parking-details-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .reservation-details-page .parking-detail-wide {
+        grid-column: auto;
+    }
+
+    .reservation-details-page .vehicle-type-options {
+        gap: 7px;
+    }
+
+    .reservation-details-page .vehicle-type-content {
+        min-height: 66px;
+    }
+
+    .reservation-details-page .reservation-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .reservation-details-page .reservation-actions button {
+        min-width: 0;
+        padding: 10px 12px;
+    }
+
+    .reservation-details-page .reservation-security-note {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .reservation-details-page .vehicle-validation-dialog {
+        padding: 26px 20px 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reservation-details-page .vehicle-validation-backdrop,
+    .reservation-details-page .vehicle-validation-dialog,
+    .reservation-details-page .reservation-actions button,
+    .reservation-details-page .vehicle-type-content,
+    .reservation-details-page .reservation-back-link i {
+        transition: none;
+    }
 }

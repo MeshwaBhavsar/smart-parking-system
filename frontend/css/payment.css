@@ -359,3 +359,90 @@ hr{
 }
 
 }
+
+/* ================= Responsive Payment Summary ================= */
+
+@media(max-width:768px){
+
+    .payment-page #main-content .table{
+        width:100%;
+        min-width:0;
+        max-width:100%;
+        margin-bottom:0;
+        table-layout:fixed;
+    }
+
+    .payment-page #main-content .table td,
+    .payment-page #main-content .table th{
+        min-width:0;
+        padding:12px 10px;
+        line-height:1.4;
+        white-space:normal;
+        overflow-wrap:anywhere;
+        word-break:normal;
+    }
+
+    .payment-page #main-content .table td:first-child,
+    .payment-page #main-content .table th:first-child{
+        width:62%;
+    }
+
+    .payment-page #main-content .table td:last-child,
+    .payment-page #main-content .table th:last-child{
+        width:38%;
+    }
+
+    .payment-page #main-content .form-check{
+        display:flex;
+        align-items:flex-start;
+        gap:10px;
+        max-width:100%;
+        margin-top:18px !important;
+        margin-bottom:18px !important;
+        padding-left:0;
+    }
+
+    .payment-page #main-content .form-check-input{
+        flex:0 0 auto;
+        margin:3px 0 0;
+    }
+
+    .payment-page #main-content .form-check-label{
+        min-width:0;
+        margin:0;
+        line-height:1.5;
+        white-space:normal;
+        overflow-wrap:anywhere;
+    }
+
+    .payment-page #main-content .d-grid,
+    .payment-page #payButton{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+    }
+
+    .payment-page #payButton{
+        height:auto;
+        min-height:55px;
+        padding:12px 14px;
+        white-space:normal;
+    }
+}
+
+@media(max-width:480px){
+
+    .payment-page #main-content .table td,
+    .payment-page #main-content .table th{
+        padding:10px 8px;
+        font-size:13px;
+    }
+
+    .payment-page #main-content .table-success th{
+        font-size:14px;
+    }
+
+    .payment-page #main-content .form-check-label{
+        font-size:14px;
+    }
+}

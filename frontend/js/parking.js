@@ -1003,42 +1003,34 @@ function displayParking(parkingList) {
 
                     <td>
 
-                        <!-- MANAGE SLOT -->
-
-                        <button
-                            class="btn btn-success btn-sm"
-                            onclick="manageSlots(${parking.id})"
-                        >
-
-                            <i class="bi bi-p-circle"></i>
-
-                            
-
-                        </button>
-
-
-                        <!-- EDIT -->
-
-                        <button
-                            class="btn btn-primary btn-sm"
-                            onclick="editParking(${parking.id})"
-                        >
-
-                            <i class="bi bi-pencil-fill"></i>
-
-                        </button>
-
-
-                        <!-- DELETE -->
-
-                        <button
-                            class="btn btn-danger btn-sm"
-                            onclick="deleteParking(${parking.id})"
-                        >
-
-                            <i class="bi bi-trash-fill"></i>
-
-                        </button>
+                        <details class="action-menu">
+                            <summary aria-label="Open actions for ${parking.parking_name || "parking"}">
+                                <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                            </summary>
+                            <div class="action-menu-panel">
+                                <button
+                                    class="btn btn-success btn-sm"
+                                    onclick="manageSlots(${parking.id})"
+                                >
+                                    <i class="bi bi-p-circle" aria-hidden="true"></i>
+                                    Manage slots
+                                </button>
+                                <button
+                                    class="btn btn-primary btn-sm"
+                                    onclick="editParking(${parking.id})"
+                                >
+                                    <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+                                    Edit parking
+                                </button>
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    onclick="deleteParking(${parking.id})"
+                                >
+                                    <i class="bi bi-trash-fill" aria-hidden="true"></i>
+                                    Delete parking
+                                </button>
+                            </div>
+                        </details>
 
                     </td>
 

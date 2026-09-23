@@ -2,7 +2,7 @@ const API_URL = "https://smart-parking-system-tz4z.onrender.com";
 
 async function resetPassword() {
 
-    const email = localStorage.getItem("reset_email");
+    const email = sessionStorage.getItem("reset_email");
 
     const newPassword = document.getElementById("new_password").value;
 
@@ -26,9 +26,30 @@ async function resetPassword() {
 
     }
 
+    const isStrongPassword =
+        newPassword.length >= 8 &&
+        /[A-Z]/.test(newPassword) &&
+        /[a-z]/.test(newPassword) &&
+        /[0-9]/.test(newPassword) &&
+        /[^A-Za-z0-9\s]/.test(newPassword);
+
+    if (!isStrongPassword) {
+
+        alert(
+            "Weak Password\n\n" +
+            "Please use at least 8 characters with uppercase, lowercase, number, and special character."
+        );
+
+        return;
+
+    }
+
     if (newPassword !== confirmPassword) {
 
-        alert("Passwords do not match.");
+        alert(
+            "Passwords Don't Match\n\n" +
+            "Please make sure both passwords are the same."
+        );
 
         return;
 
@@ -51,11 +72,34 @@ async function resetPassword() {
 
         if (response.ok) {
 
-            alert("Password updated successfully.");
+            alert(
+                "Password Changed Successfully! 🎉\n\n" +
+                "Your password has been changed successfully. You can now login with your new password."
+            );
 
-            sessionStorage.removeItem("reset_email");
+            const finishPasswordReset = () => {
+                sessionStorage.removeItem("reset_email");
+                window.location.href = "login.html";
+            };
 
-            window.location.href = "login.html";
+            const alertRoot = document.getElementById("sp-alert-root");
+
+            if (!alertRoot) {
+                finishPasswordReset();
+                return;
+            }
+
+            const popupObserver = new MutationObserver(() => {
+                if (alertRoot.hidden) {
+                    popupObserver.disconnect();
+                    finishPasswordReset();
+                }
+            });
+
+            popupObserver.observe(alertRoot, {
+                attributes: true,
+                attributeFilter: ["hidden"]
+            });
 
         } else {
 

@@ -174,7 +174,9 @@ function displayPayments(
 
 
                 <td>
-                    ${payment.payment_status}
+                    <span class="status-badge" data-status="${payment.payment_status || ""}">
+                        ${payment.payment_status}
+                    </span>
                 </td>
 
 
@@ -188,6 +190,7 @@ function displayPayments(
                             )
                         "
                     >
+                        <i class="bi bi-eye" aria-hidden="true"></i>
                         View
                     </button>
 

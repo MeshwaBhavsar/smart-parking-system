@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>User Dashboard</title>
+    <title>Owner Dashboard | Smart Parking</title>
 
     <!-- Bootstrap -->
 
@@ -22,10 +22,11 @@
     <!-- CSS -->
 
     <link rel="stylesheet" href="css/owner_dashboard.css">
+    <link rel="stylesheet" href="css/owner-product.css">
 
 </head>
 
-<body>
+<body class="owner-console">
 
 <div class="wrapper">
 
@@ -35,13 +36,13 @@
 
         <div class="logo">
 
-            <div class="logo-icon bi bi-shield-lock-fill">
+            <div class="logo-icon bi bi-car-front-fill">
 
             
 
             </div>
 
-            <span>Owner DASHBOARD</span>
+            <span>Smart Parking<small>Owner Console</small></span>
 
         </div>
 
@@ -146,7 +147,7 @@
  
             <h5 class="m-0 fw-bold">
 
-                Dashboard
+                Overview
 
             </h5>
           
@@ -173,18 +174,14 @@
         <div class="dashboard">
 
 
-    <h1>
-        Owner Dashboard
-    </h1>
-
-
-    <h2>
-        Welcome,
-        <span id="ownerName">
-            Owner
-        </span>
-        👋
-    </h2>
+    <section class="dashboard-welcome">
+        <h1>Parking operations at a glance</h1>
+        <h2>
+            Welcome back,
+            <span id="ownerName">Owner</span>
+            👋
+        </h2>
+    </section>
 
 
     <!-- ========================= -->
@@ -195,88 +192,65 @@
 
 
         <div class="card">
-
-            <h3>
-                Total Parkings
-            </h3>
-
-            <p id="totalParkings">
-                0
-            </p>
-
+            <div class="metric-copy">
+                <h3>Total Parkings</h3>
+                <p id="totalParkings">0</p>
+            </div>
+            <span class="metric-icon bi bi-buildings" aria-hidden="true"></span>
         </div>
 
 
         <div class="card">
-
-            <h3>
-                Total Slots
-            </h3>
-
-            <p id="totalSlots">
-                0
-            </p>
-
+            <div class="metric-copy">
+                <h3>Total Slots</h3>
+                <p id="totalSlots">0</p>
+            </div>
+            <span class="metric-icon bi bi-grid-3x3-gap" aria-hidden="true"></span>
         </div>
 
 
         <div class="card">
-
-            <h3>
-                Available Slots
-            </h3>
-
-            <p id="availableSlots">
-                0
-            </p>
-
+            <div class="metric-copy">
+                <h3>Available Slots</h3>
+                <p id="availableSlots">0</p>
+            </div>
+            <span class="metric-icon bi bi-check-circle" aria-hidden="true"></span>
         </div>
 
 
         <div class="card">
-
-            <h3>
-                Occupied Slots
-            </h3>
-
-            <p id="occupiedSlots">
-                0
-            </p>
-
+            <div class="metric-copy">
+                <h3>Occupied Slots</h3>
+                <p id="occupiedSlots">0</p>
+            </div>
+            <span class="metric-icon bi bi-car-front" aria-hidden="true"></span>
         </div>
 
 
         <div class="card">
-
-            <h3>
-                Total Reservations
-            </h3>
-
-            <p id="totalReservations">
-                0
-            </p>
-
+            <div class="metric-copy">
+                <h3>Total Reservations</h3>
+                <p id="totalReservations">0</p>
+            </div>
+            <span class="metric-icon bi bi-calendar2-check" aria-hidden="true"></span>
         </div>
 
 
         <div class="card">
-
-            <h3>
-                Total Revenue
-            </h3>
-
-            <p>
-                ₹<span id="totalRevenue">
-                    0
-                </span>
-            </p>
-
+            <div class="metric-copy">
+                <h3>Total Revenue</h3>
+                <p>₹<span id="totalRevenue">0</span></p>
+            </div>
+            <span class="metric-icon bi bi-currency-rupee" aria-hidden="true"></span>
         </div>
 
 
     </div>
 
 
+</div>
+</div>
+</div>
 </div>
 
 
@@ -285,6 +259,7 @@
 ></script>
 
 <script src="js/login.js"></script>
+<script src="js/owner-ui.js"></script>
 
 
 </body>

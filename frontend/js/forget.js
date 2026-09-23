@@ -21,19 +21,18 @@ async function checkEmail() {
             })
         });
 
-        const data = await response.json();
-
         if (response.ok) {
 
             sessionStorage.setItem("reset_email", email);
-
-            alert("Email found.");
 
             window.location.href = "resetpassword.html";
 
         } else {
 
-            alert(data.detail || "Email not found.");
+            alert(
+                "Email Not Found\n\n" +
+                "Please enter a registered email address."
+            );
 
         }
 

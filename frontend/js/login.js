@@ -3,12 +3,43 @@
 async function login(event) {
 
     event.preventDefault();
+    const hasAcceptedTerms =
+        document.getElementById("remember").checked;
+
+    if (!hasAcceptedTerms) {
+
+        alert(
+            "Wait a minute! 😄\n\n" +
+            "Before creating your account, please accept the Terms & Conditions. " +
+            "Even the parking system needs your permission! 🚗"
+        );
+
+        return;
+    }
 
     const email =
         document.getElementById("email").value.trim();
 
     const password =
         document.getElementById("password").value;
+
+    const isStrongPassword =
+        password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9\s]/.test(password);
+
+    if (!isStrongPassword) {
+
+        alert(
+            "Weak Password\n\n" +
+            "Please use at least 8 characters with uppercase, lowercase, number, and special character."
+        );
+
+        return;
+    }
+    
 
     const formData = new URLSearchParams();
 

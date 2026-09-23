@@ -166,24 +166,31 @@ function displayReservations(
 
                 <td>
 
-                    <button
-                        class="view-btn"
-                        onclick="viewReservation(
-                            ${reservation.reservation_id}
-                        )"
-                    >
-                        View
-                    </button>
-
-
-                    <button
-                        class="delete-btn"
-                        onclick="deleteReservation(
-                            ${reservation.reservation_id}
-                        )"
-                    >
-                        Delete
-                    </button>
+                    <details class="action-menu">
+                        <summary aria-label="Open reservation actions">
+                            <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                        </summary>
+                        <div class="action-menu-panel">
+                            <button
+                                class="view-btn"
+                                onclick="viewReservation(
+                                    ${reservation.reservation_id}
+                                )"
+                            >
+                                <i class="bi bi-eye" aria-hidden="true"></i>
+                                View details
+                            </button>
+                            <button
+                                class="delete-btn"
+                                onclick="deleteReservation(
+                                    ${reservation.reservation_id}
+                                )"
+                            >
+                                <i class="bi bi-trash" aria-hidden="true"></i>
+                                Delete reservation
+                            </button>
+                        </div>
+                    </details>
 
                 </td>
 

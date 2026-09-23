@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --standalone-primary: #16803c;
+    --standalone-primary-dark: #0f6530;
+    --standalone-soft: #eaf8ef;
+    --standalone-heading: #163322;
+    --standalone-text: #405348;
+    --standalone-muted: #748279;
+    --standalone-border: #dfe9e2;
+}
+
+* { box-sizing: border-box; }
+
+body.owner-form-page,
+body.owner-welcome-page {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--standalone-text);
+    background:
+        radial-gradient(circle at 8% 8%, rgba(187, 247, 208, 0.45), transparent 27rem),
+        radial-gradient(circle at 92% 92%, rgba(209, 250, 229, 0.6), transparent 25rem),
+        #f4f9f6;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.parking-form-shell {
+    width: min(100%, 1020px);
+    margin: 0 auto;
+    padding: clamp(22px, 5vw, 58px) 16px;
+}
+
+.parking-form-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: var(--standalone-primary-dark);
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.parking-form-back:hover { color: #0a4c23; }
+
+.parking-form-card {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--standalone-border);
+    border-radius: 24px;
+    box-shadow: 0 22px 60px rgba(20, 75, 42, 0.11);
+    animation: standalone-enter 0.42s ease-out both;
+}
+
+.parking-form-header {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 44px);
+    color: #fff;
+    background: linear-gradient(125deg, #0f6530, #199447);
+}
+
+.parking-form-header::after {
+    position: absolute;
+    right: -65px;
+    bottom: -95px;
+    width: 260px;
+    height: 260px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 38px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    content: "";
+}
+
+.form-eyebrow {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 8px;
+    color: #bff1cf;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.parking-form-header h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.8rem, 4vw, 2.55rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.parking-form-header p {
+    position: relative;
+    z-index: 1;
+    max-width: 610px;
+    margin: 12px 0 0;
+    color: #dcf5e5;
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+#parkingForm {
+    display: grid;
+    width: 100%;
+    padding: clamp(24px, 5vw, 44px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 21px 24px;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.parking-field {
+    min-width: 0;
+}
+
+.parking-field.full-width,
+.parking-form-actions {
+    grid-column: 1 / -1;
+}
+
+.parking-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #294535;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.parking-field label span {
+    color: var(--standalone-primary);
+}
+
+#parkingForm input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.78rem 0.95rem;
+    color: var(--standalone-heading);
+    background: #fbfdfb;
+    border: 1px solid var(--standalone-border);
+    border-radius: 11px;
+    outline: none;
+    font-size: 0.92rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+#parkingForm input:hover { border-color: #b8cdbf; }
+
+#parkingForm input:focus {
+    background: #fff;
+    border-color: var(--standalone-primary);
+    box-shadow: 0 0 0 4px rgba(22, 128, 60, 0.13);
+}
+
+#parkingForm input::placeholder { color: #9ba8a0; }
+
+.field-hint {
+    display: block;
+    margin-top: 7px;
+    color: var(--standalone-muted);
+    font-size: 0.73rem;
+    line-height: 1.45;
+}
+
+.parking-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 5px;
+    padding-top: 23px;
+    border-top: 1px solid #e8eee9;
+}
+
+.parking-form-actions a,
+#parkingForm button {
+    display: inline-flex;
+    width: auto;
+    min-height: 48px;
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 11px;
+    font-size: 0.88rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.parking-form-actions a {
+    color: var(--standalone-primary-dark);
+    background: #fff;
+    border: 1px solid #b9d9c3;
+}
+
+#parkingForm button {
+    color: #fff;
+    background: var(--standalone-primary);
+    border: 1px solid var(--standalone-primary);
+    box-shadow: 0 8px 18px rgba(22, 128, 60, 0.2);
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+#parkingForm button:hover {
+    background: var(--standalone-primary-dark);
+    box-shadow: 0 11px 22px rgba(15, 101, 48, 0.24);
+    transform: translateY(-1px);
+}
+
+.welcome-shell {
+    display: grid;
+    width: 100%;
+    min-height: 100vh;
+    padding: 22px;
+    place-items: center;
+}
+
+.welcome-card {
+    position: relative;
+    width: min(100%, 680px);
+    overflow: hidden;
+    padding: clamp(32px, 7vw, 58px);
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--standalone-border);
+    border-radius: 26px;
+    box-shadow: 0 24px 70px rgba(20, 75, 42, 0.13);
+    animation: standalone-enter 0.45s ease-out both;
+}
+
+.welcome-icon {
+    display: grid;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 24px;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(145deg, #36bb68, #16803c);
+    border: 9px solid #e4f7ea;
+    border-radius: 50%;
+    box-shadow: 0 12px 28px rgba(22, 128, 60, 0.22);
+    font-size: 1.75rem;
+}
+
+.welcome-card .form-eyebrow { color: var(--standalone-primary); }
+
+.welcome-card h1 {
+    margin: 0;
+    color: var(--standalone-heading);
+    font-size: clamp(1.85rem, 5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.welcome-card h2 {
+    margin: 13px 0 0;
+    color: #2f4a39;
+    font-size: 1.15rem;
+    font-weight: 650;
+}
+
+.welcome-card p {
+    max-width: 520px;
+    margin: 18px auto 0;
+    color: var(--standalone-muted);
+    font-size: 0.94rem;
+    line-height: 1.7;
+}
+
+.welcome-card .welcome-detail {
+    margin-top: 10px;
+}
+
+.welcome-card button {
+    display: inline-flex;
+    min-height: 50px;
+    margin-top: 27px;
+    padding: 0.78rem 1.35rem;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    color: #fff;
+    background: var(--standalone-primary);
+    border: 1px solid var(--standalone-primary);
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(22, 128, 60, 0.2);
+    font-size: 0.9rem;
+    font-weight: 750;
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.welcome-card button:hover {
+    background: var(--standalone-primary-dark);
+    transform: translateY(-1px);
+}
+
+@keyframes standalone-enter {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+    .parking-form-shell { padding: 0; }
+    .parking-form-back { margin: 16px; }
+    .parking-form-card { border-right: 0; border-left: 0; border-radius: 0; box-shadow: none; }
+    #parkingForm { grid-template-columns: 1fr; }
+    .parking-field.full-width,
+    .parking-form-actions { grid-column: 1; }
+}
+
+@media (max-width: 480px) {
+    .parking-form-header,
+    #parkingForm { padding: 24px 18px; }
+    .parking-form-actions { align-items: stretch; flex-direction: column-reverse; }
+    .parking-form-actions a,
+    #parkingForm button { width: 100%; }
+    .welcome-shell { padding: 12px; }
+    .welcome-card { padding: 32px 20px; border-radius: 20px; }
+    .welcome-card button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .parking-form-card,
+    .welcome-card { animation: none; }
+    #parkingForm input,
+    #parkingForm button,
+    .welcome-card button { transition: none; }
+}
