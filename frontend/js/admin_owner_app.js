@@ -492,6 +492,23 @@ document.addEventListener(
     }
 );
 
+// This admin page does not include the shared login script used by the other
+// admin views, so load the same navigation behavior directly.
+(function loadAdminNavigationAssets() {
+    if (!document.querySelector('link[href="admincss/admin-nav.css"]')) {
+        const stylesheet = document.createElement("link");
+        stylesheet.rel = "stylesheet";
+        stylesheet.href = "admincss/admin-nav.css";
+        document.head.appendChild(stylesheet);
+    }
+
+    if (!document.querySelector('script[src="js/admin-nav.js"]')) {
+        const script = document.createElement("script");
+        script.src = "js/admin-nav.js";
+        document.body.appendChild(script);
+    }
+})();
+
 async function approveOwner(applicationId) {
 
     const confirmed = confirm(

@@ -240,3 +240,26 @@ function logout() {
     // Redirect to login page
     window.location.href = "login.html";
 }
+
+// Admin-only navigation assets are loaded here because the legacy admin pages
+// share this script but do not share a common HTML layout.
+(function loadAdminNavigationAssets() {
+    const pageName = window.location.pathname.split("/").pop().toLowerCase();
+
+    if (!pageName.startsWith("admin") || pageName === "admindashboard.html") {
+        return;
+    }
+
+    if (!document.querySelector('link[href="admincss/admin-nav.css"]')) {
+        const stylesheet = document.createElement("link");
+        stylesheet.rel = "stylesheet";
+        stylesheet.href = "admincss/admin-nav.css";
+        document.head.appendChild(stylesheet);
+    }
+
+    if (!document.querySelector('script[src="js/admin-nav.js"]')) {
+        const script = document.createElement("script");
+        script.src = "js/admin-nav.js";
+        document.body.appendChild(script);
+    }
+})();
