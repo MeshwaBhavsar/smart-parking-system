@@ -1256,10 +1256,12 @@ async function deleteReservation(reservationId) {
         return;
     }
 
+    const token = getToken();
+
     try {
 
         const response = await fetch(
-            `${API_URL}/owner/reservations/${reservationId}`,
+            `${API_BASE_URL}/admin_reservations/${reservationId}`,
             {
                 method: "DELETE",
 
@@ -1320,17 +1322,7 @@ async function deleteReservation(reservationId) {
             "Reservation deleted successfully"
         );
 
-        // -----------------------------------------
-        // Remove row immediately
-        // -----------------------------------------
-
-        const row = document.querySelector(
-            `tr[data-id="${reservationId}"]`
-        );
-
-        if (row) {
-            row.remove();
-        }
+        await loadReservations();
 
     }
     catch (error) {

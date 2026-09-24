@@ -552,8 +552,31 @@ async function deleteReservation(
             );
 
 
-        const data =
-            await response.json();
+        const responseText =
+            await response.text();
+
+
+        let data = {};
+
+
+        if (responseText) {
+
+            try {
+
+                data = JSON.parse(responseText);
+
+            }
+
+            catch (jsonError) {
+
+                console.error(
+                    "Invalid delete response:",
+                    responseText
+                );
+
+            }
+
+        }
 
 
         console.log(
@@ -566,7 +589,7 @@ async function deleteReservation(
 
             alert(
                 data.detail ||
-                "Delete failed"
+                `Delete failed (${response.status})`
             );
 
             return;
