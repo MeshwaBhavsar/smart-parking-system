@@ -270,7 +270,7 @@ def get_owner_reservation(
     }
 
 # ------------------------------------------------
-@router.delete("/admin/reservations/{reservation_id}")
+@router.delete("/{reservation_id}")
 def delete_reservation(
     reservation_id: int,
     db: Session = Depends(get_db)
