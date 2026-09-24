@@ -22,16 +22,80 @@
     height: 100vh !important;
     min-height: 0 !important;
     max-height: 100vh !important;
-    padding-top: 24px !important;
+    padding: 24px 16px 18px !important;
     overflow-y: auto !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -.005em !important;
     z-index: 1200 !important;
 }
 
 /* Keep the logo block and first menu item aligned across legacy admin pages. */
 .sidebar .logo {
+    display: flex;
+    align-items: center;
     flex: 0 0 80px;
     height: 80px;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 10px 28px !important;
+    gap: 12px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -.005em !important;
+}
+
+.sidebar .logo-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    margin-right: 0 !important;
+    font-size: 20px !important;
+}
+
+.sidebar .logo span {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 850 !important;
+    line-height: 1.55 !important;
+    letter-spacing: .06em !important;
+}
+
+.sidebar .menu {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.sidebar .menu li {
+    margin: 0 0 7px !important;
+}
+
+.sidebar .menu li a {
+    min-height: 46px !important;
+    padding: 0 14px !important;
+    gap: 14px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+    letter-spacing: -.005em !important;
+}
+
+.sidebar .menu li a i {
+    flex: 0 0 20px;
+    width: 20px;
+    min-width: 20px !important;
+    font-size: 18px !important;
+    text-align: center;
+}
+
+.sidebar .menu li.logout {
+    margin-top: 30px !important;
+    padding-top: 26px;
 }
 
 .admin-sidebar-backdrop {
