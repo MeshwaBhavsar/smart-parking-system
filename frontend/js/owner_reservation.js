@@ -536,7 +536,7 @@ async function deleteReservation(
 
         const response =
             await fetch(
-                `${API_URL}/reservation/admin/reservations/${reservationId}`,
+                `${API_URL}/owner/reservations/admin/reservations/${reservationId}`,
                 {
 
                     method: "DELETE",

@@ -268,3 +268,35 @@ def get_owner_reservation(
             reservation.total_amount
 
     }
+
+# ------------------------------------------------
+@router.delete("/admin/reservations/{reservation_id}")
+def delete_reservation(
+    reservation_id: int,
+    db: Session = Depends(get_db)
+):
+
+    reservation = (
+        db.query(models.Reservation)
+        .filter(
+            models.Reservation.id == reservation_id
+        )
+        .first()
+    )
+
+    if not reservation:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Reservation not found"
+        )
+
+    db.delete(reservation)
+
+    db.commit()
+
+    return {
+        "message": "Reservation deleted successfully",
+        "reservation_id": reservation.id
+    }
+
