@@ -270,33 +270,52 @@ def get_owner_reservation(
     }
 
 # ------------------------------------------------
+# ------------------------------------------------
+# DELETE OWNER RESERVATION
+# ------------------------------------------------
+
 @router.delete("/{reservation_id}")
 def delete_reservation(
     reservation_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
 ):
 
+    # Check owner role
+    role = str(current_user.role).strip().lower()
+
+    if role != "owner":
+        raise HTTPException(
+            status_code=403,
+            detail="Only owner can delete reservations"
+        )
+
+    # Find reservation that belongs to this owner's parking
     reservation = (
         db.query(models.Reservation)
+        .join(
+            models.Parking,
+            models.Reservation.parking_id == models.Parking.id
+        )
         .filter(
-            models.Reservation.id == reservation_id
+            models.Reservation.id == reservation_id,
+            models.Parking.owner_id == current_user.id
         )
         .first()
     )
 
     if not reservation:
-
         raise HTTPException(
             status_code=404,
             detail="Reservation not found"
         )
 
-    db.delete(reservation)
+    deleted_id = reservation.id
 
+    db.delete(reservation)
     db.commit()
 
     return {
         "message": "Reservation deleted successfully",
-        "reservation_id": reservation.id
+        "reservation_id": deleted_id
     }
-
