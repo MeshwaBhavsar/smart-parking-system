@@ -536,7 +536,7 @@ async function deleteReservation(
 
         const response =
             await fetch(
-                `${API_URL}/owner/reservations/${reservationId}`,
+                `${API_URL}/reservation/admin/reservations/${reservationId}`,
                 {
 
                     method: "DELETE",
@@ -574,22 +574,10 @@ async function deleteReservation(
         }
 
 
-        alert("Reservation cancelled successfully");
+        alert("Reservation deleted successfully");
 
 
-        // Remove row immediately
-
-        const row =
-            document.querySelector(
-                `tr[data-id="${reservationId}"]`
-            );
-
-
-        if (row) {
-
-            row.remove();
-
-        }
+        await loadReservations();
 
     }
 

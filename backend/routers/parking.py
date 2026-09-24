@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends,HTTPException,WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
 import json
-from backend.routers.reservation import cancel_expired_reservations
+#from backend.routers.reservation import cancel_expired_reservations
+from app.routers.reservation import cancel_expired_reservations
 
 from app.database import get_db
 from app import models, schemas
