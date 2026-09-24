@@ -8,11 +8,7 @@ async function register(event) {
 
     if (!hasAcceptedTerms) {
 
-        alert(
-            "Wait a minute! 😄\n\n" +
-            "Before creating your account, please accept the Terms & Conditions. " +
-            "Even the parking system needs your permission! 🚗"
-        );
+        alert("Please accept the Terms & Conditions before registering.");
 
         return;
     }

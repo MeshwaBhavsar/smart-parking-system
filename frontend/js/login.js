@@ -6,16 +6,16 @@ async function login(event) {
     const hasAcceptedTerms =
         document.getElementById("remember").checked;
 
-    if (!hasAcceptedTerms) {
+    // if (!hasAcceptedTerms) {
 
-        alert(
-            "Wait a minute! 😄\n\n" +
-            "Before creating your account, please accept the Terms & Conditions. " +
-            "Even the parking system needs your permission! 🚗"
-        );
+    //     alert(
+    //         "Wait a minute! 😄\n\n" +
+    //         "Before creating your account, please accept the Terms & Conditions. " +
+    //         "Even the parking system needs your permission! 🚗"
+    //     );
 
-        return;
-    }
+    //     return;
+    // }
 
     const email =
         document.getElementById("email").value.trim();

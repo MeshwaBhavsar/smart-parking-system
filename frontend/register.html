@@ -129,9 +129,13 @@ id="agree">
 
 I agree to the
 
-<a href="#">
+<button
+type="button"
+class="terms-link"
+data-bs-toggle="modal"
+data-bs-target="#termsModal">
 Terms & Conditions
-</a>
+</button>
 
 </label>
 
@@ -166,6 +170,103 @@ Login
 </a>
 
 </p>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="modal fade terms-modal"
+id="termsModal"
+tabindex="-1"
+aria-labelledby="termsModalLabel"
+aria-hidden="true">
+
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+<div class="modal-content">
+
+<div class="modal-header">
+<div class="terms-modal-title-wrap">
+<span class="terms-modal-icon" aria-hidden="true">
+<i class="bi bi-file-earmark-text"></i>
+</span>
+<h2 class="modal-title" id="termsModalLabel">Terms & Conditions</h2>
+</div>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+<div class="terms-intro">
+<p class="terms-eyebrow">TERMS &amp; CONDITIONS</p>
+<p class="terms-welcome">Welcome to Smart Parking.</p>
+<p>By creating an account and using our Smart Parking system, you agree to the following terms:</p>
+</div>
+
+<section class="terms-section">
+<h3><span>1</span>Account Registration</h3>
+<ul>
+<li>You must provide valid and accurate information while creating your account.</li>
+<li>You are responsible for keeping your login credentials secure.</li>
+</ul>
+</section>
+
+<section class="terms-section">
+<h3><span>2</span>Parking Reservations</h3>
+<ul>
+<li>Users must provide correct vehicle information when making a reservation.</li>
+<li>A reservation is valid only for the selected parking area, date, time, and vehicle.</li>
+</ul>
+</section>
+
+<section class="terms-section">
+<h3><span>3</span>Payments</h3>
+<ul>
+<li>Parking charges are calculated according to the applicable parking rate and reservation duration.</li>
+<li>Payment information must be accurate.</li>
+<li>Payment confirmation is required for applicable bookings.</li>
+</ul>
+</section>
+
+<section class="terms-section">
+<h3><span>4</span>User Responsibility</h3>
+<ul>
+<li>Users must follow parking rules and instructions.</li>
+<li>Users are responsible for the information submitted through their account.</li>
+</ul>
+</section>
+
+<section class="terms-section">
+<h3><span>5</span>Account Security</h3>
+<ul>
+<li>Do not share your password or authentication information with others.</li>
+<li>Contact the administrator if you notice unauthorized account activity.</li>
+</ul>
+</section>
+
+<section class="terms-section">
+<h3><span>6</span>System Usage</h3>
+<ul>
+<li>Do not misuse, damage, or attempt to interfere with the Smart Parking system.</li>
+<li>The system should only be used for legitimate parking-related purposes.</li>
+</ul>
+</section>
+
+<section class="terms-section terms-section-last">
+<h3><span>7</span>Agreement</h3>
+<ul>
+<li>By checking the "I agree to the Terms &amp; Conditions" checkbox, you confirm that you have read and accepted these terms.</li>
+</ul>
+</section>
+</div>
+
+<div class="modal-footer">
+<button type="button" class="btn terms-understand-btn" data-bs-dismiss="modal">
+I Understand
+</button>
+</div>
 
 </div>
 
