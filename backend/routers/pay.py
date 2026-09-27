@@ -6,6 +6,7 @@ from fastapi import (
     HTTPException
 )
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from datetime import datetime
@@ -86,6 +87,25 @@ def create_payment_order(
         raise HTTPException(
             status_code=403,
             detail="You are not allowed to pay for this reservation"
+        )
+
+    if str(reservation.status or "").strip().upper() != "COMPLETED":
+
+        raise HTTPException(
+            status_code=400,
+            detail="Reservation is not ready for payment"
+        )
+
+    completed_payment = db.query(Payment).filter(
+        Payment.reservation_id == reservation.id,
+        func.upper(Payment.payment_status) == "PAID"
+    ).first()
+
+    if completed_payment:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Payment has already been completed"
         )
 
 
@@ -263,6 +283,45 @@ async def verify_payment(
             detail="Not authorized"
         )
 
+    if payment.reservation_id != payment_data.reservation_id:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Payment does not match reservation"
+        )
+
+    reservation = db.query(Reservation).filter(
+        Reservation.id == payment.reservation_id
+    ).first()
+
+    if not reservation:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Reservation not found"
+        )
+
+    if reservation.user_id != current_user.id:
+
+        raise HTTPException(
+            status_code=403,
+            detail="Not authorized"
+        )
+
+    if str(payment.payment_status or "").upper() == "PAID":
+
+        raise HTTPException(
+            status_code=400,
+            detail="Payment has already been completed"
+        )
+
+    if str(reservation.status or "").strip().upper() != "COMPLETED":
+
+        raise HTTPException(
+            status_code=400,
+            detail="Reservation is not ready for payment"
+        )
+
 
     # --------------------------------
     # 3. Create signature
@@ -356,7 +415,6 @@ async def verify_payment(
         datetime.utcnow()
 
     )
-
 
     # --------------------------------
     # 6. Save to database

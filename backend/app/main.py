@@ -7,7 +7,7 @@ import os
 
 from app.database import engine
 from app import models
-from routers import auth, user, contact, parking, profile,admin,qr,owner_appli,websocket,staff,pay,admin_dashboard,admin_parking
+from routers import auth, user, contact, parking, profile,admin,qr,owner_appli,websocket,pay,admin_dashboard,admin_parking
 from routers import reservation,owner_reservation,admin_reservation,owner_payment,owner_parking,vehical,admin_payment,email,analytics
 
 
@@ -76,7 +76,6 @@ app.include_router(admin_payment.router)
 app.include_router(admin_parking.router)
 app.include_router(email.router)
 app.include_router(vehical.router)
-app.include_router(staff.router)
 app.include_router(websocket.router)
 app.include_router(analytics.router)
 

@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends,HTTPException
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
+import math
 import uuid
 
 from app.database import get_db
@@ -104,7 +106,7 @@ async def create_reservation(
 
         booking_date=datetime.utcnow(),
 
-        status="Booked",
+        status="BOOKED",
 
         qr_token=qr_token
 
@@ -210,7 +212,7 @@ async def cancel_expired_reservations(db: Session):
     expired_reservations = (
         db.query(models.Reservation)
         .filter(
-            models.Reservation.status == "Booked",
+            func.upper(models.Reservation.status) == "BOOKED",
             models.Reservation.booking_date <= expiry_time,
             models.Reservation.entry_time == None
         )
@@ -502,8 +504,31 @@ def get_reservation(
         Parking.id == reservation.parking_id
     ).first()
 
+    slot = db.query(ParkingSlot).filter(
+        ParkingSlot.id == reservation.slot_id
+    ).first()
+
+    payment = (
+        db.query(models.Payment)
+        .filter(models.Payment.reservation_id == reservation.id)
+        .order_by(models.Payment.id.desc())
+        .first()
+    )
+
+    duration_minutes = 0
+    billed_hours = 0
+
+    if reservation.entry_time and reservation.exit_time:
+        duration_minutes = max(
+            0,
+            (reservation.exit_time - reservation.entry_time).total_seconds() / 60
+        )
+        billed_hours = max(1, math.ceil(duration_minutes / 60))
+
     return {
         "id": reservation.id,
+
+        "reservation_id": reservation.id,
 
         "user_id": reservation.user_id,
 
@@ -511,9 +536,15 @@ def get_reservation(
 
         "parking_name": parking.parking_name if parking else "Unknown Parking",
 
+        "parking_address": parking.address if parking else "N/A",
+
         "parking_price_per_hour": parking.price if parking else 0,
 
+        "parking_price": parking.price if parking else 0,
+
         "slot_id": reservation.slot_id,
+
+        "slot_number": slot.slot_number if slot else "N/A",
 
         "vehicle_number": reservation.vehicle_number,
 
@@ -525,9 +556,15 @@ def get_reservation(
 
         "exit_time": reservation.exit_time,
 
+        "duration_minutes": round(duration_minutes, 2),
+
+        "billed_hours": billed_hours,
+
         "total_amount": reservation.total_amount,
 
         "status": reservation.status,
+
+        "payment_status": payment.payment_status if payment else "PENDING",
 
         "qr_token": reservation.qr_token
     }
