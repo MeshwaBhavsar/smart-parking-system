@@ -39,6 +39,13 @@ async function login(event) {
 
         return;
     }
+
+    if (/^STAFF-AHM-\d{3}$/.test(email)) {
+
+        await loginStaff(email, password);
+        return;
+
+    }
     
 
     const formData = new URLSearchParams();
@@ -94,7 +101,14 @@ async function login(event) {
         console.log("User Role:", role);
 
         // Role-based redirect
-        if (role === "ADMIN") {
+        if (role === "STAFF") {
+
+            window.location.href =
+                "scaner.html";
+
+            return;
+
+        } else if (role === "ADMIN") {
 
             window.location.href =
                 "admindashboard.html";
@@ -125,7 +139,104 @@ async function login(event) {
     }
 }
 
+async function loginStaff(username, password) {
 
+    try {
+
+        // Convert Staff username into a valid
+        // value for OAuth2PasswordRequestForm
+
+        const staffLoginUsername =
+            `${username}@staff.local`;
+
+        const formData =
+            new URLSearchParams();
+
+        formData.append(
+            "username",
+            staffLoginUsername
+        );
+
+        formData.append(
+            "password",
+            password
+        );
+
+        const response = await fetch(
+            "https://smart-parking-system-tz4z.onrender.com/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/x-www-form-urlencoded"
+                },
+
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(
+            "Staff Login Response:",
+            data
+        );
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                "Staff Login Failed"
+            );
+
+            return;
+        }
+
+        // Backend returns role inside data.user
+        const role =
+            String(data.user.role).toUpperCase();
+
+        if (role === "STAFF") {
+
+            // Save same authentication token
+            sessionStorage.setItem(
+                "access_token",
+                data.access_token
+            );
+
+            // Save complete user information
+            sessionStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+
+            console.log(
+                "Staff Login Successful:",
+                data.user
+            );
+
+            // Direct Staff page
+            window.location.href =
+                "scaner.html";
+
+            return;
+        }
+
+        alert("Invalid Staff Role");
+
+    } catch (error) {
+
+        console.error(
+            "Staff Login Error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to server"
+        );
+    }
+}
 // async function login(event) {
 
 //     event.preventDefault();
