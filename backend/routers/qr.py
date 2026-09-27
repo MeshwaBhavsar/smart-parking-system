@@ -12,6 +12,10 @@ from app.schemas import QRScanRequest
 from app.websocket_manager import manager
 
 
+print("ACTIVE QR ROUTER FILE:", __file__)
+print("QR ROUTER VERSION: case-normalized-v2")
+
+
 router = APIRouter(
     prefix="/qr",
     tags=["QR Scanner"],
@@ -55,11 +59,13 @@ async def scan_qr(
         reservation.status or ""
     ).strip().upper()
 
-    print("QR RESERVATION ID:", reservation.id)
-    print("ORIGINAL STATUS:", repr(reservation.status))
-    print("NORMALIZED STATUS:", reservation_status)
-    print("STAFF ID:", current_user.id)
-    print("STAFF ROLE:", staff_role)
+    print("========== QR SCAN DEBUG ==========")
+    print("Reservation ID:", reservation.id)
+    print("Original status:", repr(reservation.status))
+    print("Normalized status:", reservation_status)
+    print("Staff ID:", getattr(current_user, "id", None))
+    print("Staff role:", getattr(current_user, "role", None))
+    print("===================================")
 
     slot = (
         db.query(ParkingSlot)
@@ -205,6 +211,8 @@ async def scan_qr(
         }
 
     elif reservation_status == "COMPLETED":
+        print("ALREADY COMPLETED")
+
         return {
             "success": False,
             "action": "COMPLETED",
@@ -214,6 +222,7 @@ async def scan_qr(
             "status": "COMPLETED",
         }
 
+    print("UNSUPPORTED STATUS:", repr(reservation.status))
     raise HTTPException(
         status_code=400,
         detail=f"Invalid booking status: {reservation.status}",
