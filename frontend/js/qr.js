@@ -1,236 +1,394 @@
-// // const API_URL = "http://127.0.0.1:8000";
 
-// // async function loadReservation() {
+// // =====================================================
+// // GET RESERVATION ID
+// // =====================================================
 
-// //     try {
-
-// //         // Get reservation ID from URL
-// //         const params = new URLSearchParams(window.location.search);
-
-// //         const reservationId = params.get("reservation_id");
-
-// //         console.log("Reservation ID:", reservationId);
-
-// //         if (!reservationId) {
-
-// //             document.getElementById("reservationId").innerText =
-// //                 "Reservation ID not found";
-
-// //             document.getElementById("status").innerText =
-// //                 "Unknown";
-
-// //             return;
-// //         }
-
-// //         // Call backend
-// //         const response = await fetch(
-// //             `${API_URL}/reservations/${reservationId}`
-// //         );
-
-// //         console.log("API status:", response.status);
-
-// //         if (!response.ok) {
-
-// //             throw new Error("Failed to load reservation");
-
-// //         }
-
-// //         const data = await response.json();
-
-// //         console.log("Reservation data:", data);
+// const params =
+//     new URLSearchParams(
+//         window.location.search
+//     );
 
 
-// //         // Reservation ID
-// //         document.getElementById("reservationId").innerText =
-// //             data.reservation_id;
+// const reservationId =
+//     params.get("reservation_id");
 
+// const customerAccessToken =
+//     sessionStorage.getItem("access_token") ||
+//     sessionStorage.getItem("token");
 
-// //         // Status
-// //         document.getElementById("status").innerText =
-// //             data.status;
+// let currentUser = null;
 
-
-// //         // QR image
-// //         if (data.qr_code) {
-
-// //             const qrImage = document.getElementById("qrImage");
-
-// //             qrImage.src = `${API_URL}${data.qr_code}`;
-
-// //             console.log(
-// //                 "QR Image:",
-// //                 qrImage.src
-// //             );
-
-// //         } else {
-
-// //             console.error("QR code URL is missing");
-
-// //         }
-
-// //     } catch (error) {
-
-// //         console.error(
-// //             "Error loading reservation:",
-// //             error
-// //         );
-
-// //         document.getElementById("reservationId").innerText =
-// //             "Error";
-
-// //         document.getElementById("status").innerText =
-// //             "Unable to load";
-
-// //     }
-
-// // }
-
-// // loadReservation();
-
-// const API_URL = "http://127.0.0.1:8000";
-
-// async function loadReservation() {
-
-//     try {
-
-//         const params =
-//             new URLSearchParams(window.location.search);
-
-//         const reservationId =
-//             params.get("reservation_id");
-
-//         console.log(
-//             "Reservation ID:",
-//             reservationId
-//         );
-
-//         if (!reservationId) {
-//             console.error("Reservation ID missing");
-//             return;
-//         }
-
-//         const response = await fetch(
-//             `${API_URL}/reservations/${reservationId}`
-//         );
-
-//         console.log(
-//             "Response status:",
-//             response.status
-//         );
-
-//         if (!response.ok) {
-
-//             const errorText =
-//                 await response.text();
-
-//             console.error(
-//                 "Backend error:",
-//                 errorText
-//             );
-
-//             throw new Error(
-//                 `API Error: ${response.status}`
-//             );
-//         }
-
-//         const data =
-//             await response.json();
-
-//         console.log(
-//             "Reservation data:",
-//             data
-//         );
-
-//         // Reservation ID
-//         document.getElementById(
-//             "reservationId"
-//         ).innerText =
-//             data.reservation_id;
-
-//         // Status
-//         document.getElementById(
-//             "status"
-//         ).innerText =
-//             data.status;
-
-//         // QR Image
-//         if (data.qr_code) {
-
-//             const qrImage =
-//                 document.getElementById("qrImage");
-
-//             qrImage.src =
-//                 `${API_URL}${data.qr_code}`;
-
-//             console.log(
-//                 "QR image URL:",
-//                 qrImage.src
-//             );
-
-//         } else {
-
-//             console.error(
-//                 "QR code path is missing"
-//             );
-//         }
-
-//     } catch (error) {
-
-//         console.error(
-//             "Error loading reservation:",
-//             error
-//         );
-
-//         document.getElementById(
-//             "reservationId"
-//         ).innerText = "Error";
-
-//         document.getElementById(
-//             "status"
-//         ).innerText = "Unable to load";
-//     }
+// try {
+//     currentUser = JSON.parse(
+//         sessionStorage.getItem("user") || "null"
+//     );
+// } catch (error) {
+//     console.error("Unable to parse current customer:", error);
 // }
 
-// loadReservation();
+// let paymentRedirected = false;
+
+
+// console.log(
+//     "Reservation ID:",
+//     reservationId
+// );
+
+// console.log(
+//     "Current Customer:",
+//     currentUser
+// );
+
+
+// // =====================================================
+// // GET QR TOKEN
+// // =====================================================
+
+// const qrToken =
+//     sessionStorage.getItem(
+//         "qr_token"
+//     );
+
+
+// console.log(
+//     "QR Token:",
+//     qrToken
+// );
+
+
+// // =====================================================
+// // GENERATE QR CODE
+// // =====================================================
+
+// function generateQRCode() {
+
+//     if (!qrToken) {
+
+//         console.error(
+//             "QR token not found"
+//         );
+
+//         document.getElementById(
+//             "qrStatus"
+//         ).innerText =
+//             "QR token not found.";
+
+//         return;
+
+//     }
+
+
+//     // Remove old QR
+
+//     document.getElementById(
+//         "qrcode"
+//     ).innerHTML = "";
+
+
+//     // Generate QR
+
+//     new QRCode(
+
+//         document.getElementById(
+//             "qrcode"
+//         ),
+
+//         {
+
+//             text: qrToken,
+
+//             width: 256,
+
+//             height: 256,
+
+//             correctLevel:
+//                 QRCode.CorrectLevel.H
+
+//         }
+
+//     );
+
+
+//     console.log(
+//         "✅ QR Code generated"
+//     );
+
+// }
+
+
+// // =====================================================
+// // WEBSOCKET
+// // =====================================================
+
+// let qrSocket;
+// let qrReconnectTimer;
+
+// const qrWebSocketUrl =
+//     "wss://smart-parking-system-tz4z.onrender.com/ws";
+
+
+// function redirectCustomerToPayment(
+//     message = "Exit completed. Opening payment..."
+// ) {
+
+//     if (paymentRedirected) {
+//         return;
+//     }
+
+//     paymentRedirected = true;
+
+//     const qrStatus =
+//         document.getElementById("qrStatus");
+
+//     if (qrStatus) {
+//         qrStatus.innerText = message;
+//     }
+
+//     setTimeout(
+//         function() {
+
+//             if (qrSocket) {
+//                 qrSocket.close();
+//             }
+
+//             console.log(
+//                 "Redirecting customer to payment:",
+//                 reservationId
+//             );
+
+//             window.location.href =
+//                 `payment.html?reservation_id=${encodeURIComponent(reservationId)}`;
+
+//         },
+//         500
+//     );
+// }
+
+// function connectQRWebSocket() {
+
+//     if (
+//         qrSocket &&
+//         (
+//             qrSocket.readyState === WebSocket.OPEN ||
+//             qrSocket.readyState === WebSocket.CONNECTING
+//         )
+//     ) {
+//         return;
+//     }
+
+//     console.log(
+//         "Connecting QR WebSocket..."
+//     );
+
+
+//     qrSocket = new WebSocket(
+//         qrWebSocketUrl
+//     );
+
+
+//     qrSocket.onopen = function() {
+
+//         console.log(
+//             "Customer WebSocket connected"
+//         );
+
+//         if (customerAccessToken) {
+//             qrSocket.send(
+//                 JSON.stringify({
+//                     type: "authenticate",
+//                     token: customerAccessToken
+//                 })
+//             );
+//         } else {
+//             console.error("Customer access token is missing");
+//         }
+
+//     };
+
+
+//     qrSocket.onmessage = function(event) {
+
+//         try {
+
+//             const data =
+//                 JSON.parse(
+//                     event.data
+//                 );
+
+
+//             console.log(
+//                 "WebSocket event received:",
+//                 data
+//             );
+
+
+//             if (
+//                 data.event === "reservation_updated" ||
+//                 data.event === "reservation_completed"
+//             ) {
+
+//                 console.log(
+//                     "Matching reservation event:",
+//                     data.reservation_id
+//                 );
+
+//                 console.log(
+//                     "Matching customer event:",
+//                     data.user_id
+//                 );
+
+//                 if (
+//                     currentUser &&
+//                     Number(data.user_id) === Number(currentUser.id) &&
+//                     Number(
+//                         data.reservation_id
+//                     ) ===
+//                     Number(
+//                         reservationId
+//                     )
+//                 ) {
+
+//                     const reservationStatus =
+//                         String(data.status || "").toUpperCase();
+
+//                     if (
+//                         data.event === "reservation_updated" &&
+//                         reservationStatus === "PARKED"
+//                     ) {
+//                         document.getElementById(
+//                             "qrStatus"
+//                         ).innerText =
+//                             "Vehicle entered successfully.";
+//                     }
+
+//                     else if (
+//                         data.event === "reservation_completed" &&
+//                         reservationStatus === "COMPLETED"
+//                     ) {
+//                         redirectCustomerToPayment(
+//                             "Parking completed. Opening payment..."
+//                         );
+//                     }
+
+//                 }
+
+//             }
+
+//         }
+
+//         catch(error) {
+
+//             console.error(
+//                 "WebSocket error:",
+//                 error
+//             );
+
+//         }
+
+//     };
+
+
+//     qrSocket.onerror =
+//         function(error) {
+
+//             console.error(
+//                 "WebSocket error:",
+//                 error
+//             );
+
+//         };
+
+
+//     qrSocket.onclose =
+//         function() {
+
+//             console.log(
+//                 "WebSocket disconnected"
+//             );
+
+
+//             if (!paymentRedirected) {
+
+//                 clearTimeout(qrReconnectTimer);
+
+//                 qrReconnectTimer = setTimeout(
+//                     connectQRWebSocket,
+//                     3000
+//                 );
+//             }
+
+//         };
+
+// }
+
+
+// // =====================================================
+// // START
+// // =====================================================
+
+// generateQRCode();
+
+// connectQRWebSocket();
 
 // =====================================================
-// GET RESERVATION ID
+// CUSTOMER QR PAGE
 // =====================================================
+
+const API_URL =
+    "https://smart-parking-system-tz4z.onrender.com";
+
+const CUSTOMER_WEBSOCKET_PATH = "/ws";
+
+const customerWebSocketUrl =
+    `${API_URL.replace(/^http/, "ws")}${CUSTOMER_WEBSOCKET_PATH}`;
 
 const params =
     new URLSearchParams(
         window.location.search
     );
 
-
 const reservationId =
     params.get("reservation_id");
 
+const customerAccessToken =
+    sessionStorage.getItem("access_token") ||
+    sessionStorage.getItem("token");
 
-console.log(
-    "Reservation ID:",
-    reservationId
-);
+let currentUser = null;
 
+try {
 
-// =====================================================
-// GET QR TOKEN
-// =====================================================
-
-const qrToken =
-    sessionStorage.getItem(
-        "qr_token"
+    currentUser = JSON.parse(
+        sessionStorage.getItem("user") || "null"
     );
 
+} catch (error) {
 
-console.log(
-    "QR Token:",
-    qrToken
-);
+    console.error(
+        "Unable to parse user",
+        error
+    );
+
+}
+
+const qrToken =
+    sessionStorage.getItem("qr_token");
+
+let qrSocket = null;
+
+let qrReconnectTimer = null;
+
+let qrReconnectAttempts = 0;
+
+let reservationPollingInterval = null;
+
+let reservationStatusRequestInFlight = false;
+
+let paymentRedirected = false;
 
 
 // =====================================================
-// GENERATE QR CODE
+// GENERATE QR
 // =====================================================
 
 function generateQRCode() {
@@ -241,222 +399,565 @@ function generateQRCode() {
             "QR token not found"
         );
 
-        document.getElementById(
-            "qrStatus"
-        ).innerText =
-            "QR token not found.";
+        const status =
+            document.getElementById("qrStatus");
 
-        return;
+        if (status) {
 
-    }
-
-
-    // Remove old QR
-
-    document.getElementById(
-        "qrcode"
-    ).innerHTML = "";
-
-
-    // Generate QR
-
-    new QRCode(
-
-        document.getElementById(
-            "qrcode"
-        ),
-
-        {
-
-            text: qrToken,
-
-            width: 256,
-
-            height: 256,
-
-            correctLevel:
-                QRCode.CorrectLevel.H
-
+            status.innerText =
+                "QR token not found.";
         }
 
-    );
+        return;
+    }
 
+    const qrContainer =
+        document.getElementById("qrcode");
+
+    if (!qrContainer) {
+        return;
+    }
+
+    qrContainer.innerHTML = "";
+
+    new QRCode(
+        qrContainer,
+        {
+            text: qrToken,
+            width: 256,
+            height: 256,
+            correctLevel:
+                QRCode.CorrectLevel.H
+        }
+    );
 
     console.log(
-        "✅ QR Code generated"
+        "QR generated successfully"
     );
-
 }
 
 
 // =====================================================
-// WEBSOCKET
+// RESERVATION STATUS POLLING
 // =====================================================
 
-let qrSocket;
+function stopReservationStatusPolling() {
 
+    if (reservationPollingInterval !== null) {
+
+        clearInterval(
+            reservationPollingInterval
+        );
+
+        reservationPollingInterval = null;
+    }
+}
+
+
+async function checkReservationStatus() {
+
+    if (
+        paymentRedirected ||
+        reservationStatusRequestInFlight
+    ) {
+        return;
+    }
+
+    reservationStatusRequestInFlight = true;
+
+    console.log(
+        "Checking reservation status:",
+        reservationId
+    );
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/reservation/${encodeURIComponent(reservationId)}`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization":
+                        `Bearer ${customerAccessToken}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+
+            console.error(
+                "Reservation status check failed:",
+                response.status
+            );
+
+            return;
+        }
+
+        const reservation =
+            await response.json();
+
+        const reservationStatus =
+            String(
+                reservation.status || ""
+            ).toUpperCase();
+
+        console.log(
+            "Current reservation status:",
+            reservationStatus
+        );
+
+        if (reservationStatus === "PARKED") {
+
+            const qrStatus =
+                document.getElementById(
+                    "qrStatus"
+                );
+
+            if (qrStatus) {
+                qrStatus.innerText =
+                    "Vehicle is currently parked.";
+            }
+        }
+
+        if (
+            reservationStatus === "COMPLETED" &&
+            !paymentRedirected
+        ) {
+
+            const completedReservationId =
+                reservation.reservation_id ??
+                reservation.id ??
+                reservationId;
+
+            console.log(
+                "Reservation completed. Opening payment page."
+            );
+
+            stopReservationStatusPolling();
+
+            redirectCustomerToPayment(
+                "Parking completed. Opening payment...",
+                {
+                    ...reservation,
+                    reservation_id:
+                        completedReservationId
+                }
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Reservation status check error:",
+            error
+        );
+
+    } finally {
+
+        reservationStatusRequestInFlight = false;
+    }
+}
+
+
+function startReservationStatusPolling() {
+
+    if (!reservationId) {
+
+        console.error(
+            "Reservation ID is missing"
+        );
+
+        return;
+    }
+
+    if (!customerAccessToken) {
+
+        console.error(
+            "Customer access token missing"
+        );
+
+        return;
+    }
+
+    stopReservationStatusPolling();
+
+    reservationPollingInterval =
+        setInterval(
+            checkReservationStatus,
+            3000
+        );
+
+    checkReservationStatus();
+}
+
+
+// =====================================================
+// PAYMENT REDIRECT
+// =====================================================
+
+function redirectCustomerToPayment(
+    message,
+    data
+) {
+
+    if (paymentRedirected) {
+        return;
+    }
+
+    paymentRedirected = true;
+
+    stopReservationStatusPolling();
+
+    const qrStatus =
+        document.getElementById(
+            "qrStatus"
+        );
+
+    if (qrStatus) {
+
+        qrStatus.innerText =
+            message;
+    }
+
+    // Save latest exit information
+    sessionStorage.setItem(
+        "exit_amount",
+        data.total_amount
+    );
+
+    sessionStorage.setItem(
+        "exit_time",
+        data.exit_time || ""
+    );
+
+    sessionStorage.setItem(
+        "entry_time",
+        data.entry_time || ""
+    );
+
+    sessionStorage.setItem(
+        "billed_hours",
+        data.billed_hours
+    );
+
+    sessionStorage.setItem(
+        "reservation_status",
+        "COMPLETED"
+    );
+
+    sessionStorage.setItem(
+        "payment_reservation_id",
+        String(data.reservation_id)
+    );
+
+    console.log(
+        "Opening payment page for reservation:",
+        data.reservation_id
+    );
+
+    setTimeout(
+        function() {
+
+            if (qrSocket) {
+
+                try {
+                    qrSocket.close();
+                } catch (e) {}
+            }
+
+            window.location.href =
+                `payment.html?reservation_id=${encodeURIComponent(
+                    data.reservation_id
+                )}`;
+
+        },
+        800
+    );
+}
+
+
+// =====================================================
+// CONNECT WEBSOCKET
+// =====================================================
 
 function connectQRWebSocket() {
 
+    if (
+        qrSocket &&
+        (
+            qrSocket.readyState ===
+            WebSocket.OPEN ||
+
+            qrSocket.readyState ===
+            WebSocket.CONNECTING
+        )
+    ) {
+
+        return;
+    }
+
     console.log(
-        "Connecting QR WebSocket..."
+        "Connecting customer WebSocket..."
     );
 
-
-    qrSocket = new WebSocket(
-        "ws://smart-parking-system-tz4z.onrender.com/ws"
-    );
-
-
-    qrSocket.onopen = function() {
-
-        console.log(
-            "✅ QR WebSocket connected"
+    qrSocket =
+        new WebSocket(
+            customerWebSocketUrl
         );
 
-    };
 
+    // =================================================
+    // OPEN
+    // =================================================
 
-    qrSocket.onmessage = function(event) {
-
-        try {
-
-            const data =
-                JSON.parse(
-                    event.data
-                );
-
+    qrSocket.onopen =
+        function() {
 
             console.log(
-                "WebSocket:",
-                data
+                "Customer WebSocket connected"
             );
 
+            qrReconnectAttempts = 0;
 
-            // ==========================================
-            // ENTRY
-            // ==========================================
+            if (!customerAccessToken) {
 
-            if (
-                data.event ===
-                "slot_updated" &&
-                data.status ===
-                "Occupied"
-            ) {
+                console.error(
+                    "Customer access token missing"
+                );
 
-                document.getElementById(
-                    "qrStatus"
-                ).innerText =
-                    "Vehicle entered parking.";
-
+                return;
             }
 
+            qrSocket.send(
+                JSON.stringify({
+                    type:
+                        "authenticate",
 
-            // ==========================================
-            // EXIT
-            // ==========================================
+                    token:
+                        customerAccessToken
+                })
+            );
 
-            if (
-                data.event ===
-                "reservation_completed"
-            ) {
+        };
 
+
+    // =================================================
+    // MESSAGE
+    // =================================================
+
+    qrSocket.onmessage =
+        function(event) {
+
+            try {
+
+                const data =
+                    JSON.parse(
+                        event.data
+                    );
+
+                console.log(
+                    "Customer WebSocket message:",
+                    data
+                );
 
                 if (
-                    Number(
-                        data.reservation_id
-                    ) ===
-                    Number(
-                        reservationId
-                    )
+                    data.event ===
+                    "authenticated"
                 ) {
 
-
                     console.log(
-                        "Reservation completed"
+                        "Customer WebSocket user ID:",
+                        data.user_id
                     );
 
-
-                    document.getElementById(
-                        "qrStatus"
-                    ).innerText =
-                        "Parking completed. Opening payment...";
-
-
-                    // Save amount
-
-                    if (
-                        data.total_amount !==
-                        undefined
-                    ) {
-
-                        sessionStorage.setItem(
-
-                            "total_amount",
-
-                            data.total_amount
-
-                        );
-
-                    }
-
-
-                    // Wait 1 second
-
-                    setTimeout(
-                        function() {
-
-                            window.location.href =
-                                `payment.html?reservation_id=${reservationId}`;
-
-                        },
-                        1000
-                    );
-
+                    return;
                 }
 
+                if (
+                    data.event ===
+                    "authentication_failed"
+                ) {
+
+                    console.error(
+                        "Customer WebSocket authentication failed"
+                    );
+
+                    return;
+                }
+
+
+                // =====================================
+                // ENTRY
+                // =====================================
+
+                if (
+                    data.event ===
+                    "reservation_updated"
+                ) {
+
+                    if (
+                        Number(
+                            data.reservation_id
+                        ) !==
+                        Number(
+                            reservationId
+                        )
+                    ) {
+
+                        return;
+                    }
+
+                    if (
+                        currentUser &&
+                        Number(data.user_id) !==
+                        Number(currentUser.id)
+                    ) {
+
+                        return;
+                    }
+
+                    const status =
+                        String(
+                            data.status || ""
+                        ).toUpperCase();
+
+                    if (
+                        status ===
+                        "PARKED"
+                    ) {
+
+                        const qrStatus =
+                            document.getElementById(
+                                "qrStatus"
+                            );
+
+                        if (qrStatus) {
+
+                            qrStatus.innerText =
+                                "Vehicle entered successfully. Your parking is active.";
+                        }
+
+                        console.log(
+                            "ENTRY CONFIRMED"
+                        );
+                    }
+                }
+
+
+                // =====================================
+                // EXIT
+                // =====================================
+
+                if (
+                    data.event ===
+                    "reservation_completed"
+                ) {
+
+                    console.log(
+                        "Reservation completed event received"
+                    );
+
+                    if (
+                        Number(
+                            data.reservation_id
+                        ) !==
+                        Number(
+                            reservationId
+                        )
+                    ) {
+
+                        return;
+                    }
+
+                    if (
+                        currentUser &&
+                        Number(data.user_id) !==
+                        Number(currentUser.id)
+                    ) {
+
+                        return;
+                    }
+
+                    const status =
+                        String(
+                            data.status || ""
+                        ).toUpperCase();
+
+                    if (
+                        status ===
+                        "COMPLETED"
+                    ) {
+
+                        console.log(
+                            "EXIT CONFIRMED"
+                        );
+
+                        console.log(
+                            "Amount:",
+                            data.total_amount
+                        );
+
+                        redirectCustomerToPayment(
+                            "Parking completed. Opening payment...",
+                            data
+                        );
+                    }
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "WebSocket message error:",
+                    error
+                );
             }
+        };
 
-        }
 
-        catch(error) {
-
-            console.error(
-                "WebSocket error:",
-                error
-            );
-
-        }
-
-    };
-
+    // =================================================
+    // ERROR
+    // =================================================
 
     qrSocket.onerror =
         function(error) {
 
             console.error(
-                "WebSocket error:",
+                "Customer WebSocket error:",
                 error
             );
-
         };
 
+
+    // =================================================
+    // CLOSE
+    // =================================================
 
     qrSocket.onclose =
         function() {
 
             console.log(
-                "WebSocket disconnected"
+                "Customer WebSocket disconnected"
             );
 
+            if (
+                !paymentRedirected
+            ) {
 
-            setTimeout(
-                connectQRWebSocket,
-                3000
-            );
+                clearTimeout(
+                    qrReconnectTimer
+                );
 
+                qrReconnectTimer =
+                    setTimeout(
+                        connectQRWebSocket,
+                        Math.min(
+                            5000 *
+                            (2 ** qrReconnectAttempts++),
+                            30000
+                        )
+                    );
+            }
         };
-
 }
 
 
@@ -466,4 +967,9 @@ function connectQRWebSocket() {
 
 generateQRCode();
 
-connectQRWebSocket();
+startReservationStatusPolling();
+
+window.addEventListener(
+    "pagehide",
+    stopReservationStatusPolling
+);

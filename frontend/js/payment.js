@@ -10,7 +10,10 @@ const urlParams =
     );
 
 const reservationId =
-    urlParams.get("reservation_id");
+    urlParams.get("reservation_id") ||
+    sessionStorage.getItem(
+        "payment_reservation_id"
+    );
 
 
 console.log(
@@ -73,7 +76,7 @@ if (!token) {
 
 //         const response =
 //             await fetch(
-//                 `http://127.0.0.1:8000/reservation/${reservationId}`,
+//                 `${API_URL}/reservation/${reservationId}`,
 //                 {
 
 //                     method: "GET",
@@ -579,6 +582,62 @@ if (!token) {
 // LOAD RESERVATION
 // =====================================================
 
+function ensureAdditionalReservationFields() {
+
+    const detailsRow =
+        document.getElementById("vehicleType")
+            ?.closest(".row");
+
+    if (!detailsRow) {
+        return;
+    }
+
+    const fields = [
+        ["parkingAddress", "Parking Address"],
+        ["slotNumber", "Slot Number"],
+        ["bookingDate", "Booking Date"],
+        ["reservationStatus", "Reservation Status"],
+        ["currentPaymentStatus", "Payment Status"]
+    ];
+
+    fields.forEach(function([id, label]) {
+
+        if (document.getElementById(id)) {
+            return;
+        }
+
+        const column =
+            document.createElement("div");
+
+        column.className =
+            "col-md-6 mb-3";
+
+        const fieldLabel =
+            document.createElement("label");
+
+        fieldLabel.className =
+            "fw-bold";
+
+        fieldLabel.textContent =
+            label;
+
+        const input =
+            document.createElement("input");
+
+        input.type = "text";
+        input.className = "form-control";
+        input.id = id;
+        input.readOnly = true;
+
+        column.append(
+            fieldLabel,
+            input
+        );
+
+        detailsRow.appendChild(column);
+    });
+}
+
 async function loadReservation() {
 
     try {
@@ -611,7 +670,7 @@ async function loadReservation() {
         );
 
         const response = await fetch(
-            `${API_URL}/reservation/${reservationId}`,
+            `${API_URL}/reservation/${encodeURIComponent(reservationId)}`,
             {
                 method: "GET",
 
@@ -653,6 +712,11 @@ async function loadReservation() {
         const data =
             await response.json();
 
+        const slotNumber =
+            data.slot_number ??
+            data.slot?.slot_number ??
+            null;
+
         console.log(
             "========== RESERVATION DATA =========="
         );
@@ -662,6 +726,8 @@ async function loadReservation() {
         console.log(
             "======================================"
         );
+
+        ensureAdditionalReservationFields();
 
 
         // =================================================
@@ -709,6 +775,19 @@ async function loadReservation() {
         }
 
 
+        const parkingAddressElement =
+            document.getElementById(
+                "parkingAddress"
+            );
+
+
+        if (parkingAddressElement) {
+
+            parkingAddressElement.value =
+                data.parking_address ?? "N/A";
+        }
+
+
         // =================================================
         // VEHICLE NUMBER
         // =================================================
@@ -738,6 +817,60 @@ async function loadReservation() {
 
             vehicleTypeElement.value =
                 data.vehicle_type ?? "N/A";
+        }
+
+
+        const slotNumberElement =
+            document.getElementById(
+                "slotNumber"
+            );
+
+
+        if (slotNumberElement) {
+
+            slotNumberElement.value =
+                slotNumber ?? "N/A";
+        }
+
+
+        const bookingDateElement =
+            document.getElementById(
+                "bookingDate"
+            );
+
+
+        if (bookingDateElement) {
+
+            bookingDateElement.value =
+                formatDateTime(
+                    data.booking_date
+                );
+        }
+
+
+        const statusElement =
+            document.getElementById(
+                "reservationStatus"
+            );
+
+
+        if (statusElement) {
+
+            statusElement.value =
+                data.status ?? "N/A";
+        }
+
+
+        const paymentStatusElement =
+            document.getElementById(
+                "currentPaymentStatus"
+            );
+
+
+        if (paymentStatusElement) {
+
+            paymentStatusElement.value =
+                data.payment_status ?? "PENDING";
         }
 
 
@@ -812,11 +945,18 @@ async function loadReservation() {
         // DURATION
         // =================================================
 
+        const backendDurationMinutes =
+            Number(data.duration_minutes ?? 0);
+
+
         const durationMinutes =
-            calculateDurationMinutes(
-                entryTime,
-                exitTime
-            );
+            Number.isFinite(backendDurationMinutes)
+                ? Math.ceil(backendDurationMinutes)
+                : 0;
+
+
+        const billedHours =
+            Number(data.billed_hours ?? 0);
 
 
         console.log(
@@ -845,11 +985,27 @@ async function loadReservation() {
         }
 
 
+        const billingDurationElement =
+            document.getElementById(
+                "billingDuration"
+            );
+
+
+        if (billingDurationElement) {
+
+            billingDurationElement.textContent =
+                Number.isFinite(billedHours) && billedHours > 0
+                    ? `${billedHours} ${billedHours === 1 ? "Hour" : "Hours"}`
+                    : durationText;
+        }
+
+
         // =================================================
         // PARKING PRICE
         // =================================================
 
         const parkingPrice = Number(
+            data.parking_price ??
             data.parking_price_per_hour ??
             data.price_per_hour ??
             data.parking?.price_per_hour ??
@@ -883,10 +1039,16 @@ async function loadReservation() {
         // TOTAL AMOUNT
         // =================================================
 
-        let totalAmount =
-            Number(
-                data.total_amount ?? 0
-            );
+        const hasTotalAmount =
+            data.total_amount !== null &&
+            data.total_amount !== undefined &&
+            data.total_amount !== "";
+
+
+        const totalAmount =
+            hasTotalAmount
+                ? Number(data.total_amount)
+                : Number.NaN;
 
 
         console.log(
@@ -895,29 +1057,10 @@ async function loadReservation() {
         );
 
 
-        // =================================================
-        // CALCULATE IF BACKEND AMOUNT IS 0
-        // =================================================
-
-        if (
-            totalAmount <= 0 &&
-            parkingPrice > 0 &&
-            durationMinutes > 0
-        ) {
-
-            totalAmount =
-                calculateParkingCharge(
-                    parkingPrice,
-                    durationMinutes
-                );
-
-        }
-
-
-        console.log(
-            "Final Total Amount:",
-            totalAmount
-        );
+        const formattedTotalAmount =
+            Number.isFinite(totalAmount)
+                ? `₹${totalAmount.toFixed(2)}`
+                : "N/A";
 
 
         // =================================================
@@ -933,7 +1076,7 @@ async function loadReservation() {
         if (parkingChargesElement) {
 
             parkingChargesElement.textContent =
-                `₹${totalAmount.toFixed(2)}`;
+                formattedTotalAmount;
 
         }
 
@@ -951,7 +1094,7 @@ async function loadReservation() {
         if (totalAmountElement) {
 
             totalAmountElement.textContent =
-                `₹${totalAmount.toFixed(2)}`;
+                formattedTotalAmount;
 
         }
 
@@ -1197,51 +1340,6 @@ function formatDuration(
 
 
 // =====================================================
-// CALCULATE PARKING CHARGE
-// =====================================================
-
-function calculateParkingCharge(
-    pricePerHour,
-    durationMinutes
-) {
-
-    if (
-        pricePerHour <= 0 ||
-        durationMinutes <= 0
-    ) {
-
-        return 0;
-    }
-
-
-    // Round UP to next hour.
-    //
-    // Example:
-    // 30 minutes = 1 hour
-    // 60 minutes = 1 hour
-    // 90 minutes = 2 hours
-
-    const billingHours =
-        Math.ceil(
-            durationMinutes / 60
-        );
-
-
-    const amount =
-        pricePerHour *
-        billingHours;
-
-
-    return amount;
-
-}
-loadReservation();
-
-// ------------------------------------------
-
-
-
-// =====================================================
 // START PAYMENT
 // =====================================================
 
@@ -1364,7 +1462,7 @@ async function startPayment() {
         const response =
             await fetch(
 
-                `${API_URL}/payment/create-order?reservation_id=${reservationId}`,
+                `${API_URL}/payment/create-order?reservation_id=${encodeURIComponent(reservationId)}`,
 
                 {
                     method: "POST",
