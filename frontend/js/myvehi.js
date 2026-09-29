@@ -279,11 +279,18 @@ async function saveVehicle() {
     const vehicleId =
         document.getElementById("vehicleId").value;
 
-    const vehicleNumber =
+    let vehicleNumber =
         document.getElementById("vehicleNumber")
             .value
             .trim()
             .toUpperCase();
+
+    if (!vehicleId) {
+
+        vehicleNumber =
+            vehicleNumber.replace(/\s+/g, "");
+
+    }
 
     const vehicleType =
         document.getElementById("vehicleType").value;
@@ -293,7 +300,24 @@ async function saveVehicle() {
     // VALIDATION
     // -----------------------------
 
-    if (!vehicleNumber) {
+    if (!vehicleId) {
+
+        const indianVehicleNumberPattern =
+            /^[A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{4}$/;
+
+        if (!indianVehicleNumberPattern.test(vehicleNumber)) {
+
+            alert(
+                "Please enter a valid vehicle number (e.g. GJ01AB1234)."
+            );
+
+            return;
+
+        }
+
+    }
+
+    else if (!vehicleNumber) {
 
         alert("Please enter vehicle number");
 
