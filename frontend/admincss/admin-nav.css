@@ -1,6 +1,43 @@
 /* Shared admin navigation behavior. Keeps the existing theme and menu actions. */
 .top-navbar {
+    height: 70px !important;
+    min-height: 70px !important;
+    padding: 0 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-family: 'Poppins', sans-serif !important;
     overflow: visible !important;
+}
+
+.top-navbar h5,
+.top-navbar .page-title {
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -.01em !important;
+}
+
+.top-navbar .right-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px !important;
+    margin-left: auto;
+}
+
+.top-navbar .user {
+    display: flex;
+    align-items: center;
+    gap: 10px !important;
+}
+
+.top-navbar .user span {
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
 }
 
 .top-navbar .dropdown-menu {
@@ -106,6 +143,8 @@
     .top-navbar {
         position: sticky;
         top: 0;
+        padding-right: 18px !important;
+        padding-left: 18px !important;
         z-index: 1400 !important;
     }
 
